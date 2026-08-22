@@ -1,0 +1,30 @@
+{
+  "name": "piano-made-easy",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A piano practice PWA built to fight the real problem: showing up.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "deploy": "vite build && npx vercel deploy --prod"
+  },
+  "dependencies": {
+    "dexie": "^4.0.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/webmidi": "^2.0.10",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vite-plugin-pwa": "^0.21.1",
+    "vitest": "^2.1.8"
+  }
+}

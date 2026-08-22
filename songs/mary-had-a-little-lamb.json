@@ -1,0 +1,58 @@
+{
+  "id": "mary-had-a-little-lamb",
+  "title": "Mary Had a Little Lamb",
+  "attribution": "Traditional melody, public domain. Ships as the song-format example.",
+  "bpm": 90,
+  "chunks": [
+    {
+      "id": "phrase-1",
+      "label": "Phrase 1 — “Mary had a little lamb”",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:E", "find-note:D", "find-note:C"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "C4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "phrase-2",
+      "label": "Phrase 2 — “little lamb, little lamb”",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:D", "find-note:E", "find-note:G"],
+      "notes": [
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "D4", "beats": 2 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 },
+        { "pitch": "G4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "phrase-3",
+      "label": "Phrase 3 — “its fleece was white as snow”",
+      "bars": "5-8",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "C4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 },
+        { "pitch": "C4", "beats": 4 }
+      ]
+    }
+  ]
+}
