@@ -1,35 +1,94 @@
-import { useEffect, useRef, useState } from 'react';
-import { FindNoteBlock, type FindNoteStats } from './blocks/FindNoteBlock';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { AtomTestBlock } from './blocks/AtomTestBlock';
 import { SongBlock } from './blocks/SongBlock';
 import type { UseMidi } from '../midi/useMidi';
 import type { SessionResult } from '../types';
+import type { Atom } from '../types/atom';
+import type { ScoreResult } from '../scoring/score';
+import type { DayPlan } from '../atoms/scheduler';
 import { localDateKey } from '../db/repo';
-import {
-  PHASE0_BLOCKS,
-  WARMUP_TARGETS,
-  LESSON_TEST_TARGETS,
-  PHASE0_CHUNK,
-  PHASE0_SONG,
-} from '../session/phase0';
+import { PHASE0_CHUNK, PHASE0_SONG } from '../session/phase0';
+
+export interface AtomOutcome {
+  atomId: string;
+  result: ScoreResult | null;
+}
 
 interface Props {
   midi: UseMidi;
-  isFirstSession: boolean;
-  onComplete: (result: SessionResult) => void;
+  plan: DayPlan;
+  onComplete: (result: SessionResult, outcomes: AtomOutcome[]) => void;
   onQuit: () => void;
 }
 
-const COUNT = PHASE0_BLOCKS.length;
+interface AtomStep {
+  type: 'atom';
+  atom: Atom;
+  title: string;
+  teach?: ReactNode;
+  seconds: number;
+}
+interface SongStep {
+  type: 'song';
+  seconds: number;
+}
+type Step = AtomStep | SongStep;
 
-/** Runs the three-block Phase 0 session and reports one SessionResult. */
-export function SessionRunner({ midi, isFirstSession, onComplete, onQuit }: Props) {
-  const [step, setStep] = useState(0);
+function teachNode(atom: Atom, index: number, reteach: boolean): ReactNode {
+  const angle = atom.teach[Math.min(index, atom.teach.length - 1)];
+  return (
+    <>
+      {reteach && <p className="teach-retry">Let's try that a different way.</p>}
+      <p className="teach-lead">{angle.title}</p>
+      <p className="teach-sub">{angle.body}</p>
+    </>
+  );
+}
+
+/** Builds the three-part session (recall → new/current skill → song) from the plan. */
+function buildSteps(plan: DayPlan): Step[] {
+  const steps: Step[] = [];
+
+  // Block 1 — recall (fight decay). Warm-up on a cold start with nothing to recall.
+  if (plan.recall.length > 0) {
+    const each = Math.max(15, Math.floor(60 / plan.recall.length));
+    for (const atom of plan.recall) {
+      steps.push({ type: 'atom', atom, title: 'Quick recall', seconds: each });
+    }
+  } else if (plan.focus) {
+    steps.push({ type: 'atom', atom: plan.focus.atom, title: 'Warm-up', seconds: 60 });
+  }
+
+  // Block 2 — new / current skill.
+  if (plan.focus) {
+    steps.push({
+      type: 'atom',
+      atom: plan.focus.atom,
+      title: plan.focus.mode === 'reteach' ? 'Let’s nail this one' : 'New skill',
+      teach: teachNode(plan.focus.atom, plan.focus.teachIndex, plan.focus.mode === 'reteach'),
+      seconds: 120,
+    });
+  } else if (plan.recall.length > 0) {
+    // Consolidating: a second pass over what's slipping instead of new material.
+    const each = Math.max(15, Math.floor(120 / plan.recall.length));
+    for (const atom of plan.recall) {
+      steps.push({ type: 'atom', atom, title: 'Consolidate', seconds: each });
+    }
+  }
+
+  // Block 3 — song time, always last.
+  steps.push({ type: 'song', seconds: 120 });
+  return steps;
+}
+
+/** Runs the atom-driven session and reports the result plus per-atom outcomes. */
+export function SessionRunner({ midi, plan, onComplete, onQuit }: Props) {
+  const steps = useMemo(() => buildSteps(plan), [plan]);
+  const [i, setI] = useState(0);
   const startedAt = useRef(Date.now());
   const notesPlayed = useRef(0);
-  const totalHit = useRef(0);
-  const totalPresented = useRef(0);
+  const outcomes = useRef<AtomOutcome[]>([]);
 
-  // Count every key pressed across the whole session (survives block changes).
   useEffect(() => {
     const unsub = midi.subscribe((n) => {
       if (n.on) notesPlayed.current += 1;
@@ -37,26 +96,36 @@ export function SessionRunner({ midi, isFirstSession, onComplete, onQuit }: Prop
     return unsub;
   }, [midi]);
 
-  function finishBlock(stats: FindNoteStats) {
-    totalHit.current += stats.hit;
-    totalPresented.current += stats.presented;
-    if (step < COUNT - 1) {
-      setStep((s) => s + 1);
+  function next() {
+    if (i < steps.length - 1) {
+      setI((v) => v + 1);
     } else {
       const connected = midi.mode === 'connected';
-      onComplete({
-        date: localDateKey(),
-        startedAt: startedAt.current,
-        finishedAt: Date.now(),
-        mode: connected ? 'connected' : 'untethered',
-        notesPlayed: notesPlayed.current,
-        accuracy:
-          connected && totalPresented.current > 0
-            ? totalHit.current / totalPresented.current
-            : null,
-      });
+      const scored = outcomes.current.filter((o) => o.result != null).map((o) => o.result!);
+      const accuracy =
+        connected && scored.length > 0
+          ? scored.reduce((s, r) => s + r.noteAccuracy, 0) / scored.length
+          : null;
+      onComplete(
+        {
+          date: localDateKey(),
+          startedAt: startedAt.current,
+          finishedAt: Date.now(),
+          mode: connected ? 'connected' : 'untethered',
+          notesPlayed: notesPlayed.current,
+          accuracy,
+        },
+        outcomes.current,
+      );
     }
   }
+
+  function handleAtom(atomId: string, result: ScoreResult | null) {
+    outcomes.current.push({ atomId, result });
+    next();
+  }
+
+  const step = steps[i];
 
   return (
     <div className="session">
@@ -64,51 +133,28 @@ export function SessionRunner({ midi, isFirstSession, onComplete, onQuit }: Prop
         ✕
       </button>
 
-      {step === 0 && (
-        <FindNoteBlock
-          key="recall"
-          title={isFirstSession ? 'Warm-up' : 'Quick recall'}
-          targets={WARMUP_TARGETS}
-          seconds={PHASE0_BLOCKS[0].seconds}
+      {step.type === 'atom' ? (
+        <AtomTestBlock
+          key={`${i}-${step.atom.id}`}
+          atom={step.atom}
+          title={step.title}
+          teach={step.teach}
+          seconds={step.seconds}
           midi={midi}
-          blockIndex={0}
-          blockCount={COUNT}
-          onFinish={finishBlock}
+          blockIndex={i}
+          blockCount={steps.length}
+          onFinish={handleAtom}
         />
-      )}
-
-      {step === 1 && (
-        <FindNoteBlock
-          key="lesson"
-          title="Find F"
-          teach={
-            <>
-              <p className="teach-lead">
-                Look for the group of <strong>three black keys</strong>. The white key
-                just to the <strong>left</strong> of them is <strong>F</strong>.
-              </p>
-              <p className="teach-sub">Play any F you can find. Do it a few times.</p>
-            </>
-          }
-          targets={LESSON_TEST_TARGETS}
-          seconds={PHASE0_BLOCKS[1].seconds}
-          midi={midi}
-          blockIndex={1}
-          blockCount={COUNT}
-          onFinish={finishBlock}
-        />
-      )}
-
-      {step === 2 && (
+      ) : (
         <SongBlock
-          key="song"
+          key={`${i}-song`}
           chunk={PHASE0_CHUNK}
           bpm={PHASE0_SONG.bpm}
-          seconds={PHASE0_BLOCKS[2].seconds}
+          seconds={step.seconds}
           midi={midi}
-          blockIndex={2}
-          blockCount={COUNT}
-          onFinish={finishBlock}
+          blockIndex={i}
+          blockCount={steps.length}
+          onFinish={() => next()}
         />
       )}
     </div>

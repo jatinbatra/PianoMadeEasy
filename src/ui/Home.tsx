@@ -5,11 +5,12 @@ import type { StreakInfo } from '../streak/streak';
 interface Props {
   midi: UseMidi;
   streak: StreakInfo;
+  skillsLearned: number;
   onStart: () => void;
 }
 
 /** Zero decisions on open. One primary button, always. */
-export function Home({ midi, streak, onStart }: Props) {
+export function Home({ midi, streak, skillsLearned, onStart }: Props) {
   return (
     <div className="home">
       <div className="brand">Piano Made Easy</div>
@@ -37,6 +38,10 @@ export function Home({ midi, streak, onStart }: Props) {
           Start today's session
           <span className="btn-sub">5 minutes</span>
         </button>
+      )}
+
+      {skillsLearned > 0 && (
+        <p className="skills-line">{skillsLearned} skill{skillsLearned === 1 ? '' : 's'} learned</p>
       )}
 
       <MidiStatus midi={midi} />

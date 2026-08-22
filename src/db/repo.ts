@@ -1,5 +1,6 @@
 import { db } from './db';
 import type { InputMode, PracticeDay, SessionResult } from '../types';
+import type { AtomProgress } from '../atoms/sm2';
 
 /** Local calendar date as YYYY-MM-DD (not UTC — the streak is about *his* days). */
 export function localDateKey(d: Date = new Date()): string {
@@ -37,4 +38,17 @@ export async function getAllDays(): Promise<PracticeDay[]> {
 
 export async function hasPracticedToday(): Promise<boolean> {
   return (await db.days.get(localDateKey())) != null;
+}
+
+// ----- Atom spaced-repetition state (Phase 1) -----
+
+/** Load all atom progress keyed by atom id. */
+export async function loadProgressMap(): Promise<Record<string, AtomProgress>> {
+  const rows = await db.atomProgress.toArray();
+  return Object.fromEntries(rows.map((r) => [r.atomId, r]));
+}
+
+/** Persist one atom's updated progress. */
+export async function saveProgress(p: AtomProgress): Promise<void> {
+  await db.atomProgress.put(p);
 }

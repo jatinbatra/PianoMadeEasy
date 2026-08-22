@@ -4,11 +4,12 @@ import type { StreakInfo } from '../streak/streak';
 interface Props {
   result: SessionResult;
   streak: StreakInfo;
+  atomsStrengthened: number;
   onHome: () => void;
 }
 
 /** Honest post-session summary. Measured, never inflated. */
-export function Summary({ result, streak, onHome }: Props) {
+export function Summary({ result, streak, atomsStrengthened, onHome }: Props) {
   const connected = result.mode === 'connected';
   const acc = result.accuracy != null ? Math.round(result.accuracy * 100) : null;
 
@@ -25,12 +26,18 @@ export function Summary({ result, streak, onHome }: Props) {
         {connected && acc != null ? (
           <li>
             <span className="stat-num">{acc}%</span>
-            <span className="stat-label">right note, first try</span>
+            <span className="stat-label">notes correct</span>
           </li>
         ) : (
           <li>
             <span className="stat-num">—</span>
             <span className="stat-label">unverified (no keyboard)</span>
+          </li>
+        )}
+        {connected && (
+          <li>
+            <span className="stat-num">{atomsStrengthened}</span>
+            <span className="stat-label">skills strengthened</span>
           </li>
         )}
       </ul>

@@ -237,6 +237,17 @@ body {
   margin: 0;
   color: var(--muted);
 }
+.teach-retry {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.skills-line {
+  color: var(--muted);
+  font-size: 1rem;
+  margin: 0;
+}
 
 .prompt {
   text-align: center;
