@@ -13,17 +13,19 @@ interface Props {
   streak: StreakInfo;
   skillsLearned: number;
   hero: HeroMetric | null;
-  onStart: () => void;
+  /** Plain-language lines describing today's session. */
+  previewLines: string[];
+  onStart: (minutes: number) => void;
+  onOpenProgress: () => void;
   onOpenSongs: () => void;
 }
 
-/** Zero decisions on open. One primary button, always. */
-export function Home({ midi, streak, skillsLearned, hero, onStart, onOpenSongs }: Props) {
+/** Zero decisions on open. One primary button (5 min), always. */
+export function Home({ midi, streak, skillsLearned, hero, previewLines, onStart, onOpenProgress, onOpenSongs }: Props) {
   return (
     <div className="home">
       <div className="brand">JatinSitDown</div>
 
-      {/* Hero metric — the one number that should make progress feel real. */}
       {hero && (
         <div className="hero-metric">
           <div className="hero-song">{hero.title}</div>
@@ -41,21 +43,41 @@ export function Home({ midi, streak, skillsLearned, hero, onStart, onOpenSongs }
         </div>
       </div>
 
+      {streak.freezeActive && <p className="freeze-line">Streak safe — your weekly skip has you covered.</p>}
       {streak.missedYesterday && <p className="nudge">Yesterday got away. Five minutes puts you back.</p>}
+
+      {/* Today's plan preview so it's clear what "Start" will do. */}
+      {previewLines.length > 0 && (
+        <ol className="plan-preview">
+          {previewLines.map((line, i) => (
+            <li key={i}>{line}</li>
+          ))}
+        </ol>
+      )}
 
       {streak.practicedToday ? (
         <>
           <p className="done-line">Today's done. Nice.</p>
-          <button className="btn-primary" onClick={onStart}>
+          <button className="btn-primary" onClick={() => onStart(5)}>
             Practice again
+            <span className="btn-sub">5 minutes</span>
           </button>
         </>
       ) : (
-        <button className="btn-primary" onClick={onStart}>
+        <button className="btn-primary" onClick={() => onStart(5)}>
           Start today's session
           <span className="btn-sub">5 minutes</span>
         </button>
       )}
+
+      <div className="length-row">
+        <span className="length-label">or go longer:</span>
+        {[10, 30, 60].map((m) => (
+          <button key={m} className="length-chip" onClick={() => onStart(m)}>
+            {m} min
+          </button>
+        ))}
+      </div>
 
       {skillsLearned > 0 && (
         <p className="skills-line">{skillsLearned} skill{skillsLearned === 1 ? '' : 's'} learned</p>
@@ -63,9 +85,14 @@ export function Home({ midi, streak, skillsLearned, hero, onStart, onOpenSongs }
 
       <MidiStatus midi={midi} />
 
-      <button className="link-btn" onClick={onOpenSongs}>
-        Songs
-      </button>
+      <div className="home-links">
+        <button className="link-btn" onClick={onOpenProgress}>
+          Progress
+        </button>
+        <button className="link-btn" onClick={onOpenSongs}>
+          Songs
+        </button>
+      </div>
     </div>
   );
 }

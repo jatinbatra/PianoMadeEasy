@@ -44,4 +44,19 @@ describe('computeStreak', () => {
     const days = ['2026-08-10', '2026-08-21', '2026-08-22'].map(day);
     expect(computeStreak(days, '2026-08-22').current).toBe(2);
   });
+
+  it('bridges a single missed day with the weekly freeze', () => {
+    // 21st missed, everything else present.
+    const days = ['2026-08-18', '2026-08-19', '2026-08-20', '2026-08-22'].map(day);
+    const s = computeStreak(days, '2026-08-22');
+    expect(s.current).toBe(4);
+    expect(s.freezeActive).toBe(true);
+    expect(s.missedYesterday).toBe(false);
+  });
+
+  it('only allows one freeze per 7 days', () => {
+    // Two gaps (21st and 19th missed) close together — only the first bridges.
+    const days = ['2026-08-18', '2026-08-20', '2026-08-22'].map(day);
+    expect(computeStreak(days, '2026-08-22').current).toBe(2);
+  });
 });

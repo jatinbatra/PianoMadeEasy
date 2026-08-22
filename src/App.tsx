@@ -4,6 +4,7 @@ import { Home } from './ui/Home';
 import { SessionRunner, type AtomOutcome } from './ui/SessionRunner';
 import { Summary } from './ui/Summary';
 import { SongLibrary } from './ui/SongLibrary';
+import { Progress } from './ui/Progress';
 import { computeStreak, type StreakInfo } from './streak/streak';
 import {
   getAllDays,
@@ -20,21 +21,24 @@ import {
 import { buildPlan, type DayPlan, type ProgressMap } from './atoms/scheduler';
 import { review, qualityFromScore, newAtomProgress } from './atoms/sm2';
 import { seedSongsIfEmpty } from './songs/seed';
+import { lengthFor, DEFAULT_LENGTH, type SessionLength } from './session/lengths';
 import { pickChunk, ownedCount, newChunkProgress, updateChunkProgress, chunkKey, type ChunkProgressMap, type ChunkAttempt } from './songs/ladder';
 import type { Song, SongChunk } from './types/song';
-import type { SessionResult } from './types';
+import type { SessionResult, PracticeDay } from './types';
 
-type Screen = 'home' | 'session' | 'summary' | 'songs';
+type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress';
 
 export function App() {
   const midi = useMidi();
   const [screen, setScreen] = useState<Screen>('home');
-  const [streak, setStreak] = useState<StreakInfo>({ current: 0, practicedToday: false, missedYesterday: false });
+  const [streak, setStreak] = useState<StreakInfo>({ current: 0, practicedToday: false, missedYesterday: false, freezeActive: false });
+  const [days, setDays] = useState<PracticeDay[]>([]);
   const [progress, setProgress] = useState<ProgressMap>({});
   const [songs, setSongs] = useState<Song[]>([]);
   const [activeSong, setActiveSong] = useState<Song | null>(null);
   const [chunkMap, setChunkMap] = useState<ChunkProgressMap>({});
   const [plan, setPlan] = useState<DayPlan | null>(null);
+  const [sessionLength, setSessionLength] = useState<SessionLength>(DEFAULT_LENGTH);
   const [sessionSong, setSessionSong] = useState<{ song: Song; chunk: SongChunk } | null>(null);
   const [lastResult, setLastResult] = useState<SessionResult | null>(null);
   const [lastGains, setLastGains] = useState(0);
@@ -50,6 +54,7 @@ export function App() {
       getActiveSongId(),
     ]);
     setStreak(computeStreak(days));
+    setDays(days);
     setProgress(atomMap);
     setSongs(songList);
     setChunkMap(chunks);
@@ -64,11 +69,16 @@ export function App() {
     })();
   }, [refresh]);
 
-  const handleStart = useCallback(() => {
-    setPlan(buildPlan(progress, localDateKey()));
-    if (activeSong) setSessionSong({ song: activeSong, chunk: pickChunk(activeSong, chunkMap, progress) });
-    setScreen('session');
-  }, [progress, activeSong, chunkMap]);
+  const handleStart = useCallback(
+    (minutes: number) => {
+      const length = lengthFor(minutes);
+      setSessionLength(length);
+      setPlan(buildPlan(progress, localDateKey(), length.recallLimit));
+      if (activeSong) setSessionSong({ song: activeSong, chunk: pickChunk(activeSong, chunkMap, progress) });
+      setScreen('session');
+    },
+    [progress, activeSong, chunkMap],
+  );
 
   const handleComplete = useCallback(
     async (result: SessionResult, outcomes: AtomOutcome[], chunkAttempt: ChunkAttempt | null) => {
@@ -118,6 +128,18 @@ export function App() {
     ? { title: activeSong.title, owned: ownedCount(activeSong, chunkMap), total: activeSong.chunks.length }
     : null;
 
+  // Plain-language preview of what "Start" will do today.
+  const previewPlan = buildPlan(progress, localDateKey(), DEFAULT_LENGTH.recallLimit);
+  const previewLines: string[] = [
+    previewPlan.recall.length > 0
+      ? `Warm up ${previewPlan.recall.length} skill${previewPlan.recall.length === 1 ? '' : 's'} you've learned`
+      : 'Quick warm-up',
+    previewPlan.focus
+      ? `${previewPlan.focus.mode === 'reteach' ? 'Revisit' : 'Learn'}: ${previewPlan.focus.atom.label}`
+      : 'Lock in what’s slipping',
+    `Play ${activeSong?.title ?? 'a song'}`,
+  ];
+
   return (
     <main className="app">
       {screen === 'home' && (
@@ -126,7 +148,9 @@ export function App() {
           streak={streak}
           skillsLearned={skillsLearned}
           hero={heroChunks}
+          previewLines={previewLines}
           onStart={handleStart}
+          onOpenProgress={() => setScreen('progress')}
           onOpenSongs={() => setScreen('songs')}
         />
       )}
@@ -134,6 +158,7 @@ export function App() {
         <SessionRunner
           midi={midi}
           plan={plan}
+          length={sessionLength}
           song={sessionSong.song}
           chunk={sessionSong.chunk}
           onComplete={handleComplete}
@@ -147,6 +172,15 @@ export function App() {
           atomsStrengthened={lastGains}
           chunkOwned={lastChunkOwned}
           onHome={() => setScreen('home')}
+        />
+      )}
+      {screen === 'progress' && (
+        <Progress
+          days={days}
+          progress={progress}
+          songs={songs}
+          chunkMap={chunkMap}
+          onBack={() => setScreen('home')}
         />
       )}
       {screen === 'songs' && (

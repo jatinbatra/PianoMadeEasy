@@ -109,7 +109,7 @@ export function AtomTestBlock({ atom, title, teach, seconds, midi, blockIndex, b
       : `${Math.min(cursor, expected.length)}/${expected.length}`;
 
   return (
-    <BlockChrome title={title} remaining={remaining} blockIndex={blockIndex} blockCount={blockCount}>
+    <BlockChrome title={title} remaining={remaining} blockIndex={blockIndex} blockCount={blockCount} onSkip={finish}>
       {teach && <div className="teach">{teach}</div>}
 
       <div className="prompt">

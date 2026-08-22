@@ -9,6 +9,7 @@ import type { DayPlan } from '../atoms/scheduler';
 import { localDateKey } from '../db/repo';
 import type { Song, SongChunk } from '../types/song';
 import type { ChunkAttempt } from '../songs/ladder';
+import type { SessionLength } from '../session/lengths';
 
 export interface AtomOutcome {
   atomId: string;
@@ -18,6 +19,7 @@ export interface AtomOutcome {
 interface Props {
   midi: UseMidi;
   plan: DayPlan;
+  length: SessionLength;
   song: Song;
   chunk: SongChunk;
   onComplete: (result: SessionResult, outcomes: AtomOutcome[], chunk: ChunkAttempt | null) => void;
@@ -48,18 +50,19 @@ function teachNode(atom: Atom, index: number, reteach: boolean): ReactNode {
   );
 }
 
-/** Builds the three-part session (recall → new/current skill → song) from the plan. */
-function buildSteps(plan: DayPlan): Step[] {
+/** Builds the three-part session (recall → new/current skill → song) from the
+ *  plan. Only the durations scale with session length. */
+function buildSteps(plan: DayPlan, length: SessionLength): Step[] {
   const steps: Step[] = [];
 
   // Block 1 — recall (fight decay). Warm-up on a cold start with nothing to recall.
   if (plan.recall.length > 0) {
-    const each = Math.max(15, Math.floor(60 / plan.recall.length));
+    const each = Math.max(15, Math.floor(length.recall / plan.recall.length));
     for (const atom of plan.recall) {
       steps.push({ type: 'atom', atom, title: 'Quick recall', seconds: each });
     }
   } else if (plan.focus) {
-    steps.push({ type: 'atom', atom: plan.focus.atom, title: 'Warm-up', seconds: 60 });
+    steps.push({ type: 'atom', atom: plan.focus.atom, title: 'Warm-up', seconds: length.recall });
   }
 
   // Block 2 — new / current skill.
@@ -69,24 +72,24 @@ function buildSteps(plan: DayPlan): Step[] {
       atom: plan.focus.atom,
       title: plan.focus.mode === 'reteach' ? 'Let’s nail this one' : 'New skill',
       teach: teachNode(plan.focus.atom, plan.focus.teachIndex, plan.focus.mode === 'reteach'),
-      seconds: 120,
+      seconds: length.focus,
     });
   } else if (plan.recall.length > 0) {
     // Consolidating: a second pass over what's slipping instead of new material.
-    const each = Math.max(15, Math.floor(120 / plan.recall.length));
+    const each = Math.max(15, Math.floor(length.focus / plan.recall.length));
     for (const atom of plan.recall) {
       steps.push({ type: 'atom', atom, title: 'Consolidate', seconds: each });
     }
   }
 
   // Block 3 — song time, always last.
-  steps.push({ type: 'song', seconds: 120 });
+  steps.push({ type: 'song', seconds: length.song });
   return steps;
 }
 
 /** Runs the atom-driven session and reports the result plus per-atom outcomes. */
-export function SessionRunner({ midi, plan, song, chunk, onComplete, onQuit }: Props) {
-  const steps = useMemo(() => buildSteps(plan), [plan]);
+export function SessionRunner({ midi, plan, length, song, chunk, onComplete, onQuit }: Props) {
+  const steps = useMemo(() => buildSteps(plan, length), [plan, length]);
   const [i, setI] = useState(0);
   const startedAt = useRef(Date.now());
   const notesPlayed = useRef(0);

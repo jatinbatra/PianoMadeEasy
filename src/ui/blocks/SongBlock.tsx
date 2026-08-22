@@ -75,7 +75,7 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, midi, blockIndex, bl
   const window = notes.map((n, i) => ({ n, i })).slice(Math.max(0, pos - 1), pos + 6);
 
   return (
-    <BlockChrome title="Song time" remaining={remaining} blockIndex={blockIndex} blockCount={blockCount}>
+    <BlockChrome title="Song time" remaining={remaining} blockIndex={blockIndex} blockCount={blockCount} onSkip={finish}>
       <div className="song-label">
         {songTitle} — {chunk.label}
       </div>
