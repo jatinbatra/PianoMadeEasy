@@ -8,6 +8,8 @@ export function expectedNotes(test: AtomTest): number[] {
   switch (test.kind) {
     case 'find-note':
       return Array<number>(test.reps).fill(midiFor(test.target, 4));
+    case 'read-note':
+      return Array<number>(test.reps).fill(parsePitch(test.pitch));
     case 'sequence':
       return test.pitches.map(parsePitch);
     case 'chord':
@@ -19,6 +21,7 @@ export function expectedNotes(test: AtomTest): number[] {
 export function evaluateTest(test: AtomTest, recorded: NoteEvent[]): ScoreResult {
   switch (test.kind) {
     case 'find-note':
+    case 'read-note':
       return scoreSequence(expectedNotes(test), recorded, {
         ignoreOctave: true,
         threshold: test.threshold,

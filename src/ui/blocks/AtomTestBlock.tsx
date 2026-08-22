@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Keyboard } from '../Keyboard';
+import { Staff } from '../Staff';
 import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
 import { pitchClass, type PitchClass } from '../../midi/notes';
@@ -104,11 +105,17 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
 
       <div className="prompt">
         <div className="prompt-kicker">{canScore ? atom.prompt : 'Play along'}</div>
-        <div className={'prompt-note' + (done ? ' good' : '')}>
-          {test.kind === 'chord'
-            ? test.pitches.map((p) => p.replace(/\d/, '')).join(' ')
-            : targetPcs[cursor % targetPcs.length]}
-        </div>
+        {test.kind === 'read-note' ? (
+          <div className={done ? 'good' : ''}>
+            <Staff pitch={test.pitch} />
+          </div>
+        ) : (
+          <div className={'prompt-note' + (done ? ' good' : '')}>
+            {test.kind === 'chord'
+              ? test.pitches.map((p) => p.replace(/\d/, '')).join(' ')
+              : targetPcs[cursor % targetPcs.length]}
+          </div>
+        )}
         {done ? (
           <div className="prompt-feedback good">Nice.</div>
         ) : (

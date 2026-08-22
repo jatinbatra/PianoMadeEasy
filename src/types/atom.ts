@@ -29,6 +29,15 @@ export interface SequenceTest {
   threshold: Threshold;
 }
 
+/** Read a note off the treble staff and play it (gentle sight-reading). */
+export interface ReadNoteTest {
+  kind: 'read-note';
+  /** The note drawn on the staff and expected, e.g. "C4". */
+  pitch: string;
+  reps: number;
+  threshold: Threshold;
+}
+
 /** Play several notes together as one chord. */
 export interface ChordTest {
   kind: 'chord';
@@ -38,7 +47,7 @@ export interface ChordTest {
   threshold: Threshold;
 }
 
-export type AtomTest = FindNoteTest | SequenceTest | ChordTest;
+export type AtomTest = FindNoteTest | SequenceTest | ReadNoteTest | ChordTest;
 
 /** One small, testable skill. The curriculum is a graph of these, not lessons. */
 export interface Atom {

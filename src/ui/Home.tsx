@@ -26,6 +26,7 @@ export function Home({ input, streak, skillsLearned, hero, previewLines, onStart
   return (
     <div className="home">
       <div className="brand">JatinSitDown</div>
+      <div className="tagline">Five honest minutes at the keys.</div>
 
       {hero && (
         <div className="hero-metric">
@@ -49,11 +50,14 @@ export function Home({ input, streak, skillsLearned, hero, previewLines, onStart
 
       {/* Today's plan preview so it's clear what "Start" will do. */}
       {previewLines.length > 0 && (
-        <ol className="plan-preview">
-          {previewLines.map((line, i) => (
-            <li key={i}>{line}</li>
-          ))}
-        </ol>
+        <div className="plan-wrap">
+          <div className="plan-heading">Today, shaped by where you are</div>
+          <ol className="plan-preview">
+            {previewLines.map((line, i) => (
+              <li key={i}>{line}</li>
+            ))}
+          </ol>
+        </div>
       )}
 
       {streak.practicedToday ? (
