@@ -1,35 +1,36 @@
 :root {
-  /* Warm practice room — espresso dark, ivory keys, brass accent, sage for right. */
-  --bg: #17120d;
-  --panel: #221b14;
-  --panel-2: #33281c;
-  --text: #f3e9da;
-  --muted: #b0a08b;
-  --accent: #cB9a52;
-  --good: #86b06a;
-  --good-dim: #2a3a1f;
-  --key-white: #f3e9da;
-  --key-black: #241c14;
-  --target: #cB9a52;
+  /* Ink & teal — calm, instrument-like. Teal = the note to reach; gold = you hit it. */
+  --bg: #14171a;
+  --panel: #1b2024;
+  --panel-2: #262d32;
+  --text: #eae7df;
+  --muted: #949ba0;
+  --line: #2a3238;
+  --accent: #56a9a1;
+  --good: #d6a94e;
+  --good-dim: #3a2f16;
+  --key-white: #ece9e1;
+  --key-black: #1f252a;
+  --target: #56a9a1;
   --font-body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
   font-family: var(--font-body);
 }
 
-/* Warm paper in light mode. */
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: #f5efe4;
-    --panel: #fffbf3;
-    --panel-2: #ece1cf;
-    --text: #2a2018;
-    --muted: #7c6d59;
-    --accent: #a5762a;
-    --good: #4f7c39;
-    --good-dim: #dcead0;
-    --key-white: #fffdf8;
-    --key-black: #2a211a;
-    --target: #a5762a;
+    --bg: #eceee9;
+    --panel: #ffffff;
+    --panel-2: #e2e6df;
+    --text: #1b2226;
+    --muted: #5e6a6b;
+    --line: #d7ddd6;
+    --accent: #2c7d76;
+    --good: #a9781f;
+    --good-dim: #efe2c6;
+    --key-white: #ffffff;
+    --key-black: #1f252a;
+    --target: #2c7d76;
   }
 }
 
@@ -887,4 +888,112 @@ h3,
 .stat-label {
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+/* ============================================================
+   De-slop refinements: real hierarchy, restraint, subject motif.
+   These come last so they win the cascade.
+   ============================================================ */
+
+/* Numerals line up like an instrument panel. */
+.streak-num,
+.hero-count,
+.block-timer,
+.stat-num,
+.sp-head,
+.week-line strong,
+.heard {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Crisper corners than the default rounded-everything look. */
+.card,
+.hero-metric,
+.song-row,
+.teach,
+.plan-preview,
+.midi-chip,
+.btn-primary,
+.btn-secondary {
+  border-radius: 6px;
+}
+.btn-primary {
+  border-radius: 8px;
+}
+
+/* Quieter eyebrows — less shouty uppercase. */
+.plan-heading,
+.prompt-kicker,
+.hero-label,
+.kicker {
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* Tagline in the editorial serif, italic. */
+.tagline {
+  font-family: var(--font-display);
+}
+
+/* A staff-line motif: a thin double rule under the wordmark. */
+.brand {
+  position: relative;
+  padding-bottom: 0.6rem;
+}
+.brand::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 3.2rem;
+  height: 3px;
+  border-top: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
+}
+
+/* Hairline-separated cards instead of heavy panels. */
+.card {
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+
+/* Tactile keys — subtle depth, and a real press state when playable. */
+.white-key {
+  background: linear-gradient(180deg, var(--key-white), color-mix(in srgb, var(--key-white) 88%, #000));
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+  transition: transform 0.04s ease, filter 0.04s ease;
+}
+.black-key {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+.keyboard.playable .white-key,
+.keyboard.playable .black-key {
+  cursor: pointer;
+  touch-action: none;
+}
+.keyboard.playable .white-key:active,
+.keyboard.playable .black-key:active {
+  transform: translateY(1px);
+  filter: brightness(0.92);
+}
+
+/* Quieter status pills in Progress. */
+.pill {
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-weight: 600;
+}
+
+.btn-quiet {
+  background: none;
+  border: none;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.3rem;
 }

@@ -93,7 +93,7 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, input, blockIndex, b
         <div className="prompt-note">{noteName(targetMidi).replace(/\d/, '')}</div>
       </div>
 
-      <Keyboard highlight={[targetPc]} played={played} />
+      <Keyboard highlight={[targetPc]} played={played} onTap={input.tapNote} />
 
       {scored && (
         <div className="heard-row">

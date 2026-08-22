@@ -32,8 +32,10 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
   const expected = useRef(expectedNotes(test)).current;
   const targetPcs = useRef(expected.map(pitchClass)).current;
 
-  // Can we objectively score this test with the current input?
-  const canScore = input.mode === 'midi' || (input.mode === 'mic' && test.kind !== 'chord');
+  // Can we objectively score this test with the current input? Chords need a
+  // real keyboard (mic can't hear them; on-screen taps aren't simultaneous).
+  const canScore =
+    input.mode === 'midi' || ((input.mode === 'mic' || input.mode === 'touch') && test.kind !== 'chord');
 
   const recorder = useRef<MidiRecorder>(new MidiRecorder());
   const [played, setPlayed] = useState<number | null>(null);
@@ -95,8 +97,8 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
       : `${Math.min(cursor, expected.length)}/${expected.length}`;
 
   const unscoredMsg =
-    input.mode === 'mic' && test.kind === 'chord'
-      ? "Mic can't hear chords — play it, then Next"
+    test.kind === 'chord'
+      ? 'Chords need a real keyboard — play it, then Next'
       : 'Play along — no score without input';
 
   return (
@@ -123,7 +125,7 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
         )}
       </div>
 
-      <Keyboard highlight={highlight} played={played} />
+      <Keyboard highlight={highlight} played={played} onTap={input.tapNote} />
 
       {canScore && (
         <div className="heard-row">

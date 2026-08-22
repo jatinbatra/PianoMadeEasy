@@ -112,7 +112,14 @@ export function SessionRunner({ input, plan, length, song, chunk, onComplete, on
         input.scored && scoredResults.length > 0
           ? scoredResults.reduce((s, r) => s + r.noteAccuracy, 0) / scoredResults.length
           : null;
-      const mode = input.mode === 'midi' ? 'connected' : input.mode === 'mic' ? 'mic' : 'untethered';
+      const mode =
+        input.mode === 'midi'
+          ? 'connected'
+          : input.mode === 'mic'
+            ? 'mic'
+            : input.mode === 'touch'
+              ? 'touch'
+              : 'untethered';
       onComplete(
         {
           date: localDateKey(),

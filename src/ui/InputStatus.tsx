@@ -31,19 +31,33 @@ export function InputStatus({ input }: { input: Input }) {
     );
   }
 
-  // Untethered.
+  // Touch (on-screen piano) — the default when there's no keyboard or mic.
+  if (input.mode === 'touch') {
+    return (
+      <div className="mic-status">
+        <div className="midi-chip mic">
+          <span className="dot" aria-hidden="true" />
+          On-screen piano — tap the keys to play
+        </div>
+        {input.micSupported && (
+          <button className="btn-quiet" onClick={() => void input.enableMic()}>
+            or use the microphone
+          </button>
+        )}
+        <p className="mic-hint">
+          {input.midiRequesting ? 'Looking for your keyboard…' : 'Plug in a keyboard any time for the real feel.'}
+        </p>
+      </div>
+    );
+  }
+
+  // No audio at all (rare) — untethered.
   return (
     <div className="mic-status">
       <div className="midi-chip untethered">
         <span className="dot" aria-hidden="true" />
-        {input.midiRequesting ? 'Looking for your keyboard…' : 'No keyboard detected'}
+        No input — sessions still count for your streak
       </div>
-      {input.micSupported && (
-        <button className="btn-secondary" onClick={() => void input.enableMic()}>
-          🎤 Use microphone instead
-        </button>
-      )}
-      <p className="mic-hint">No cable? Let the app listen and score you through the mic.</p>
     </div>
   );
 }

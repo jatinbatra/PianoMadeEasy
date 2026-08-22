@@ -47,15 +47,16 @@ That's it — it now opens from your home screen and runs fully offline.
 | Chrome Android (USB-C OTG → keyboard) | ✅ | Connected (keyboard) — full scoring |
 | iOS Safari | ❌ never | Mic or untethered |
 
-**Three input modes, chosen automatically:**
+**Input modes, chosen automatically:**
 
 1. **Keyboard (MIDI)** — a keyboard is attached: full, exact scoring, chords included.
-2. **Microphone** — no cable? Tap *Use microphone* and the app listens and scores
-   the note you play. Great for single notes and melodies on any piano (including
-   a laptop by an acoustic). It's monophonic, so **chords can't be checked by
-   mic** — those need the keyboard.
-3. **Untethered** — no input at all: the session still runs and the day still
-   counts for the streak, just unscored.
+2. **Microphone** — no cable? Tap *use the microphone* and the app listens and
+   scores the note you play. Monophonic, so **chords can't be checked by mic**.
+3. **On-screen piano** — no hardware at all? Tap the keys on screen; they make
+   sound and are scored. Anyone can play — handy for sharing with a friend who
+   doesn't own a piano.
+4. **Untethered** — a rare fallback (no audio support): the session still runs
+   and the day still counts, just unscored.
 
 A day practiced in any mode **counts for the streak.** The app never asks you to
 self-assess — it measures, or it counts the day and moves on.
