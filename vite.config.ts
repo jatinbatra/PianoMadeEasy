@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'],
       manifest: {
-        name: 'Piano Made Easy',
-        short_name: 'Piano',
+        name: 'JatinSitDown',
+        short_name: 'SitDown',
         description: 'Sit down. Five minutes. Every day.',
         theme_color: '#0f172a',
         background_color: '#0f172a',

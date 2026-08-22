@@ -1,6 +1,8 @@
-# Piano Made Easy
+# JatinSitDown
 
-A piano practice PWA built to fight the one real problem: **showing up.** It
+A piano practice PWA built to fight the one real problem: **showing up.** The
+name is the whole idea — you're always out walking, so the app is one nudge to
+*sit down* at the keys. It
 opens to a single button — *Start today's session* — runs a 5-minute session,
 measures what you played over MIDI, and tracks your streak. Missing a day is
 never a failure screen.

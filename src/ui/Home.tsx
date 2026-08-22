@@ -21,7 +21,7 @@ interface Props {
 export function Home({ midi, streak, skillsLearned, hero, onStart, onOpenSongs }: Props) {
   return (
     <div className="home">
-      <div className="brand">Piano Made Easy</div>
+      <div className="brand">JatinSitDown</div>
 
       {/* Hero metric — the one number that should make progress feel real. */}
       {hero && (
