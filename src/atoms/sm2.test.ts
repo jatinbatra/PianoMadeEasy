@@ -12,7 +12,7 @@ import type { ScoreResult } from '../scoring/score';
 const TODAY = '2026-08-22';
 
 function result(partial: Partial<ScoreResult>): ScoreResult {
-  return { noteAccuracy: 1, timingAccuracy: 1, pass: true, matched: 1, expected: 1, extraNotes: 0, ...partial };
+  return { noteAccuracy: 1, timingAccuracy: 1, pass: true, matched: 1, expected: 1, extraNotes: 0, matchedOnsets: [], ...partial };
 }
 
 describe('qualityFromScore', () => {

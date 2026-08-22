@@ -20,6 +20,8 @@ export interface ScoreResult {
   expected: number;
   /** Note-ons played that weren't part of the expected sequence. */
   extraNotes: number;
+  /** Onset time (ms) of each matched note, in order — used for tempo estimation. */
+  matchedOnsets: number[];
 }
 
 /** Just the real key-presses (note-on with velocity > 0). */
@@ -84,7 +86,7 @@ export function scoreSequence(
     noteAccuracy >= opts.threshold.noteAccuracy &&
     (opts.threshold.timingAccuracy == null || timingAccuracy >= opts.threshold.timingAccuracy);
 
-  return { noteAccuracy, timingAccuracy, pass, matched, expected: expected.length, extraNotes: extras };
+  return { noteAccuracy, timingAccuracy, pass, matched, expected: expected.length, extraNotes: extras, matchedOnsets };
 }
 
 export interface ChordOptions {
@@ -123,5 +125,5 @@ export function scoreChord(expected: number[], recorded: NoteEvent[], opts: Chor
     noteAccuracy >= opts.threshold.noteAccuracy &&
     (opts.threshold.timingAccuracy == null || together);
 
-  return { noteAccuracy, timingAccuracy, pass, matched, expected: expected.length, extraNotes: extras };
+  return { noteAccuracy, timingAccuracy, pass, matched, expected: expected.length, extraNotes: extras, matchedOnsets: hits };
 }

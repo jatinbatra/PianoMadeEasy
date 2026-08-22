@@ -249,6 +249,138 @@ body {
   margin: 0;
 }
 
+/* ---------- Hero metric ---------- */
+.hero-metric {
+  background: var(--panel);
+  border-radius: 1.2rem;
+  padding: 1.2rem 2rem;
+  text-align: center;
+}
+.hero-song {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.hero-count {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.hero-count span {
+  font-size: 1.5rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.hero-label {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.85rem;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  font-weight: 600;
+}
+.link-btn.danger {
+  color: #f87171;
+}
+
+.chunk-owned {
+  color: var(--good);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.btn-primary.small {
+  font-size: 1.2rem;
+  padding: 1rem;
+  max-width: 14rem;
+}
+
+/* ---------- Song library ---------- */
+.library {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+.lib-head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.lib-head h1 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.song-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--panel);
+  border: 1px solid transparent;
+  border-radius: 0.9rem;
+  padding: 0.9rem 1.1rem;
+}
+.song-row.active {
+  border-color: var(--accent);
+}
+.song-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.song-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.song-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+.add-song {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.song-input {
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--panel-2);
+  border-radius: 0.6rem;
+  padding: 0.8rem;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.85rem;
+  resize: vertical;
+}
+.add-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.error-line {
+  color: #f87171;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
 .prompt {
   text-align: center;
 }

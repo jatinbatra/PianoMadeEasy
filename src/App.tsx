@@ -3,32 +3,62 @@ import { useMidi } from './midi/useMidi';
 import { Home } from './ui/Home';
 import { SessionRunner, type AtomOutcome } from './ui/SessionRunner';
 import { Summary } from './ui/Summary';
+import { SongLibrary } from './ui/SongLibrary';
 import { computeStreak, type StreakInfo } from './streak/streak';
-import { getAllDays, logPracticeDay, saveSession, loadProgressMap, saveProgress, localDateKey } from './db/repo';
+import {
+  getAllDays,
+  logPracticeDay,
+  saveSession,
+  loadProgressMap,
+  saveProgress,
+  localDateKey,
+  loadSongs,
+  loadChunkProgressMap,
+  getActiveSongId,
+  saveChunkProgress,
+} from './db/repo';
 import { buildPlan, type DayPlan, type ProgressMap } from './atoms/scheduler';
 import { review, qualityFromScore, newAtomProgress } from './atoms/sm2';
+import { seedSongsIfEmpty } from './songs/seed';
+import { pickChunk, ownedCount, newChunkProgress, updateChunkProgress, chunkKey, type ChunkProgressMap, type ChunkAttempt } from './songs/ladder';
+import type { Song, SongChunk } from './types/song';
 import type { SessionResult } from './types';
 
-type Screen = 'home' | 'session' | 'summary';
+type Screen = 'home' | 'session' | 'summary' | 'songs';
 
 export function App() {
   const midi = useMidi();
   const [screen, setScreen] = useState<Screen>('home');
   const [streak, setStreak] = useState<StreakInfo>({ current: 0, practicedToday: false, missedYesterday: false });
   const [progress, setProgress] = useState<ProgressMap>({});
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [activeSong, setActiveSong] = useState<Song | null>(null);
+  const [chunkMap, setChunkMap] = useState<ChunkProgressMap>({});
   const [plan, setPlan] = useState<DayPlan | null>(null);
+  const [sessionSong, setSessionSong] = useState<{ song: Song; chunk: SongChunk } | null>(null);
   const [lastResult, setLastResult] = useState<SessionResult | null>(null);
-  const [lastGains, setLastGains] = useState<number>(0);
+  const [lastGains, setLastGains] = useState(0);
+  const [lastChunkOwned, setLastChunkOwned] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   const refresh = useCallback(async () => {
-    const [days, map] = await Promise.all([getAllDays(), loadProgressMap()]);
+    const [days, atomMap, songList, chunks, activeId] = await Promise.all([
+      getAllDays(),
+      loadProgressMap(),
+      loadSongs(),
+      loadChunkProgressMap(),
+      getActiveSongId(),
+    ]);
     setStreak(computeStreak(days));
-    setProgress(map);
+    setProgress(atomMap);
+    setSongs(songList);
+    setChunkMap(chunks);
+    setActiveSong(songList.find((s) => s.id === activeId) ?? songList[0] ?? null);
   }, []);
 
   useEffect(() => {
     void (async () => {
+      await seedSongsIfEmpty();
       await refresh();
       setLoaded(true);
     })();
@@ -36,16 +66,16 @@ export function App() {
 
   const handleStart = useCallback(() => {
     setPlan(buildPlan(progress, localDateKey()));
+    if (activeSong) setSessionSong({ song: activeSong, chunk: pickChunk(activeSong, chunkMap, progress) });
     setScreen('session');
-  }, [progress]);
+  }, [progress, activeSong, chunkMap]);
 
   const handleComplete = useCallback(
-    async (result: SessionResult, outcomes: AtomOutcome[]) => {
+    async (result: SessionResult, outcomes: AtomOutcome[], chunkAttempt: ChunkAttempt | null) => {
       const today = localDateKey();
       const map: ProgressMap = { ...progress };
       let gains = 0;
 
-      // Update atom strengths from MIDI-measured outcomes only (never untethered).
       for (const o of outcomes) {
         if (!o.result) continue;
         const prev = map[o.atomId] ?? newAtomProgress(o.atomId, today);
@@ -55,31 +85,78 @@ export function App() {
         await saveProgress(updated);
       }
 
+      // Chunk mastery — MIDI-measured only.
+      let chunkOwned = false;
+      const cMap = { ...chunkMap };
+      if (chunkAttempt && sessionSong) {
+        const { song, chunk } = sessionSong;
+        const key = chunkKey(song.id, chunk.id);
+        const prev = cMap[key] ?? newChunkProgress(song.id, chunk.id);
+        const updated = updateChunkProgress(prev, chunkAttempt, song.bpm, today);
+        chunkOwned = updated.owned && !prev.owned;
+        cMap[key] = updated;
+        await saveChunkProgress(updated);
+      }
+
       await saveSession(result);
       await logPracticeDay(result.mode, Math.round((result.finishedAt - result.startedAt) / 60000));
       await refresh();
       setProgress(map);
+      setChunkMap(cMap);
       setLastResult(result);
       setLastGains(gains);
+      setLastChunkOwned(chunkOwned);
       setScreen('summary');
     },
-    [progress, refresh],
+    [progress, chunkMap, sessionSong, refresh],
   );
 
   if (!loaded) return <div className="loading">…</div>;
 
   const skillsLearned = Object.values(progress).filter((p) => p.introduced).length;
+  const heroChunks = activeSong
+    ? { title: activeSong.title, owned: ownedCount(activeSong, chunkMap), total: activeSong.chunks.length }
+    : null;
 
   return (
     <main className="app">
       {screen === 'home' && (
-        <Home midi={midi} streak={streak} skillsLearned={skillsLearned} onStart={handleStart} />
+        <Home
+          midi={midi}
+          streak={streak}
+          skillsLearned={skillsLearned}
+          hero={heroChunks}
+          onStart={handleStart}
+          onOpenSongs={() => setScreen('songs')}
+        />
       )}
-      {screen === 'session' && plan && (
-        <SessionRunner midi={midi} plan={plan} onComplete={handleComplete} onQuit={() => setScreen('home')} />
+      {screen === 'session' && plan && sessionSong && (
+        <SessionRunner
+          midi={midi}
+          plan={plan}
+          song={sessionSong.song}
+          chunk={sessionSong.chunk}
+          onComplete={handleComplete}
+          onQuit={() => setScreen('home')}
+        />
       )}
       {screen === 'summary' && lastResult && (
-        <Summary result={lastResult} streak={streak} atomsStrengthened={lastGains} onHome={() => setScreen('home')} />
+        <Summary
+          result={lastResult}
+          streak={streak}
+          atomsStrengthened={lastGains}
+          chunkOwned={lastChunkOwned}
+          onHome={() => setScreen('home')}
+        />
+      )}
+      {screen === 'songs' && (
+        <SongLibrary
+          songs={songs}
+          activeSongId={activeSong?.id ?? null}
+          chunkMap={chunkMap}
+          onChanged={refresh}
+          onBack={() => setScreen('home')}
+        />
       )}
     </main>
   );

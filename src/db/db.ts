@@ -1,6 +1,8 @@
 import Dexie, { type EntityTable } from 'dexie';
 import type { PracticeDay, SessionResult } from '../types';
 import type { AtomProgress } from '../atoms/sm2';
+import type { Song } from '../types/song';
+import type { ChunkProgress } from '../types/chunk';
 
 /**
  * IndexedDB is the source of truth. Everything a session produces is written
@@ -13,6 +15,8 @@ export class PianoDB extends Dexie {
   sessions!: EntityTable<SessionResult, 'id'>;
   meta!: EntityTable<{ key: string; value: unknown }, 'key'>;
   atomProgress!: EntityTable<AtomProgress, 'atomId'>;
+  songs!: EntityTable<Song, 'id'>;
+  chunkProgress!: EntityTable<ChunkProgress, 'key'>;
 
   constructor() {
     super('piano-made-easy');
@@ -27,6 +31,15 @@ export class PianoDB extends Dexie {
       sessions: '++id, date, mode',
       meta: 'key',
       atomProgress: 'atomId, dueDate, introduced',
+    });
+    // v3 adds the song library + per-chunk mastery (Phase 2).
+    this.version(3).stores({
+      days: 'date, verified',
+      sessions: '++id, date, mode',
+      meta: 'key',
+      atomProgress: 'atomId, dueDate, introduced',
+      songs: 'id',
+      chunkProgress: 'key, songId',
     });
   }
 }

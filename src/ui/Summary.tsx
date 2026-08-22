@@ -5,11 +5,12 @@ interface Props {
   result: SessionResult;
   streak: StreakInfo;
   atomsStrengthened: number;
+  chunkOwned: boolean;
   onHome: () => void;
 }
 
 /** Honest post-session summary. Measured, never inflated. */
-export function Summary({ result, streak, atomsStrengthened, onHome }: Props) {
+export function Summary({ result, streak, atomsStrengthened, chunkOwned, onHome }: Props) {
   const connected = result.mode === 'connected';
   const acc = result.accuracy != null ? Math.round(result.accuracy * 100) : null;
 
@@ -41,6 +42,8 @@ export function Summary({ result, streak, atomsStrengthened, onHome }: Props) {
           </li>
         )}
       </ul>
+
+      {chunkOwned && <p className="chunk-owned">🎉 New chunk owned — played clean at tempo twice!</p>}
 
       {!connected && (
         <p className="hint">

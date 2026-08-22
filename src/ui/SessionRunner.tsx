@@ -7,7 +7,8 @@ import type { Atom } from '../types/atom';
 import type { ScoreResult } from '../scoring/score';
 import type { DayPlan } from '../atoms/scheduler';
 import { localDateKey } from '../db/repo';
-import { PHASE0_CHUNK, PHASE0_SONG } from '../session/phase0';
+import type { Song, SongChunk } from '../types/song';
+import type { ChunkAttempt } from '../songs/ladder';
 
 export interface AtomOutcome {
   atomId: string;
@@ -17,7 +18,9 @@ export interface AtomOutcome {
 interface Props {
   midi: UseMidi;
   plan: DayPlan;
-  onComplete: (result: SessionResult, outcomes: AtomOutcome[]) => void;
+  song: Song;
+  chunk: SongChunk;
+  onComplete: (result: SessionResult, outcomes: AtomOutcome[], chunk: ChunkAttempt | null) => void;
   onQuit: () => void;
 }
 
@@ -82,12 +85,13 @@ function buildSteps(plan: DayPlan): Step[] {
 }
 
 /** Runs the atom-driven session and reports the result plus per-atom outcomes. */
-export function SessionRunner({ midi, plan, onComplete, onQuit }: Props) {
+export function SessionRunner({ midi, plan, song, chunk, onComplete, onQuit }: Props) {
   const steps = useMemo(() => buildSteps(plan), [plan]);
   const [i, setI] = useState(0);
   const startedAt = useRef(Date.now());
   const notesPlayed = useRef(0);
   const outcomes = useRef<AtomOutcome[]>([]);
+  const chunkAttempt = useRef<ChunkAttempt | null>(null);
 
   useEffect(() => {
     const unsub = midi.subscribe((n) => {
@@ -116,6 +120,7 @@ export function SessionRunner({ midi, plan, onComplete, onQuit }: Props) {
           accuracy,
         },
         outcomes.current,
+        chunkAttempt.current,
       );
     }
   }
@@ -148,13 +153,17 @@ export function SessionRunner({ midi, plan, onComplete, onQuit }: Props) {
       ) : (
         <SongBlock
           key={`${i}-song`}
-          chunk={PHASE0_CHUNK}
-          bpm={PHASE0_SONG.bpm}
+          chunk={chunk}
+          songTitle={song.title}
+          bpm={song.bpm}
           seconds={step.seconds}
           midi={midi}
           blockIndex={i}
           blockCount={steps.length}
-          onFinish={() => next()}
+          onFinish={(attempt) => {
+            chunkAttempt.current = attempt;
+            next();
+          }}
         />
       )}
     </div>

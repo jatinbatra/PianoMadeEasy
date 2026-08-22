@@ -1,6 +1,8 @@
-import { db } from './db';
+import { db, getMeta, setMeta } from './db';
 import type { InputMode, PracticeDay, SessionResult } from '../types';
 import type { AtomProgress } from '../atoms/sm2';
+import type { Song } from '../types/song';
+import type { ChunkProgress } from '../types/chunk';
 
 /** Local calendar date as YYYY-MM-DD (not UTC — the streak is about *his* days). */
 export function localDateKey(d: Date = new Date()): string {
@@ -51,4 +53,35 @@ export async function loadProgressMap(): Promise<Record<string, AtomProgress>> {
 /** Persist one atom's updated progress. */
 export async function saveProgress(p: AtomProgress): Promise<void> {
   await db.atomProgress.put(p);
+}
+
+// ----- Song library + chunk mastery (Phase 2) -----
+
+export async function loadSongs(): Promise<Song[]> {
+  return db.songs.toArray();
+}
+
+export async function saveSong(song: Song): Promise<void> {
+  await db.songs.put(song);
+}
+
+export async function deleteSong(id: string): Promise<void> {
+  await db.songs.delete(id);
+}
+
+export async function getActiveSongId(): Promise<string | null> {
+  return getMeta<string | null>('activeSongId', null);
+}
+
+export async function setActiveSongId(id: string): Promise<void> {
+  await setMeta('activeSongId', id);
+}
+
+export async function loadChunkProgressMap(): Promise<Record<string, ChunkProgress>> {
+  const rows = await db.chunkProgress.toArray();
+  return Object.fromEntries(rows.map((r) => [r.key, r]));
+}
+
+export async function saveChunkProgress(cp: ChunkProgress): Promise<void> {
+  await db.chunkProgress.put(cp);
 }

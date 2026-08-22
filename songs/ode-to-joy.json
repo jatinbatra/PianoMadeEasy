@@ -1,0 +1,56 @@
+{
+  "id": "ode-to-joy",
+  "title": "Ode to Joy",
+  "attribution": "Beethoven, public domain. A longer melody to show the chunk ladder.",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Opening — rising line",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:E", "find-note:F", "find-note:G", "find-note:D"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Coming home",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "notes": [
+        { "pitch": "C4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 1.5 }, { "pitch": "D4", "beats": 0.5 },
+        { "pitch": "D4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "Second time up",
+      "bars": "5-6",
+      "requiresAtoms": ["find-note:E", "find-note:F", "find-note:G", "find-note:D"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "The resolve",
+      "bars": "7-8",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "notes": [
+        { "pitch": "C4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1.5 }, { "pitch": "C4", "beats": 0.5 },
+        { "pitch": "C4", "beats": 2 }
+      ]
+    }
+  ]
+}
