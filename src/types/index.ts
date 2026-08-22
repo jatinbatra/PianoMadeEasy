@@ -13,7 +13,7 @@ export interface NoteEvent {
   time: number;
 }
 
-export type InputMode = 'connected' | 'untethered';
+export type InputMode = 'connected' | 'mic' | 'untethered';
 
 export type BlockKind = 'recall' | 'lesson' | 'song';
 

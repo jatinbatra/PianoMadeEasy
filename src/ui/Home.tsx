@@ -1,5 +1,5 @@
-import type { UseMidi } from '../midi/useMidi';
-import { MidiStatus } from './MidiStatus';
+import type { Input } from '../input/useInput';
+import { InputStatus } from './InputStatus';
 import type { StreakInfo } from '../streak/streak';
 
 interface HeroMetric {
@@ -9,7 +9,7 @@ interface HeroMetric {
 }
 
 interface Props {
-  midi: UseMidi;
+  input: Input;
   streak: StreakInfo;
   skillsLearned: number;
   hero: HeroMetric | null;
@@ -21,7 +21,7 @@ interface Props {
 }
 
 /** Zero decisions on open. One primary button (5 min), always. */
-export function Home({ midi, streak, skillsLearned, hero, previewLines, onStart, onOpenProgress, onOpenSongs }: Props) {
+export function Home({ input, streak, skillsLearned, hero, previewLines, onStart, onOpenProgress, onOpenSongs }: Props) {
   return (
     <div className="home">
       <div className="brand">JatinSitDown</div>
@@ -83,7 +83,7 @@ export function Home({ midi, streak, skillsLearned, hero, previewLines, onStart,
         <p className="skills-line">{skillsLearned} skill{skillsLearned === 1 ? '' : 's'} learned</p>
       )}
 
-      <MidiStatus midi={midi} />
+      <InputStatus input={input} />
 
       <div className="home-links">
         <button className="link-btn" onClick={onOpenProgress}>

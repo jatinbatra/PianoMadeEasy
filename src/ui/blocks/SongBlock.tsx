@@ -6,7 +6,7 @@ import { pitchClass, parsePitch, noteName } from '../../midi/notes';
 import { MidiRecorder } from '../../midi/recorder';
 import { scoreChunk } from '../../songs/scoreChunk';
 import type { ChunkAttempt } from '../../songs/ladder';
-import type { UseMidi } from '../../midi/useMidi';
+import type { Input } from '../../input/useInput';
 import type { SongChunk } from '../../types/song';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   songTitle: string;
   bpm: number;
   seconds: number;
-  midi: UseMidi;
+  input: Input;
   blockIndex: number;
   blockCount: number;
   /** attempt === null when untethered (unscored). */
@@ -26,7 +26,7 @@ interface Props {
  * note-by-note (advancing on the right note) while recording the take, then
  * score it for accuracy + tempo. Untethered: plays along at half tempo, unscored.
  */
-export function SongBlock({ chunk, songTitle, bpm, seconds, midi, blockIndex, blockCount, onFinish }: Props) {
+export function SongBlock({ chunk, songTitle, bpm, seconds, input, blockIndex, blockCount, onFinish }: Props) {
   const notes = chunk.notes;
   const [cursor, setCursor] = useState(0);
   const [played, setPlayed] = useState<number | null>(null);
@@ -39,37 +39,37 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, midi, blockIndex, bl
   const targetRef = useRef(targetPc);
   targetRef.current = targetPc;
 
-  const connected = midi.mode === 'connected';
+  const scored = input.scored;
 
   function finish() {
     if (finished.current) return;
     finished.current = true;
     const events = recorder.current.stop();
-    onFinish(connected ? scoreChunk(chunk, events) : null);
+    onFinish(scored ? scoreChunk(chunk, events) : null);
   }
 
   const remaining = useCountdown(seconds, finish);
 
-  // Connected: record everything, advance the cursor on the correct note.
+  // Scored (MIDI or mic): record everything, advance the cursor on the right note.
   useEffect(() => {
-    if (!connected) return;
+    if (!scored) return;
     recorder.current.start();
-    const unsub = midi.subscribe((n) => {
+    const unsub = input.subscribe((n) => {
       recorder.current.add(n.note, n.velocity, n.on);
       if (!n.on) return;
       setPlayed(n.note);
       if (pitchClass(n.note) === targetRef.current) setCursor((c) => c + 1);
     });
     return unsub;
-  }, [midi, connected]);
+  }, [input, scored]);
 
   // Untethered: play along at half tempo so it's followable.
   useEffect(() => {
-    if (connected) return;
+    if (scored) return;
     const beatMs = (60 / bpm) * 1000 * 2;
     const id = setTimeout(() => setCursor((c) => c + 1), target.beats * beatMs);
     return () => clearTimeout(id);
-  }, [connected, cursor, bpm, target.beats]);
+  }, [scored, cursor, bpm, target.beats]);
 
   const pos = cursor % notes.length;
   const window = notes.map((n, i) => ({ n, i })).slice(Math.max(0, pos - 1), pos + 6);
@@ -89,14 +89,14 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, midi, blockIndex, bl
       </div>
 
       <div className="prompt">
-        <div className="prompt-kicker">{connected ? 'Play' : 'Follow along'}</div>
+        <div className="prompt-kicker">{scored ? 'Play' : 'Follow along'}</div>
         <div className="prompt-note">{noteName(targetMidi).replace(/\d/, '')}</div>
       </div>
 
       <Keyboard highlight={[targetPc]} played={played} />
 
-      {!connected && (
-        <p className="hint">No keyboard connected — this counts for your streak. Play along on any piano.</p>
+      {!scored && (
+        <p className="hint">No input — this still counts for your streak. Play along on any piano.</p>
       )}
     </BlockChrome>
   );

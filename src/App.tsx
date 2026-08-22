@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useMidi } from './midi/useMidi';
+import { useInput } from './input/useInput';
 import { Home } from './ui/Home';
 import { SessionRunner, type AtomOutcome } from './ui/SessionRunner';
 import { Summary } from './ui/Summary';
@@ -29,7 +29,7 @@ import type { SessionResult, PracticeDay } from './types';
 type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress';
 
 export function App() {
-  const midi = useMidi();
+  const input = useInput();
   const [screen, setScreen] = useState<Screen>('home');
   const [streak, setStreak] = useState<StreakInfo>({ current: 0, practicedToday: false, missedYesterday: false, freezeActive: false });
   const [days, setDays] = useState<PracticeDay[]>([]);
@@ -144,7 +144,7 @@ export function App() {
     <main className="app">
       {screen === 'home' && (
         <Home
-          midi={midi}
+          input={input}
           streak={streak}
           skillsLearned={skillsLearned}
           hero={heroChunks}
@@ -156,7 +156,7 @@ export function App() {
       )}
       {screen === 'session' && plan && sessionSong && (
         <SessionRunner
-          midi={midi}
+          input={input}
           plan={plan}
           length={sessionLength}
           song={sessionSong.song}

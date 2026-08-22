@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { AtomTestBlock } from './blocks/AtomTestBlock';
 import { SongBlock } from './blocks/SongBlock';
-import type { UseMidi } from '../midi/useMidi';
+import type { Input } from '../input/useInput';
 import type { SessionResult } from '../types';
 import type { Atom } from '../types/atom';
 import type { ScoreResult } from '../scoring/score';
@@ -17,7 +17,7 @@ export interface AtomOutcome {
 }
 
 interface Props {
-  midi: UseMidi;
+  input: Input;
   plan: DayPlan;
   length: SessionLength;
   song: Song;
@@ -88,7 +88,7 @@ function buildSteps(plan: DayPlan, length: SessionLength): Step[] {
 }
 
 /** Runs the atom-driven session and reports the result plus per-atom outcomes. */
-export function SessionRunner({ midi, plan, length, song, chunk, onComplete, onQuit }: Props) {
+export function SessionRunner({ input, plan, length, song, chunk, onComplete, onQuit }: Props) {
   const steps = useMemo(() => buildSteps(plan, length), [plan, length]);
   const [i, setI] = useState(0);
   const startedAt = useRef(Date.now());
@@ -97,28 +97,28 @@ export function SessionRunner({ midi, plan, length, song, chunk, onComplete, onQ
   const chunkAttempt = useRef<ChunkAttempt | null>(null);
 
   useEffect(() => {
-    const unsub = midi.subscribe((n) => {
+    const unsub = input.subscribe((n) => {
       if (n.on) notesPlayed.current += 1;
     });
     return unsub;
-  }, [midi]);
+  }, [input]);
 
   function next() {
     if (i < steps.length - 1) {
       setI((v) => v + 1);
     } else {
-      const connected = midi.mode === 'connected';
-      const scored = outcomes.current.filter((o) => o.result != null).map((o) => o.result!);
+      const scoredResults = outcomes.current.filter((o) => o.result != null).map((o) => o.result!);
       const accuracy =
-        connected && scored.length > 0
-          ? scored.reduce((s, r) => s + r.noteAccuracy, 0) / scored.length
+        input.scored && scoredResults.length > 0
+          ? scoredResults.reduce((s, r) => s + r.noteAccuracy, 0) / scoredResults.length
           : null;
+      const mode = input.mode === 'midi' ? 'connected' : input.mode === 'mic' ? 'mic' : 'untethered';
       onComplete(
         {
           date: localDateKey(),
           startedAt: startedAt.current,
           finishedAt: Date.now(),
-          mode: connected ? 'connected' : 'untethered',
+          mode,
           notesPlayed: notesPlayed.current,
           accuracy,
         },
@@ -148,7 +148,7 @@ export function SessionRunner({ midi, plan, length, song, chunk, onComplete, onQ
           title={step.title}
           teach={step.teach}
           seconds={step.seconds}
-          midi={midi}
+          input={input}
           blockIndex={i}
           blockCount={steps.length}
           onFinish={handleAtom}
@@ -160,7 +160,7 @@ export function SessionRunner({ midi, plan, length, song, chunk, onComplete, onQ
           songTitle={song.title}
           bpm={song.bpm}
           seconds={step.seconds}
-          midi={midi}
+          input={input}
           blockIndex={i}
           blockCount={steps.length}
           onFinish={(attempt) => {

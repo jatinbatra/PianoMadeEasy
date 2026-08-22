@@ -5,37 +5,38 @@ import { useCountdown } from '../useCountdown';
 import { pitchClass, type PitchClass } from '../../midi/notes';
 import { MidiRecorder } from '../../midi/recorder';
 import { evaluateTest, expectedNotes } from '../../atoms/evaluate';
-import type { UseMidi } from '../../midi/useMidi';
+import type { Input } from '../../input/useInput';
 import type { Atom } from '../../types/atom';
 import type { ScoreResult } from '../../scoring/score';
 
 interface Props {
   atom: Atom;
   title: string;
-  /** Teach content shown above the test (focus block); omit for recall. */
   teach?: ReactNode;
   seconds: number;
-  midi: UseMidi;
+  input: Input;
   blockIndex: number;
   blockCount: number;
-  /** result === null means untethered (unverified — atom strength not updated). */
+  /** result === null means unscored (untethered, or a chord under mic). */
   onFinish: (atomId: string, result: ScoreResult | null) => void;
 }
 
 /**
- * Tests one atom over MIDI. Records everything and scores the whole take at the
- * end (never self-assessment). Live cursor/highlighting is just feedback. In
- * untethered mode it shows the material and moves on, reporting null.
+ * Tests one atom over MIDI or mic. Records everything and scores the whole take
+ * at the end. A chord can't be verified by the (monophonic) mic, so under mic a
+ * chord test is shown but left unscored.
  */
-export function AtomTestBlock({ atom, title, teach, seconds, midi, blockIndex, blockCount, onFinish }: Props) {
+export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, blockCount, onFinish }: Props) {
   const test = atom.test;
   const expected = useRef(expectedNotes(test)).current;
   const targetPcs = useRef(expected.map(pitchClass)).current;
-  const connected = midi.mode === 'connected';
+
+  // Can we objectively score this test with the current input?
+  const canScore = input.mode === 'midi' || (input.mode === 'mic' && test.kind !== 'chord');
 
   const recorder = useRef<MidiRecorder>(new MidiRecorder());
   const [played, setPlayed] = useState<number | null>(null);
-  const [cursor, setCursor] = useState(0); // for find-note reps & sequences
+  const [cursor, setCursor] = useState(0);
   const cursorRef = useRef(0);
   cursorRef.current = cursor;
   const [chordHits, setChordHits] = useState<Set<PitchClass>>(new Set());
@@ -47,15 +48,21 @@ export function AtomTestBlock({ atom, title, teach, seconds, midi, blockIndex, b
     if (finished.current) return;
     finished.current = true;
     const events = recorder.current.stop();
-    onFinish(atom.id, connected ? evaluateTest(test, events) : null);
+    onFinish(atom.id, canScore ? evaluateTest(test, events) : null);
   }
 
   const remaining = useCountdown(seconds, finish);
 
-  // Record + drive live feedback.
+  function completeSoon() {
+    setDone(true);
+    setTimeout(finish, 700);
+  }
+
+  // Record + drive live feedback (only when we can score).
   useEffect(() => {
+    if (!canScore) return;
     recorder.current.start();
-    const unsub = midi.subscribe((n) => {
+    const unsub = input.subscribe((n) => {
       recorder.current.add(n.note, n.velocity, n.on);
       if (!n.on) return;
       setPlayed(n.note);
@@ -67,39 +74,17 @@ export function AtomTestBlock({ atom, title, teach, seconds, midi, blockIndex, b
           setChordHits(new Set(chordRef.current));
           if (chordRef.current.size >= expected.length) completeSoon();
         }
-      } else {
-        // find-note (reps) or sequence: advance in order.
-        if (pc === targetPcs[cursorRef.current % targetPcs.length]) {
-          const next = cursorRef.current + 1;
-          cursorRef.current = next;
-          setCursor(next);
-          if (next >= expected.length) completeSoon();
-        }
+      } else if (pc === targetPcs[cursorRef.current % targetPcs.length]) {
+        const nextC = cursorRef.current + 1;
+        cursorRef.current = nextC;
+        setCursor(nextC);
+        if (nextC >= expected.length) completeSoon();
       }
     });
     return unsub;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [midi]);
+  }, [input, canScore]);
 
-  function completeSoon() {
-    setDone(true);
-    setTimeout(finish, 700);
-  }
-
-  // Untethered auto-advance for sequences so it plays along.
-  useEffect(() => {
-    if (connected || test.kind !== 'sequence') return;
-    const id = setTimeout(() => {
-      const next = cursorRef.current + 1;
-      cursorRef.current = next;
-      setCursor(next);
-      if (next >= expected.length) finish();
-    }, 900);
-    return () => clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connected, cursor]);
-
-  // What to highlight right now.
   const highlight: PitchClass[] =
     test.kind === 'chord' ? targetPcs : [targetPcs[cursor % targetPcs.length]];
 
@@ -108,37 +93,33 @@ export function AtomTestBlock({ atom, title, teach, seconds, midi, blockIndex, b
       ? `${chordHits.size}/${expected.length} notes`
       : `${Math.min(cursor, expected.length)}/${expected.length}`;
 
+  const unscoredMsg =
+    input.mode === 'mic' && test.kind === 'chord'
+      ? "Mic can't hear chords — play it, then Next"
+      : 'Play along — no score without input';
+
   return (
     <BlockChrome title={title} remaining={remaining} blockIndex={blockIndex} blockCount={blockCount} onSkip={finish}>
       {teach && <div className="teach">{teach}</div>}
 
       <div className="prompt">
-        <div className="prompt-kicker">{connected ? atom.prompt : 'Play along'}</div>
+        <div className="prompt-kicker">{canScore ? atom.prompt : 'Play along'}</div>
         <div className={'prompt-note' + (done ? ' good' : '')}>
-          {test.kind === 'chord' ? test.pitches.map((p) => p.replace(/\d/, '')).join(' ') : targetPcs[cursor % targetPcs.length]}
+          {test.kind === 'chord'
+            ? test.pitches.map((p) => p.replace(/\d/, '')).join(' ')
+            : targetPcs[cursor % targetPcs.length]}
         </div>
         {done ? (
           <div className="prompt-feedback good">Nice.</div>
         ) : (
-          <div className="prompt-feedback">{connected ? progress : 'No score without a keyboard'}</div>
+          <div className="prompt-feedback">{canScore ? progress : unscoredMsg}</div>
         )}
       </div>
 
       <Keyboard highlight={highlight} played={played} />
 
-      {!connected && test.kind !== 'sequence' && !done && (
-        <button
-          className="btn-secondary big"
-          onClick={() => {
-            if (test.kind === 'chord') {
-              finish();
-            } else {
-              const next = cursor + 1;
-              setCursor(next);
-              if (next >= expected.length) finish();
-            }
-          }}
-        >
+      {!canScore && !done && (
+        <button className="btn-secondary big" onClick={finish}>
           Got it — next
         </button>
       )}

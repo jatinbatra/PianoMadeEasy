@@ -11,7 +11,8 @@ interface Props {
 
 /** Honest post-session summary. Measured, never inflated. */
 export function Summary({ result, streak, atomsStrengthened, chunkOwned, onHome }: Props) {
-  const connected = result.mode === 'connected';
+  const scored = result.mode !== 'untethered';
+  const viaMic = result.mode === 'mic';
   const acc = result.accuracy != null ? Math.round(result.accuracy * 100) : null;
 
   return (
@@ -24,18 +25,18 @@ export function Summary({ result, streak, atomsStrengthened, chunkOwned, onHome 
           <span className="stat-num">{result.notesPlayed}</span>
           <span className="stat-label">notes played</span>
         </li>
-        {connected && acc != null ? (
+        {scored && acc != null ? (
           <li>
             <span className="stat-num">{acc}%</span>
-            <span className="stat-label">notes correct</span>
+            <span className="stat-label">notes correct{viaMic ? ' (mic)' : ''}</span>
           </li>
         ) : (
           <li>
             <span className="stat-num">—</span>
-            <span className="stat-label">unverified (no keyboard)</span>
+            <span className="stat-label">unscored (no input)</span>
           </li>
         )}
-        {connected && (
+        {scored && (
           <li>
             <span className="stat-num">{atomsStrengthened}</span>
             <span className="stat-label">skills strengthened</span>
@@ -45,12 +46,13 @@ export function Summary({ result, streak, atomsStrengthened, chunkOwned, onHome 
 
       {chunkOwned && <p className="chunk-owned">🎉 New chunk owned — played clean at tempo twice!</p>}
 
-      {!connected && (
+      {!scored && (
         <p className="hint">
-          Practiced without the cable — it still counts. Plug in the Yamaha next time to
-          track accuracy.
+          Practiced without input — it still counts. Turn on the mic (or plug in the Yamaha)
+          next time to track accuracy.
         </p>
       )}
+      {viaMic && <p className="hint">Scored by mic — great for single notes. Chords need the keyboard.</p>}
 
       <button className="btn-primary" onClick={onHome}>
         Done

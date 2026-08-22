@@ -20,7 +20,8 @@ export function localDateKey(d: Date = new Date()): string {
 export async function logPracticeDay(mode: InputMode, minutes: number): Promise<void> {
   const date = localDateKey();
   const existing = await db.days.get(date);
-  const verified = mode === 'connected' || (existing?.verified ?? false);
+  // MIDI and mic are both measured ("verified"); untethered just counts the day.
+  const verified = mode !== 'untethered' || (existing?.verified ?? false);
   const day: PracticeDay = {
     date,
     verified,
