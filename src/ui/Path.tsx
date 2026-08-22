@@ -51,7 +51,7 @@ export function Path({ progress, onBack }: { progress: ProgressMap; onBack: () =
         </button>
         <h1>Your path</h1>
       </header>
-      <p className="hint">
+      <p className="path-intro">
         Every session pulls from here automatically — you never have to choose. This is just so you
         can see the whole road.
       </p>

@@ -1331,3 +1331,17 @@ h1, h2, h3,
   height: 8rem;
   max-width: none;
 }
+
+/* Teaching: the "why this matters" line + left-aligned path intro. */
+.teach-why {
+  margin: 0.8rem 0 0;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+.path-intro {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 0 0 0.4rem;
+  max-width: 46ch;
+}

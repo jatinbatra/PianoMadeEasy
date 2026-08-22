@@ -17,37 +17,19 @@ interface Props {
   onBack: () => void;
 }
 
-type SkillState = 'strong' | 'due' | 'stuck' | 'next' | 'locked';
-
-function skillState(atomId: string, progress: ProgressMap): SkillState {
-  const p = progress[atomId];
-  const today = localDateKey();
-  if (p?.introduced) {
-    if (p.consecutiveFailures >= 2) return 'stuck';
-    return isDecayed(p, today) ? 'due' : 'strong';
-  }
-  const atom = ATOMS.find((a) => a.id === atomId)!;
-  const ready = atom.prerequisites.every((pid) => {
-    const pp = progress[pid];
-    return pp?.introduced && pp.repetitions >= 1;
-  });
-  return ready ? 'next' : 'locked';
-}
-
-const STATE_LABEL: Record<SkillState, string> = {
-  strong: 'strong',
-  due: 'review due',
-  stuck: 'needs work',
-  next: 'up next',
-  locked: 'locked',
-};
-
-/** The history + progress view: honest, measured, at a glance. */
+/** The history + progress view: honest, measured, at a glance. Skills live in
+ *  the Path tab — here we only summarise them. */
 export function Progress({ days, progress, songs, chunkMap, onBack }: Props) {
-  // This week (last 7 days).
-  const weekStart = shiftDay(localDateKey(), -6);
+  const today = localDateKey();
+  const weekStart = shiftDay(today, -6);
   const thisWeek = days.filter((d) => d.date >= weekStart);
   const weekMinutes = thisWeek.reduce((s, d) => s + d.minutes, 0);
+
+  const learned = ATOMS.filter((a) => progress[a.id]?.introduced).length;
+  const due = ATOMS.filter((a) => {
+    const p = progress[a.id];
+    return p?.introduced && isDecayed(p, today);
+  }).length;
 
   return (
     <div className="progress-screen">
@@ -78,17 +60,11 @@ export function Progress({ days, progress, songs, chunkMap, onBack }: Props) {
 
       <section className="card">
         <h3>Skills</h3>
-        <ul className="skill-list">
-          {ATOMS.map((a) => {
-            const st = skillState(a.id, progress);
-            return (
-              <li key={a.id} className="skill-row">
-                <span className="skill-name">{a.label}</span>
-                <span className={`pill ${st}`}>{STATE_LABEL[st]}</span>
-              </li>
-            );
-          })}
-        </ul>
+        <p className="week-line">
+          <strong>{learned}</strong> learned · <strong>{due}</strong> due for review ·{' '}
+          <strong>{ATOMS.length - learned}</strong> still ahead
+        </p>
+        <p className="hint">See the whole road in the Path tab.</p>
       </section>
 
       <section className="card">

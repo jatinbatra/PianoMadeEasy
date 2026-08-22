@@ -39,20 +39,28 @@ interface SongStep {
 }
 type Step = AtomStep | SongStep;
 
-function teachNode(atom: Atom, index: number, reteach: boolean): ReactNode {
+function teachNode(atom: Atom, index: number, reteach: boolean, motivation?: string): ReactNode {
   const angle = atom.teach[Math.min(index, atom.teach.length - 1)];
   return (
     <>
       {reteach && <p className="teach-retry">Let's try that a different way.</p>}
       <p className="teach-lead">{angle.title}</p>
       <p className="teach-sub">{angle.body}</p>
+      {motivation && <p className="teach-why">{motivation}</p>}
     </>
   );
 }
 
+/** "Why am I learning this?" — tie the skill to the song he's working toward. */
+function motivationFor(atom: Atom, song: Song): string | undefined {
+  const chunk = song.chunks.find((c) => c.requiresAtoms.includes(atom.id));
+  if (chunk) return `You’ll use this in ${song.title} — ${chunk.label.replace(/—.*$/, '').trim()}.`;
+  return undefined;
+}
+
 /** Builds the three-part session (recall → new/current skill → song) from the
  *  plan. Only the durations scale with session length. */
-function buildSteps(plan: DayPlan, length: SessionLength): Step[] {
+function buildSteps(plan: DayPlan, length: SessionLength, song: Song): Step[] {
   const steps: Step[] = [];
 
   // Block 1 — recall (fight decay). Warm-up on a cold start with nothing to recall.
@@ -71,7 +79,12 @@ function buildSteps(plan: DayPlan, length: SessionLength): Step[] {
       type: 'atom',
       atom: plan.focus.atom,
       title: plan.focus.mode === 'reteach' ? 'Let’s nail this one' : 'New skill',
-      teach: teachNode(plan.focus.atom, plan.focus.teachIndex, plan.focus.mode === 'reteach'),
+      teach: teachNode(
+        plan.focus.atom,
+        plan.focus.teachIndex,
+        plan.focus.mode === 'reteach',
+        motivationFor(plan.focus.atom, song),
+      ),
       seconds: length.focus,
     });
   } else if (plan.recall.length > 0) {
@@ -89,7 +102,7 @@ function buildSteps(plan: DayPlan, length: SessionLength): Step[] {
 
 /** Runs the atom-driven session and reports the result plus per-atom outcomes. */
 export function SessionRunner({ input, plan, length, song, chunk, onComplete, onQuit }: Props) {
-  const steps = useMemo(() => buildSteps(plan, length), [plan, length]);
+  const steps = useMemo(() => buildSteps(plan, length, song), [plan, length, song]);
   const [i, setI] = useState(0);
   const startedAt = useRef(Date.now());
   const notesPlayed = useRef(0);
