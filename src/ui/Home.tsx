@@ -1,5 +1,7 @@
+import { useMemo, useState } from 'react';
+import { Keyboard } from './Keyboard';
+import { noteName } from '../midi/notes';
 import type { Input } from '../input/useInput';
-import { InputStatus } from './InputStatus';
 import type { StreakInfo } from '../streak/streak';
 
 interface HeroMetric {
@@ -13,7 +15,6 @@ interface Props {
   streak: StreakInfo;
   skillsLearned: number;
   hero: HeroMetric | null;
-  /** Plain-language lines describing today's session. */
   previewLines: string[];
   onStart: (minutes: number) => void;
   onOpenProgress: () => void;
@@ -23,7 +24,15 @@ interface Props {
   onOpenFreePlay: () => void;
 }
 
-/** Zero decisions on open. One primary button (5 min), always. */
+const INVITATIONS = [
+  'It’s grey out. Come play.',
+  'Rain’s on. Five minutes.',
+  'The mountain’s hidden today. Play anyway.',
+  'Cold out there — warm in here.',
+  'Home from the walk. Sit down.',
+];
+
+/** Home: a lit window. One clear action, an honest line, a quiet tab bar. */
 export function Home({
   input,
   streak,
@@ -37,91 +46,91 @@ export function Home({
   onOpenPath,
   onOpenFreePlay,
 }: Props) {
+  const invite = useMemo(() => INVITATIONS[Math.floor(Math.random() * INVITATIONS.length)], []);
+  const done = streak.practicedToday;
+  const [lastKey, setLastKey] = useState<number | null>(null);
+
   return (
     <div className="home">
-      <div className="brand">JatinSitDown</div>
-      <div className="tagline">Five honest minutes at the keys.</div>
+      <header className="masthead">
+        <div className="mark">JatinSitDown</div>
+        <div className="streak-chip" title="Day streak">
+          <span className="flame">{streak.current > 0 ? '🔥' : '·'}</span>
+          {streak.current}
+        </div>
+      </header>
 
-      {hero && (
-        <div className="hero-metric">
-          <div className="hero-song">{hero.title}</div>
-          <div className="hero-count">
-            {hero.owned} <span>of {hero.total}</span>
+      <div className="home-main">
+        <h1 className="invite">{done ? 'That’s today, done.' : invite}</h1>
+
+        {streak.freezeActive && <p className="freeze-line">Streak safe — your weekly skip has you covered.</p>}
+        {streak.missedYesterday && <p className="nudge">Yesterday got away. Five minutes puts you back.</p>}
+
+        <div className="today">
+          <div className="today-head">
+            <span>Today</span>
+            <span className="today-sub">shaped by where you are</span>
           </div>
-          <div className="hero-label">chunks owned</div>
-        </div>
-      )}
-
-      <div className="streak">
-        <div className="streak-num">{streak.current}</div>
-        <div className="streak-label">
-          day{streak.current === 1 ? '' : 's'} in a row{streak.current > 0 ? ' 🔥' : ''}
-        </div>
-      </div>
-
-      {streak.freezeActive && <p className="freeze-line">Streak safe — your weekly skip has you covered.</p>}
-      {streak.missedYesterday && <p className="nudge">Yesterday got away. Five minutes puts you back.</p>}
-
-      {/* Today's plan preview so it's clear what "Start" will do. */}
-      {previewLines.length > 0 && (
-        <div className="plan-wrap">
-          <div className="plan-heading">Today, shaped by where you are</div>
-          <ol className="plan-preview">
+          <ol className="plan">
             {previewLines.map((line, i) => (
               <li key={i}>{line}</li>
             ))}
           </ol>
+          {hero && (
+            <div className="song-progress-line">
+              {hero.title} · {hero.owned}/{hero.total} chunks
+              {skillsLearned > 0 ? ` · ${skillsLearned} skills` : ''}
+            </div>
+          )}
         </div>
-      )}
 
-      {streak.practicedToday ? (
-        <>
-          <p className="done-line">Today's done. Nice.</p>
-          <button className="btn-primary" onClick={() => onStart(5)}>
-            Practice again
-            <span className="btn-sub">5 minutes</span>
-          </button>
-        </>
-      ) : (
+        <div className="home-keys">
+          <div className="home-keys-cap">
+            {lastKey != null ? `That’s ${noteName(lastKey).replace(/\d/, '')}` : 'Warm up your fingers — tap a key'}
+          </div>
+          <Keyboard
+            octaves={1}
+            played={lastKey}
+            onTap={(m) => {
+              input.tapNote(m);
+              setLastKey(m);
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="home-cta">
         <button className="btn-primary" onClick={() => onStart(5)}>
-          Start today's session
-          <span className="btn-sub">5 minutes</span>
+          <span>{done ? 'Play again' : 'Start today’s session'}</span>
+          <span className="btn-sub">5 minutes · counts as a full day</span>
         </button>
-      )}
-
-      <div className="length-row">
-        <span className="length-label">or go longer:</span>
-        {[10, 30, 60].map((m) => (
-          <button key={m} className="length-chip" onClick={() => onStart(m)}>
-            {m} min
+        <div className="length-row">
+          <span className="length-label">more time?</span>
+          {[10, 30, 60].map((m) => (
+            <button key={m} className="length-chip" onClick={() => onStart(m)}>
+              {m}
+            </button>
+          ))}
+          <button className="length-chip ghost" onClick={onOpenFreePlay}>
+            free play
           </button>
-        ))}
+        </div>
+        <div className="input-note">{inputLabel(input)}</div>
       </div>
 
-      <button className="btn-secondary big" onClick={onOpenFreePlay}>
-        🎹 Free play — just noodle
-      </button>
-
-      {skillsLearned > 0 && (
-        <p className="skills-line">{skillsLearned} skill{skillsLearned === 1 ? '' : 's'} learned</p>
-      )}
-
-      <InputStatus input={input} />
-
-      <div className="home-links">
-        <button className="link-btn" onClick={onOpenPath}>
-          Your path
-        </button>
-        <button className="link-btn" onClick={onOpenProgress}>
-          Progress
-        </button>
-        <button className="link-btn" onClick={onOpenSongs}>
-          Songs
-        </button>
-        <button className="link-btn" onClick={onOpenSettings}>
-          Settings
-        </button>
-      </div>
+      <nav className="tabbar">
+        <button onClick={onOpenPath}>Path</button>
+        <button onClick={onOpenProgress}>Progress</button>
+        <button onClick={onOpenSongs}>Songs</button>
+        <button onClick={onOpenSettings}>Settings</button>
+      </nav>
     </div>
   );
+}
+
+function inputLabel(input: Input): string {
+  if (input.mode === 'midi') return `Keyboard: ${input.devices[0] ?? 'connected'}`;
+  if (input.mode === 'mic') return 'Listening through the mic';
+  if (input.mode === 'touch') return 'Tap the on-screen piano — or plug in a keyboard';
+  return 'No input — sessions still count';
 }

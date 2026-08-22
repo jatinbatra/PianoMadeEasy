@@ -1157,3 +1157,177 @@ h1, h2, h3,
     transition: none !important;
   }
 }
+
+/* ============================================================
+   Home v2 — editorial composition (masthead / invite / plan / CTA / tabs).
+   Overrides the old centered stack.
+   ============================================================ */
+.home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  padding-top: 0.4rem;
+}
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0 0.9rem;
+  border-bottom: 1px solid var(--line);
+}
+.masthead .mark {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  padding: 0;
+}
+.masthead .mark::after { content: none; }
+.streak-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+}
+
+.home-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  padding: 1.7rem 0;
+}
+.invite {
+  font-family: var(--font-display);
+  font-size: 2.7rem;
+  line-height: 1.03;
+  margin: 0;
+  max-width: 13ch;
+}
+
+.today {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+.today-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.today-head > span:first-child {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.today-sub {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+.plan {
+  list-style: none;
+  margin: 0.8rem 0 0;
+  padding: 0;
+  counter-reset: p;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.plan li {
+  counter-increment: p;
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 1.08rem;
+}
+.plan li::before {
+  content: counter(p);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+.song-progress-line {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+
+.home-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-bottom: 0.4rem;
+}
+.home-cta .btn-primary {
+  align-items: flex-start;
+  text-align: left;
+  padding: 1.1rem 1.3rem;
+  border-radius: 12px;
+  max-width: none;
+}
+.home-cta .btn-primary > span:first-child {
+  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+.home .length-row {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.length-chip {
+  min-width: 2.6rem;
+  text-align: center;
+}
+.length-chip.ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.input-note {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.tabbar {
+  display: flex;
+  gap: 0.2rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.6rem;
+}
+.tabbar button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.55rem 0.2rem;
+  cursor: pointer;
+}
+.tabbar button:active {
+  color: var(--accent);
+}
+
+/* Home mini-piano — fills the space and makes the instrument visible. */
+.home-keys {
+  margin-top: auto;
+}
+.home-keys-cap {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.home-keys .keyboard {
+  height: 8rem;
+  max-width: none;
+}
