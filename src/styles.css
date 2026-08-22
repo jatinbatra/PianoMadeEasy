@@ -704,6 +704,44 @@ body {
   text-align: center;
 }
 
+/* ---------- Heard readout + legend ---------- */
+.heard-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.legend .sw {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+}
+.legend .sw.target {
+  background: var(--target);
+}
+.legend .sw.played {
+  background: var(--good);
+}
+.legend .sw.played:not(:first-child) {
+  margin-left: 0.6rem;
+}
+.heard {
+  font-size: 1.3rem;
+  color: var(--text);
+}
+.heard strong {
+  color: var(--good);
+  font-size: 1.5rem;
+}
+
 /* ---------- Summary ---------- */
 .summary {
   flex: 1;

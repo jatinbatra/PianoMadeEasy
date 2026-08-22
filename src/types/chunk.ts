@@ -13,4 +13,6 @@ export interface ChunkProgress {
   /** Distinct dates played clean at target tempo. */
   cleanDays: string[];
   owned: boolean;
+  /** ms epoch of the last write — for last-write-wins sync (Phase 3). */
+  updatedAt: number;
 }

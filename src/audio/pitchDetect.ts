@@ -1,65 +1,68 @@
-// Monophonic pitch detection via normalized autocorrelation. Good enough for
-// one piano note at a time — which is exactly the mic use case. It cannot hear
-// chords; callers must treat chord tests as unverified under mic.
+// Monophonic pitch detection via the McLeod Pitch Method (normalized square
+// difference function). More robust than plain autocorrelation: it gives a
+// "clarity" score we can gate on, so room noise and weak signals don't produce
+// ghost notes, and it locks onto the fundamental rather than an octave.
+// Still one-note-at-a-time — it cannot resolve chords.
+
+/** Clarity below this isn't a confident pitch. */
+const CLARITY_GATE = 0.9;
+/** RMS below this is treated as silence. */
+const RMS_GATE = 0.006;
 
 /**
- * Estimate the fundamental frequency (Hz) of a time-domain buffer.
- * Returns -1 when the signal is too quiet or no clear pitch is found.
+ * Estimate fundamental frequency (Hz) of a time-domain buffer, or -1 when there
+ * is no confident pitch.
  */
-export function autoCorrelate(buffer: Float32Array, sampleRate: number): number {
-  const SIZE = buffer.length;
+export function detectPitch(buf: Float32Array, sampleRate: number): number {
+  const size = buf.length;
 
-  // Gate on loudness (RMS) so silence/room noise doesn't produce ghost notes.
   let rms = 0;
-  for (let i = 0; i < SIZE; i++) rms += buffer[i] * buffer[i];
-  rms = Math.sqrt(rms / SIZE);
-  if (rms < 0.01) return -1;
+  for (let i = 0; i < size; i++) rms += buf[i] * buf[i];
+  rms = Math.sqrt(rms / size);
+  if (rms < RMS_GATE) return -1;
 
-  // Trim to the loud region.
-  let start = 0;
-  let end = SIZE - 1;
-  const threshold = 0.2;
-  for (let i = 0; i < SIZE / 2; i++) {
-    if (Math.abs(buffer[i]) < threshold) start = i;
-    else break;
-  }
-  for (let i = 1; i < SIZE / 2; i++) {
-    if (Math.abs(buffer[SIZE - i]) < threshold) end = SIZE - i;
-    else break;
-  }
-  const trimmed = buffer.slice(start, end);
-  const n = trimmed.length;
+  // Only search lags inside a sane piano range (~40 Hz to ~2.1 kHz).
+  const minTau = Math.max(2, Math.floor(sampleRate / 2100));
+  const maxTau = Math.min(size - 1, Math.floor(sampleRate / 40));
 
-  const c = new Float32Array(n).fill(0);
-  for (let lag = 0; lag < n; lag++) {
-    for (let i = 0; i < n - lag; i++) c[lag] += trimmed[i] * trimmed[i + lag];
+  const nsdf = new Float32Array(maxTau + 1);
+  let globalMax = 0;
+  for (let tau = minTau; tau <= maxTau; tau++) {
+    let acf = 0;
+    let div = 0;
+    for (let i = 0; i < size - tau; i++) {
+      acf += buf[i] * buf[i + tau];
+      div += buf[i] * buf[i] + buf[i + tau] * buf[i + tau];
+    }
+    const v = div > 0 ? (2 * acf) / div : 0;
+    nsdf[tau] = v;
+    if (v > globalMax) globalMax = v;
   }
 
-  // First rising edge after the initial dip.
-  let d = 0;
-  while (d < n - 1 && c[d] > c[d + 1]) d++;
+  if (globalMax < CLARITY_GATE) return -1;
 
-  let maxval = -1;
-  let maxpos = -1;
-  for (let i = d; i < n; i++) {
-    if (c[i] > maxval) {
-      maxval = c[i];
-      maxpos = i;
+  // First local maximum that clears most of the global peak = the fundamental.
+  const threshold = 0.85 * globalMax;
+  let peak = -1;
+  for (let tau = minTau + 1; tau < maxTau; tau++) {
+    if (nsdf[tau] > threshold && nsdf[tau] > nsdf[tau - 1] && nsdf[tau] >= nsdf[tau + 1]) {
+      peak = tau;
+      break;
     }
   }
-  let T0 = maxpos;
-  if (T0 <= 0) return -1;
+  if (peak < 0) return -1;
 
-  // Parabolic interpolation for a sub-sample estimate.
-  const x1 = c[T0 - 1] ?? 0;
-  const x2 = c[T0];
-  const x3 = c[T0 + 1] ?? 0;
+  // Parabolic interpolation for a sub-sample period estimate.
+  const x1 = nsdf[peak - 1];
+  const x2 = nsdf[peak];
+  const x3 = nsdf[peak + 1];
   const a = (x1 + x3 - 2 * x2) / 2;
   const b = (x3 - x1) / 2;
-  if (a) T0 -= b / (2 * a);
+  let tau = peak;
+  if (a) tau -= b / (2 * a);
 
-  const freq = sampleRate / T0;
-  if (freq < 40 || freq > 2100) return -1; // outside a sane piano range
+  const freq = sampleRate / tau;
+  if (freq < 40 || freq > 2100) return -1;
   return freq;
 }
 

@@ -95,6 +95,20 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, input, blockIndex, b
 
       <Keyboard highlight={[targetPc]} played={played} />
 
+      {scored && (
+        <div className="heard-row">
+          <span className="legend">
+            <span className="sw target" /> play this
+            <span className="sw played" /> what it heard
+          </span>
+          {played != null && (
+            <span className="heard">
+              Heard: <strong>{pitchClass(played)}</strong> {pitchClass(played) === targetPc ? '✓' : '✗'}
+            </span>
+          )}
+        </div>
+      )}
+
       {!scored && (
         <p className="hint">No input — this still counts for your streak. Play along on any piano.</p>
       )}

@@ -118,6 +118,21 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
 
       <Keyboard highlight={highlight} played={played} />
 
+      {canScore && (
+        <div className="heard-row">
+          <span className="legend">
+            <span className="sw target" /> play this
+            <span className="sw played" /> what it heard
+          </span>
+          {played != null && (
+            <span className="heard">
+              Heard: <strong>{pitchClass(played)}</strong>{' '}
+              {test.kind !== 'chord' && (pitchClass(played) === targetPcs[cursor % targetPcs.length] ? '✓' : '✗')}
+            </span>
+          )}
+        </div>
+      )}
+
       {!canScore && !done && (
         <button className="btn-secondary big" onClick={finish}>
           Got it — next

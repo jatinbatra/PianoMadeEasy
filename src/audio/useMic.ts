@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { autoCorrelate, freqToMidi } from './pitchDetect';
+import { detectPitch, freqToMidi } from './pitchDetect';
 import type { LiveNote } from '../midi/useMidi';
 
 type NoteListener = (n: LiveNote) => void;
@@ -51,6 +51,7 @@ export function useMic(): UseMic {
     streamRef.current = stream;
     const ctx = new AudioContext();
     ctxRef.current = ctx;
+    await ctx.resume();
     const source = ctx.createMediaStreamSource(stream);
     const analyser = ctx.createAnalyser();
     analyser.fftSize = 2048;
@@ -61,14 +62,20 @@ export function useMic(): UseMic {
     let candidate: number | null = null;
     let candidateCount = 0;
     let silence = 0;
+    let frame = 0;
 
     const tick = () => {
+      rafRef.current = requestAnimationFrame(tick);
+      // Pitch analysis is heavy (O(n·lags)); run it ~30fps to stay smooth.
+      frame += 1;
+      if (frame % 2 === 0) return;
+
       analyser.getFloatTimeDomainData(buf);
       let rms = 0;
       for (let i = 0; i < buf.length; i++) rms += buf[i] * buf[i];
       setLevel(Math.min(1, Math.sqrt(rms / buf.length) * 6));
 
-      const freq = autoCorrelate(buf, ctx.sampleRate);
+      const freq = detectPitch(buf, ctx.sampleRate);
       const note = freq > 0 ? freqToMidi(freq) : null;
 
       if (note === null) {
@@ -96,7 +103,6 @@ export function useMic(): UseMic {
           }
         }
       }
-      rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
     setEnabled(true);

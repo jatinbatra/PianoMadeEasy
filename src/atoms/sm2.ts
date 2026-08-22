@@ -22,6 +22,8 @@ export interface AtomProgress {
   consecutiveFailures: number;
   /** Has it ever been passed? Distinguishes "new" from "learned". */
   introduced: boolean;
+  /** ms epoch of the last write — for last-write-wins sync (Phase 3). */
+  updatedAt: number;
 }
 
 /** Fresh state for an atom that has never been practiced. */
@@ -35,6 +37,7 @@ export function newAtomProgress(atomId: string, today = localDateKey()): AtomPro
     lastReviewed: null,
     consecutiveFailures: 0,
     introduced: false,
+    updatedAt: 0,
   };
 }
 
@@ -81,6 +84,7 @@ export function review(prev: AtomProgress, quality: number, today = localDateKey
       lastReviewed: today,
       consecutiveFailures: prev.consecutiveFailures + 1,
       introduced: prev.introduced,
+      updatedAt: Date.now(),
     };
   }
 
@@ -95,6 +99,7 @@ export function review(prev: AtomProgress, quality: number, today = localDateKey
     lastReviewed: today,
     consecutiveFailures: 0,
     introduced: true,
+    updatedAt: Date.now(),
   };
 }
 

@@ -24,6 +24,7 @@ export function newChunkProgress(songId: string, chunkId: string): ChunkProgress
     maxCleanTempo: 0,
     cleanDays: [],
     owned: false,
+    updatedAt: 0,
   };
 }
 
@@ -60,6 +61,7 @@ export function updateChunkProgress(
     maxCleanTempo: clean ? Math.max(prev.maxCleanTempo, attempt.tempo) : prev.maxCleanTempo,
     cleanDays,
     owned: cleanDays.length >= 2,
+    updatedAt: Date.now(),
   };
 }
 
