@@ -19,10 +19,24 @@ interface Props {
   onOpenProgress: () => void;
   onOpenSongs: () => void;
   onOpenSettings: () => void;
+  onOpenPath: () => void;
+  onOpenFreePlay: () => void;
 }
 
 /** Zero decisions on open. One primary button (5 min), always. */
-export function Home({ input, streak, skillsLearned, hero, previewLines, onStart, onOpenProgress, onOpenSongs, onOpenSettings }: Props) {
+export function Home({
+  input,
+  streak,
+  skillsLearned,
+  hero,
+  previewLines,
+  onStart,
+  onOpenProgress,
+  onOpenSongs,
+  onOpenSettings,
+  onOpenPath,
+  onOpenFreePlay,
+}: Props) {
   return (
     <div className="home">
       <div className="brand">JatinSitDown</div>
@@ -84,6 +98,10 @@ export function Home({ input, streak, skillsLearned, hero, previewLines, onStart
         ))}
       </div>
 
+      <button className="btn-secondary big" onClick={onOpenFreePlay}>
+        🎹 Free play — just noodle
+      </button>
+
       {skillsLearned > 0 && (
         <p className="skills-line">{skillsLearned} skill{skillsLearned === 1 ? '' : 's'} learned</p>
       )}
@@ -91,6 +109,9 @@ export function Home({ input, streak, skillsLearned, hero, previewLines, onStart
       <InputStatus input={input} />
 
       <div className="home-links">
+        <button className="link-btn" onClick={onOpenPath}>
+          Your path
+        </button>
         <button className="link-btn" onClick={onOpenProgress}>
           Progress
         </button>

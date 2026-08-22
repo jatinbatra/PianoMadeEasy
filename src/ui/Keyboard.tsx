@@ -9,37 +9,51 @@ interface KeyboardProps {
   showLabels?: boolean;
   /** When set, keys are playable: tapping calls this with the MIDI note. */
   onTap?: (midi: number) => void;
+  /** How many octaves to draw (default 1). */
+  octaves?: number;
+  /** Octave of the leftmost C (default 4). */
+  startOctave?: number;
 }
 
-// One octave, C through B. Beginner-friendly: labelled, high contrast.
 const WHITE: PitchClass[] = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 const BLACK_AFTER: Record<number, PitchClass> = { 0: 'C#', 1: 'D#', 3: 'F#', 4: 'G#', 5: 'A#' };
-const OCT = 4;
 
-export function Keyboard({ highlight = [], played, showLabels = true, onTap }: KeyboardProps) {
+export function Keyboard({
+  highlight = [],
+  played,
+  showLabels = true,
+  onTap,
+  octaves = 1,
+  startOctave = 4,
+}: KeyboardProps) {
   const playedPc = played != null ? pitchClass(played) : null;
   const targets = new Set<PitchClass>(highlight);
   const playable = !!onTap;
 
-  const press = (pc: PitchClass) => (e: React.PointerEvent) => {
+  const press = (midi: number) => (e: React.PointerEvent) => {
     if (!onTap) return;
     e.preventDefault();
-    onTap(midiFor(pc, OCT));
+    onTap(midi);
   };
+
+  // Flatten octaves into a single row of white-key slots.
+  const slots = Array.from({ length: octaves }, (_, o) => o).flatMap((o) =>
+    WHITE.map((pc, i) => ({ pc, i, oct: startOctave + o })),
+  );
 
   return (
     <div className={'keyboard' + (playable ? ' playable' : '')} role="group" aria-label="Piano keyboard">
-      {WHITE.map((pc, i) => {
+      {slots.map(({ pc, i, oct }) => {
         const isTarget = targets.has(pc);
-        const isPlayed = playedPc === pc;
+        const isPlayed = playedPc === pc && (played == null || Math.floor(played / 12) - 1 === oct);
         const black = BLACK_AFTER[i];
         const blackIsTarget = black && targets.has(black);
-        const blackIsPlayed = playedPc === black;
+        const blackIsPlayed = black && playedPc === black;
         return (
-          <div key={pc} className="key-slot">
+          <div key={`${pc}${oct}`} className="key-slot">
             <div
               className={'white-key' + (isTarget ? ' target' : '') + (isPlayed ? ' played' : '')}
-              onPointerDown={press(pc)}
+              onPointerDown={press(midiFor(pc, oct))}
               role={playable ? 'button' : undefined}
               aria-label={playable ? `Play ${pc}` : undefined}
             >
@@ -48,7 +62,7 @@ export function Keyboard({ highlight = [], played, showLabels = true, onTap }: K
             {black && (
               <div
                 className={'black-key' + (blackIsTarget ? ' target' : '') + (blackIsPlayed ? ' played' : '')}
-                onPointerDown={press(black)}
+                onPointerDown={press(midiFor(black, oct))}
                 role={playable ? 'button' : undefined}
                 aria-label={playable ? `Play ${black}` : undefined}
               />

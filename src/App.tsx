@@ -5,6 +5,8 @@ import { SessionRunner, type AtomOutcome } from './ui/SessionRunner';
 import { Summary } from './ui/Summary';
 import { SongLibrary } from './ui/SongLibrary';
 import { Progress } from './ui/Progress';
+import { Path } from './ui/Path';
+import { FreePlay } from './ui/FreePlay';
 import { maybeNotify } from './notify/notify';
 
 // Settings pulls in the Supabase client — lazy-load so it isn't in the initial
@@ -45,7 +47,7 @@ import { pickChunk, ownedCount, newChunkProgress, updateChunkProgress, chunkKey,
 import type { Song, SongChunk } from './types/song';
 import type { SessionResult, PracticeDay } from './types';
 
-type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress' | 'settings';
+type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress' | 'settings' | 'path' | 'freeplay';
 
 export function App() {
   const input = useInput();
@@ -181,6 +183,8 @@ export function App() {
           onOpenProgress={() => setScreen('progress')}
           onOpenSongs={() => setScreen('songs')}
           onOpenSettings={() => setScreen('settings')}
+          onOpenPath={() => setScreen('path')}
+          onOpenFreePlay={() => setScreen('freeplay')}
         />
       )}
       {screen === 'session' && plan && sessionSong && (
@@ -203,6 +207,8 @@ export function App() {
           onHome={() => setScreen('home')}
         />
       )}
+      {screen === 'path' && <Path progress={progress} onBack={() => setScreen('home')} />}
+      {screen === 'freeplay' && <FreePlay input={input} onBack={() => setScreen('home')} />}
       {screen === 'progress' && (
         <Progress
           days={days}
