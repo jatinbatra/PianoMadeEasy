@@ -18,10 +18,11 @@ interface Props {
   onStart: (minutes: number) => void;
   onOpenProgress: () => void;
   onOpenSongs: () => void;
+  onOpenSettings: () => void;
 }
 
 /** Zero decisions on open. One primary button (5 min), always. */
-export function Home({ input, streak, skillsLearned, hero, previewLines, onStart, onOpenProgress, onOpenSongs }: Props) {
+export function Home({ input, streak, skillsLearned, hero, previewLines, onStart, onOpenProgress, onOpenSongs, onOpenSettings }: Props) {
   return (
     <div className="home">
       <div className="brand">JatinSitDown</div>
@@ -91,6 +92,9 @@ export function Home({ input, streak, skillsLearned, hero, previewLines, onStart
         </button>
         <button className="link-btn" onClick={onOpenSongs}>
           Songs
+        </button>
+        <button className="link-btn" onClick={onOpenSettings}>
+          Settings
         </button>
       </div>
     </div>

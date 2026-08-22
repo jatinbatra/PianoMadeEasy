@@ -1,10 +1,29 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, lazy, Suspense } from 'react';
 import { useInput } from './input/useInput';
 import { Home } from './ui/Home';
 import { SessionRunner, type AtomOutcome } from './ui/SessionRunner';
 import { Summary } from './ui/Summary';
 import { SongLibrary } from './ui/SongLibrary';
 import { Progress } from './ui/Progress';
+import { maybeNotify } from './notify/notify';
+
+// Settings pulls in the Supabase client — lazy-load so it isn't in the initial
+// bundle for the (common) case where sync isn't configured.
+const Settings = lazy(() => import('./ui/Settings').then((m) => ({ default: m.Settings })));
+
+/** Run a sync if Supabase is configured; dynamically imported to keep it out
+ *  of the main bundle. Silent on any failure — the app is local-first. */
+async function trySync(): Promise<boolean> {
+  try {
+    const { supabaseEnabled } = await import('./sync/supabase');
+    if (!supabaseEnabled) return false;
+    const { syncNow } = await import('./sync/sync');
+    const r = await syncNow();
+    return r.synced;
+  } catch {
+    return false;
+  }
+}
 import { computeStreak, type StreakInfo } from './streak/streak';
 import {
   getAllDays,
@@ -26,7 +45,7 @@ import { pickChunk, ownedCount, newChunkProgress, updateChunkProgress, chunkKey,
 import type { Song, SongChunk } from './types/song';
 import type { SessionResult, PracticeDay } from './types';
 
-type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress';
+type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress' | 'settings';
 
 export function App() {
   const input = useInput();
@@ -64,10 +83,18 @@ export function App() {
   useEffect(() => {
     void (async () => {
       await seedSongsIfEmpty();
+      await trySync();
       await refresh();
       setLoaded(true);
     })();
   }, [refresh]);
+
+  // Practice-reminder check: on load and once a minute while the app is open.
+  useEffect(() => {
+    void maybeNotify();
+    const id = setInterval(() => void maybeNotify(), 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   const handleStart = useCallback(
     (minutes: number) => {
@@ -117,6 +144,7 @@ export function App() {
       setLastGains(gains);
       setLastChunkOwned(chunkOwned);
       setScreen('summary');
+      void trySync();
     },
     [progress, chunkMap, sessionSong, refresh],
   );
@@ -152,6 +180,7 @@ export function App() {
           onStart={handleStart}
           onOpenProgress={() => setScreen('progress')}
           onOpenSongs={() => setScreen('songs')}
+          onOpenSettings={() => setScreen('settings')}
         />
       )}
       {screen === 'session' && plan && sessionSong && (
@@ -182,6 +211,11 @@ export function App() {
           chunkMap={chunkMap}
           onBack={() => setScreen('home')}
         />
+      )}
+      {screen === 'settings' && (
+        <Suspense fallback={<div className="loading">…</div>}>
+          <Settings onBack={() => setScreen('home')} onSynced={refresh} />
+        </Suspense>
       )}
       {screen === 'songs' && (
         <SongLibrary
