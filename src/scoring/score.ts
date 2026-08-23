@@ -75,9 +75,12 @@ export function scoreSequence(
 
   let timingAccuracy = 1;
   if (opts.expectedOnsets && matched > 0) {
+    // Score RELATIVE timing: align the first note, then check the spacing. So
+    // starting a beat late but playing evenly still counts as good rhythm.
+    const offset = matchedOnsets[0] - opts.expectedOnsets[0];
     let within = 0;
     for (let i = 0; i < matched; i++) {
-      if (Math.abs(matchedOnsets[i] - opts.expectedOnsets[i]) <= tolerance) within += 1;
+      if (Math.abs(matchedOnsets[i] - offset - opts.expectedOnsets[i]) <= tolerance) within += 1;
     }
     timingAccuracy = within / matched;
   }

@@ -35,10 +35,12 @@ interface Stage {
 
 const STAGES: Stage[] = [
   { title: 'The white keys', blurb: 'Where every note lives under your hands.', match: (id) => id.startsWith('find-note') },
+  { title: 'The black keys', blurb: 'Sharps and flats — the notes between the notes.', match: (id) => id.startsWith('accidental') },
   { title: 'Reading music', blurb: 'See a note on the staff, then play it.', match: (id) => id.startsWith('read-note') },
-  { title: 'Distances', blurb: 'Steps and skips — how far apart two notes sit.', match: (id) => id.startsWith('interval') },
+  { title: 'Distances', blurb: 'Steps, skips, and bigger leaps between notes.', match: (id) => id.startsWith('interval') },
   { title: 'Chords', blurb: 'Notes stacked together — the colour of a song.', match: (id) => id.startsWith('chord') },
-  { title: 'Scales', blurb: 'The ladder most songs are built from.', match: (id) => id.startsWith('scale') },
+  { title: 'Scales', blurb: 'The ladders songs are built from.', match: (id) => id.startsWith('scale') },
+  { title: 'Rhythm', blurb: 'Playing in time — the pulse under everything.', match: (id) => id.startsWith('rhythm') },
 ];
 
 /** The whole curriculum, visible: what you'll learn, in order, and where you are. */

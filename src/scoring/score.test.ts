@@ -48,10 +48,15 @@ describe('scoreSequence', () => {
     const good = scoreSequence([60, 62, 64], [on(60, 10), on(62, 480), on(64, 1050)], opts);
     expect(good.pass).toBe(true);
 
+    // Evenly spaced but started late = good rhythm (relative timing) → passes.
     const late = scoreSequence([60, 62, 64], [on(60, 400), on(62, 900), on(64, 1400)], opts);
-    expect(late.noteAccuracy).toBe(1);
-    expect(late.timingAccuracy).toBeLessThan(0.9);
-    expect(late.pass).toBe(false);
+    expect(late.pass).toBe(true);
+
+    // Uneven spacing = bad rhythm → fails on timing.
+    const uneven = scoreSequence([60, 62, 64], [on(60, 0), on(62, 750), on(64, 1000)], opts);
+    expect(uneven.noteAccuracy).toBe(1);
+    expect(uneven.timingAccuracy).toBeLessThan(0.9);
+    expect(uneven.pass).toBe(false);
   });
 
   it('treats an empty expected sequence as trivially correct', () => {
