@@ -5,6 +5,7 @@ import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
 import { pitchClass, type PitchClass } from '../../midi/notes';
 import { MidiRecorder } from '../../midi/recorder';
+import { playNote, playMelody, playChord } from '../../audio/synth';
 import { evaluateTest, expectedNotes } from '../../atoms/evaluate';
 import type { Input } from '../../input/useInput';
 import type { Atom } from '../../types/atom';
@@ -85,8 +86,11 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
       }
     });
     return unsub;
+    // Depend on the STABLE subscribe fn, not the input object (which is a new
+    // reference every render) — otherwise the recorder restarts on each render
+    // and drops the notes just played.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [input, canScore]);
+  }, [input.subscribe, canScore]);
 
   const highlight: PitchClass[] =
     test.kind === 'chord' ? targetPcs : [targetPcs[cursor % targetPcs.length]];
@@ -95,6 +99,18 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
     test.kind === 'chord'
       ? `${chordHits.size}/${expected.length} notes`
       : `${Math.min(cursor, expected.length)}/${expected.length}`;
+
+  function hear() {
+    if (test.kind === 'chord') {
+      playChord(expected);
+    } else if (test.kind === 'sequence') {
+      const bpm = test.bpm ?? 90;
+      const beatMs = (60 / bpm) * 1000;
+      playMelody(expected.map((m, i) => ({ midi: m, durMs: (test.beats?.[i] ?? 1) * beatMs })));
+    } else {
+      playNote(expected[0], 700);
+    }
+  }
 
   const unscoredMsg =
     test.kind === 'chord'
@@ -124,6 +140,10 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
           <div className="prompt-feedback">{canScore ? progress : unscoredMsg}</div>
         )}
       </div>
+
+      <button className="hear-btn" onClick={hear}>
+        ▶ {test.kind === 'chord' ? 'Hear the chord' : test.kind === 'sequence' ? 'Hear it' : 'Hear this note'}
+      </button>
 
       <Keyboard highlight={highlight} played={played} onTap={input.tapNote} />
 

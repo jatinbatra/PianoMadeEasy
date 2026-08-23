@@ -3,6 +3,7 @@ import { Keyboard } from '../Keyboard';
 import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
 import { pitchClass, parsePitch, noteName } from '../../midi/notes';
+import { playMelody } from '../../audio/synth';
 import { MidiRecorder } from '../../midi/recorder';
 import { scoreChunk } from '../../songs/scoreChunk';
 import type { ChunkAttempt } from '../../songs/ladder';
@@ -61,7 +62,9 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, input, blockIndex, b
       if (pitchClass(n.note) === targetRef.current) setCursor((c) => c + 1);
     });
     return unsub;
-  }, [input, scored]);
+    // Stable subscribe fn, not the input object — see AtomTestBlock.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input.subscribe, scored]);
 
   // Untethered: play along at half tempo so it's followable.
   useEffect(() => {
@@ -79,6 +82,16 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, input, blockIndex, b
       <div className="song-label">
         {songTitle} — {chunk.label}
       </div>
+
+      <button
+        className="hear-btn"
+        onClick={() => {
+          const beatMs = (60 / bpm) * 1000;
+          playMelody(notes.map((n) => ({ midi: parsePitch(n.pitch), durMs: n.beats * beatMs })));
+        }}
+      >
+        ▶ Hear it at tempo
+      </button>
 
       <div className="song-strip" aria-hidden="true">
         {window.map(({ n, i }) => (

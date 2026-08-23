@@ -114,7 +114,8 @@ export function SessionRunner({ input, plan, length, song, chunk, onComplete, on
       if (n.on) notesPlayed.current += 1;
     });
     return unsub;
-  }, [input]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input.subscribe]);
 
   function next() {
     if (i < steps.length - 1) {

@@ -1345,3 +1345,18 @@ h1, h2, h3,
   margin: 0 0 0.4rem;
   max-width: 46ch;
 }
+
+/* "Hear it" auto-play button — get a feel for the tempo. */
+.hear-btn {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.hear-btn:active {
+  transform: scale(0.97);
+}

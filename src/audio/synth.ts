@@ -41,4 +41,19 @@ export function playNote(midi: number, durationMs = 600): void {
   b.stop(now + dur + 0.05);
 }
 
+/** Play several notes at once (a chord). */
+export function playChord(midis: number[], durationMs = 900): void {
+  for (const m of midis) playNote(m, durationMs);
+}
+
+/** Play a melody in sequence so the learner can hear the tempo and shape. */
+export function playMelody(notes: { midi: number; durMs: number }[]): void {
+  let t = 0;
+  for (const n of notes) {
+    const at = t;
+    setTimeout(() => playNote(n.midi, Math.max(180, n.durMs * 0.92)), at);
+    t += n.durMs;
+  }
+}
+
 export const synthSupported = typeof AudioContext !== 'undefined';
