@@ -409,6 +409,41 @@ export const ATOMS: Atom[] = [
     test: { kind: 'sequence', pitches: ['F4', 'G4', 'A4', 'A#4', 'C5', 'D5', 'E5', 'F5'], ignoreOctave: true, threshold: { noteAccuracy: 0.85 } },
   },
 
+  // ============ Patterns & warm-ups ============
+  {
+    id: 'pattern:five-finger',
+    label: 'Five-finger warm-up',
+    prerequisites: ['find-note:C', 'find-note:D', 'find-note:E', 'find-note:F', 'find-note:G'],
+    prompt: 'C D E F G, then back down',
+    teach: [
+      { title: 'One finger per key', body: 'Rest five fingers on C-D-E-F-G. Play up then down: C D E F G F E D C. No hand moving.' },
+      { title: 'The pianist’s stretch', body: 'This tiny run wakes up all five fingers. Press ▶ Hear it, then match it, smooth and even.' },
+    ],
+    test: { kind: 'sequence', pitches: ['C4', 'D4', 'E4', 'F4', 'G4', 'F4', 'E4', 'D4', 'C4'], ignoreOctave: true, threshold: { noteAccuracy: 0.85 } },
+  },
+  {
+    id: 'pattern:broken-thirds',
+    label: 'Broken thirds',
+    prerequisites: ['interval:third-up-from-C', 'find-note:B'],
+    prompt: 'Play thirds climbing: C-E, D-F, E-G…',
+    teach: [
+      { title: 'Thirds in a row', body: 'C E, D F, E G, F A, G B — skips climbing the scale. This shape hides inside countless melodies.' },
+      { title: 'Hear the sweetness', body: 'Thirds sound sweet. Rolling them up the scale is a classic étude. ▶ Hear it first.' },
+    ],
+    test: { kind: 'sequence', pitches: ['C4', 'E4', 'D4', 'F4', 'E4', 'G4', 'F4', 'A4', 'G4', 'B4'], ignoreOctave: true, threshold: { noteAccuracy: 0.8 } },
+  },
+  {
+    id: 'pattern:pentatonic',
+    label: 'Pentatonic — no wrong notes',
+    prerequisites: ['find-note:C', 'find-note:D', 'find-note:E', 'find-note:G', 'find-note:A'],
+    prompt: 'Play C D E G A, then C on top',
+    teach: [
+      { title: 'Five notes that never clash', body: 'C D E G A is the pentatonic scale. Any of these notes sounds good together — you literally can’t play a wrong one.' },
+      { title: 'Your first improvising', body: 'Learn these five and you can noodle freely over them and it’ll always sound musical.' },
+    ],
+    test: { kind: 'sequence', pitches: ['C4', 'D4', 'E4', 'G4', 'A4', 'C5'], ignoreOctave: true, threshold: { noteAccuracy: 0.85 } },
+  },
+
   // ============ Rhythm ============
   {
     id: 'rhythm:steady-quarters',

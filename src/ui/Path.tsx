@@ -41,6 +41,7 @@ const STAGES: Stage[] = [
   { title: 'Chords', blurb: 'Notes stacked together — the colour of a song.', match: (id) => id.startsWith('chord') },
   { title: 'Arpeggios', blurb: 'Chords rolled out — how chords turn into melody.', match: (id) => id.startsWith('arpeggio') },
   { title: 'Scales', blurb: 'The ladders songs are built from.', match: (id) => id.startsWith('scale') },
+  { title: 'Patterns & warm-ups', blurb: 'Little runs that build real finger technique.', match: (id) => id.startsWith('pattern') },
   { title: 'Rhythm', blurb: 'Playing in time — the pulse under everything.', match: (id) => id.startsWith('rhythm') },
 ];
 
