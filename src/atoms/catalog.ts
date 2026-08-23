@@ -339,6 +339,41 @@ export const ATOMS: Atom[] = [
     test: { kind: 'chord', pitches: ['E4', 'G4', 'B4'], ignoreOctave: true, windowMs: 220, threshold: { noteAccuracy: 1, timingAccuracy: 1 } },
   },
 
+  // ============ Arpeggios (chords, rolled out) ============
+  {
+    id: 'arpeggio:C-major',
+    label: 'C major arpeggio',
+    prerequisites: ['chord:C-major-root'],
+    prompt: 'Play C, then E, then G — one at a time',
+    teach: [
+      { title: 'A chord, unrolled', body: 'An arpeggio is a chord played one note at a time: C, then E, then G. Same notes, in a line.' },
+      { title: 'Broken chord', body: 'Instead of pressing C-E-G together, ripple them: C… E… G. It’s how chords become melodies.' },
+    ],
+    test: { kind: 'sequence', pitches: ['C4', 'E4', 'G4'], ignoreOctave: true, threshold: N1 },
+  },
+  {
+    id: 'arpeggio:F-major',
+    label: 'F major arpeggio',
+    prerequisites: ['chord:F-major', 'arpeggio:C-major'],
+    prompt: 'Play F, then A, then C — one at a time',
+    teach: [
+      { title: 'Roll the F chord', body: 'F, then A, then C, one after another. The F major shape, rippled out.' },
+      { title: 'Same idea, new home', body: 'You already know arpeggios from C. This is the very same motion starting on F.' },
+    ],
+    test: { kind: 'sequence', pitches: ['F4', 'A4', 'C5'], ignoreOctave: true, threshold: N1 },
+  },
+  {
+    id: 'arpeggio:G-major',
+    label: 'G major arpeggio',
+    prerequisites: ['chord:G-major-root', 'arpeggio:C-major'],
+    prompt: 'Play G, then B, then D — one at a time',
+    teach: [
+      { title: 'Roll the G chord', body: 'G, then B, then D, one at a time — the G major shape as a ripple.' },
+      { title: 'The trio that plays songs', body: 'C, F and G arpeggios together carry a huge number of songs.' },
+    ],
+    test: { kind: 'sequence', pitches: ['G4', 'B4', 'D5'], ignoreOctave: true, threshold: N1 },
+  },
+
   // ============ Scales ============
   {
     id: 'scale:C-major-right-hand',

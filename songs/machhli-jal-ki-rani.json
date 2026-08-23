@@ -1,0 +1,56 @@
+{
+  "id": "machhli-jal-ki-rani",
+  "title": "Machhli Jal Ki Rani",
+  "attribution": "Traditional Indian children's folk song (public domain). Simple singable arrangement in C.",
+  "bpm": 92,
+  "chunks": [
+    {
+      "id": "line-1",
+      "label": "Machhli jal ki rani hai",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:E", "find-note:G", "find-note:A"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "A4", "beats": 1 },
+        { "pitch": "G4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "line-2",
+      "label": "Jeevan uska paani hai",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:E", "find-note:G", "find-note:A"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "E4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "line-3",
+      "label": "Haath lagao dar jayegi",
+      "bars": "5-6",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E", "find-note:G", "find-note:A"],
+      "notes": [
+        { "pitch": "G4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "line-4",
+      "label": "Bahar nikalo mar jayegi",
+      "bars": "7-8",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 },
+        { "pitch": "C4", "beats": 1 }, { "pitch": "D4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 },
+        { "pitch": "C4", "beats": 2 }
+      ]
+    }
+  ]
+}

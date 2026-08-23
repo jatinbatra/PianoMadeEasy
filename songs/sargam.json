@@ -1,0 +1,32 @@
+{
+  "id": "sargam",
+  "title": "Sargam — सा रे ग म",
+  "attribution": "The Indian solfège (Sa Re Ga Ma Pa Dha Ni Sa) — the C major scale by its Indian names. Public domain.",
+  "bpm": 80,
+  "chunks": [
+    {
+      "id": "aaroh",
+      "label": "Aaroh — climbing up (Sa → Sa)",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E", "find-note:F", "find-note:G", "find-note:A", "find-note:B"],
+      "notes": [
+        { "pitch": "C4", "beats": 1 }, { "pitch": "D4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "A4", "beats": 1 },
+        { "pitch": "B4", "beats": 1 }, { "pitch": "C5", "beats": 2 }
+      ]
+    },
+    {
+      "id": "avroh",
+      "label": "Avroh — coming down (Sa → Sa)",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E", "find-note:F", "find-note:G", "find-note:A", "find-note:B"],
+      "notes": [
+        { "pitch": "C5", "beats": 1 }, { "pitch": "B4", "beats": 1 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "C4", "beats": 2 }
+      ]
+    }
+  ]
+}

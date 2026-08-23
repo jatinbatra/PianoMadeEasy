@@ -7,8 +7,15 @@ small JSON format. One public-domain example ships here as the format reference:
 ## Copyright
 
 **Do not commit copyrighted sheet music or full arrangements to this repo.**
-7 Years, Bollywood songs, etc. are for *you* to import/enter locally (Phase 2
-ships the importer). Only public-domain examples live in git.
+7 Years and Bollywood *film* songs are copyrighted — import/enter those locally
+in the app (the Songs screen has a JSON importer). Only public-domain music
+lives in git.
+
+Shipped (all public domain): Ode to Joy, Mary Had a Little Lamb, **Sargam**
+(सा रे ग म — the Indian solfège / C-major scale by its Indian names), and
+**Machhli Jal Ki Rani** (a traditional Indian children's folk song, simple
+arrangement). Traditional folk tunes and solfège are fine to ship; specific
+Bollywood recordings are not — enter those yourself.
 
 ## Format
 
