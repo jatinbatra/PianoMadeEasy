@@ -1360,3 +1360,22 @@ h1, h2, h3,
 .hear-btn:active {
   transform: scale(0.97);
 }
+
+/* YouTube link on songs. */
+.yt-link {
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.3rem;
+}
+.yt-link:active { opacity: 0.7; }
+.song-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.song-actions-row .yt-link { margin-top: 0; }

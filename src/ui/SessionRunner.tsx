@@ -179,6 +179,7 @@ export function SessionRunner({ input, plan, length, song, chunk, onComplete, on
           key={`${i}-song`}
           chunk={chunk}
           songTitle={song.title}
+          songYoutube={song.youtube}
           bpm={song.bpm}
           seconds={step.seconds}
           input={input}

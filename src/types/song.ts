@@ -35,4 +35,6 @@ export interface Song {
   attribution: string;
   bpm: number;
   chunks: SongChunk[];
+  /** Optional link to a YouTube video/tutorial for the song. */
+  youtube?: string;
 }

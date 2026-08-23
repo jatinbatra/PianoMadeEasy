@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { parseSong } from '../songs/importSong';
+import { youtubeLink } from '../songs/links';
 import { ownedCount, type ChunkProgressMap } from '../songs/ladder';
 import { saveSong, deleteSong, setActiveSongId } from '../db/repo';
 import type { Song } from '../types/song';
@@ -73,6 +74,9 @@ export function SongLibrary({ songs, activeSongId, chunkMap, onChanged, onBack }
                 <div className="song-meta">
                   {owned} of {s.chunks.length} chunks owned{active ? ' · practicing now' : ''}
                 </div>
+                <a className="yt-link" href={youtubeLink(s)} target="_blank" rel="noopener noreferrer">
+                  ▶ Watch on YouTube
+                </a>
               </div>
               <div className="song-actions">
                 {!active && (

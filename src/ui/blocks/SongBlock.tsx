@@ -4,6 +4,7 @@ import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
 import { pitchClass, parsePitch, noteName } from '../../midi/notes';
 import { playMelody } from '../../audio/synth';
+import { youtubeLink } from '../../songs/links';
 import { MidiRecorder } from '../../midi/recorder';
 import { scoreChunk } from '../../songs/scoreChunk';
 import type { ChunkAttempt } from '../../songs/ladder';
@@ -13,6 +14,7 @@ import type { SongChunk } from '../../types/song';
 interface Props {
   chunk: SongChunk;
   songTitle: string;
+  songYoutube?: string;
   bpm: number;
   seconds: number;
   input: Input;
@@ -27,7 +29,7 @@ interface Props {
  * note-by-note (advancing on the right note) while recording the take, then
  * score it for accuracy + tempo. Untethered: plays along at half tempo, unscored.
  */
-export function SongBlock({ chunk, songTitle, bpm, seconds, input, blockIndex, blockCount, onFinish }: Props) {
+export function SongBlock({ chunk, songTitle, songYoutube, bpm, seconds, input, blockIndex, blockCount, onFinish }: Props) {
   const notes = chunk.notes;
   const [cursor, setCursor] = useState(0);
   const [played, setPlayed] = useState<number | null>(null);
@@ -83,15 +85,25 @@ export function SongBlock({ chunk, songTitle, bpm, seconds, input, blockIndex, b
         {songTitle} — {chunk.label}
       </div>
 
-      <button
-        className="hear-btn"
-        onClick={() => {
-          const beatMs = (60 / bpm) * 1000;
-          playMelody(notes.map((n) => ({ midi: parsePitch(n.pitch), durMs: n.beats * beatMs })));
-        }}
-      >
-        ▶ Hear it at tempo
-      </button>
+      <div className="song-actions-row">
+        <button
+          className="hear-btn"
+          onClick={() => {
+            const beatMs = (60 / bpm) * 1000;
+            playMelody(notes.map((n) => ({ midi: parsePitch(n.pitch), durMs: n.beats * beatMs })));
+          }}
+        >
+          ▶ Hear it at tempo
+        </button>
+        <a
+          className="yt-link"
+          href={youtubeLink({ title: songTitle, youtube: songYoutube })}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ▶ Watch on YouTube
+        </a>
+      </div>
 
       <div className="song-strip" aria-hidden="true">
         {window.map(({ n, i }) => (

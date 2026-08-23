@@ -39,6 +39,7 @@ export function parseSong(text: string): Song {
 
   if (typeof d.bpm !== 'number') d.bpm = 100;
   if (typeof d.attribution !== 'string') d.attribution = 'User-provided';
+  if (d.youtube != null && typeof d.youtube !== 'string') delete d.youtube;
 
   return d as unknown as Song;
 }
