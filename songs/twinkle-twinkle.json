@@ -1,0 +1,57 @@
+{
+  "id": "twinkle-twinkle",
+  "title": "Twinkle Twinkle Little Star",
+  "attribution": "Traditional melody (public domain). Same tune as the ABC song.",
+  "youtube": "https://www.youtube.com/results?search_query=Twinkle+Twinkle+Little+Star+easy+piano+tutorial",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "l1",
+      "label": "Twinkle twinkle little star",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:C", "find-note:G", "find-note:A"],
+      "notes": [
+        { "pitch": "C4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "A4", "beats": 1 },
+        { "pitch": "G4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "l2",
+      "label": "How I wonder what you are",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E", "find-note:F"],
+      "notes": [
+        { "pitch": "F4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "D4", "beats": 1 },
+        { "pitch": "C4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "l3",
+      "label": "Up above the world so high",
+      "bars": "5-6",
+      "requiresAtoms": ["find-note:D", "find-note:E", "find-note:F", "find-note:G"],
+      "notes": [
+        { "pitch": "G4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "l4",
+      "label": "Like a diamond in the sky",
+      "bars": "7-8",
+      "requiresAtoms": ["find-note:D", "find-note:E", "find-note:F", "find-note:G"],
+      "notes": [
+        { "pitch": "G4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 2 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "happy-birthday",
+  "title": "Happy Birthday",
+  "attribution": "Melody in the public domain (since 2016). The one everyone needs.",
+  "youtube": "https://www.youtube.com/results?search_query=Happy+Birthday+easy+piano+tutorial+right+hand",
+  "bpm": 96,
+  "chunks": [
+    {
+      "id": "l1",
+      "label": "Happy birthday to you",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:G", "find-note:A", "find-note:C", "find-note:B"],
+      "notes": [
+        { "pitch": "G4", "beats": 0.75 }, { "pitch": "G4", "beats": 0.25 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "C5", "beats": 1 }, { "pitch": "B4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "l2",
+      "label": "Happy birthday to you",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:G", "find-note:A", "find-note:C", "find-note:D"],
+      "notes": [
+        { "pitch": "G4", "beats": 0.75 }, { "pitch": "G4", "beats": 0.25 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "D5", "beats": 1 }, { "pitch": "C5", "beats": 2 }
+      ]
+    },
+    {
+      "id": "l3",
+      "label": "Happy birthday dear …",
+      "bars": "5-6",
+      "requiresAtoms": ["find-note:G", "find-note:E", "find-note:C", "find-note:B", "find-note:A"],
+      "notes": [
+        { "pitch": "G4", "beats": 0.75 }, { "pitch": "G4", "beats": 0.25 },
+        { "pitch": "G5", "beats": 1 }, { "pitch": "E5", "beats": 1 },
+        { "pitch": "C5", "beats": 1 }, { "pitch": "B4", "beats": 1 }, { "pitch": "A4", "beats": 1 }
+      ]
+    },
+    {
+      "id": "l4",
+      "label": "…to you",
+      "bars": "7-8",
+      "requiresAtoms": ["find-note:F", "find-note:E", "find-note:C", "find-note:D"],
+      "notes": [
+        { "pitch": "F5", "beats": 0.75 }, { "pitch": "F5", "beats": 0.25 },
+        { "pitch": "E5", "beats": 1 }, { "pitch": "C5", "beats": 1 },
+        { "pitch": "D5", "beats": 1 }, { "pitch": "C5", "beats": 2 }
+      ]
+    }
+  ]
+}

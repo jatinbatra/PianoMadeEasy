@@ -2,10 +2,21 @@ import mary from '../../songs/mary-had-a-little-lamb.json';
 import ode from '../../songs/ode-to-joy.json';
 import sargam from '../../songs/sargam.json';
 import machhli from '../../songs/machhli-jal-ki-rani.json';
+import twinkle from '../../songs/twinkle-twinkle.json';
+import happy from '../../songs/happy-birthday.json';
+import alankar from '../../songs/alankar.json';
 import { loadSongs, saveSong, getActiveSongId, setActiveSongId } from '../db/repo';
 import type { Song } from '../types/song';
 
-const SHIPPED: Song[] = [ode as Song, mary as Song, sargam as Song, machhli as Song];
+const SHIPPED: Song[] = [
+  ode as Song,
+  twinkle as Song,
+  mary as Song,
+  happy as Song,
+  sargam as Song,
+  alankar as Song,
+  machhli as Song,
+];
 
 /**
  * Ensure the shipped public-domain songs are present. Adds any that are missing

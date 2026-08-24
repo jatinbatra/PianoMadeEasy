@@ -1,0 +1,23 @@
+{
+  "id": "alankar-1",
+  "title": "Alankar — सा रे ग",
+  "attribution": "Traditional Indian classical practice pattern (palta / alankar). Public domain.",
+  "youtube": "https://www.youtube.com/results?search_query=alankar+sa+re+ga+palta+piano+practice",
+  "bpm": 84,
+  "chunks": [
+    {
+      "id": "up",
+      "label": "Climbing groups of three",
+      "bars": "1-4",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E", "find-note:F", "find-note:G", "find-note:A", "find-note:B"],
+      "notes": [
+        { "pitch": "C4", "beats": 1 }, { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 1 }, { "pitch": "A4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "A4", "beats": 1 }, { "pitch": "B4", "beats": 1 },
+        { "pitch": "A4", "beats": 1 }, { "pitch": "B4", "beats": 1 }, { "pitch": "C5", "beats": 2 }
+      ]
+    }
+  ]
+}

@@ -18,7 +18,9 @@ function median(xs: number[]): number {
  */
 export function scoreChunk(chunk: SongChunk, recorded: NoteEvent[]): ChunkAttempt {
   const expected = chunk.notes.map((n) => parsePitch(n.pitch));
-  const res = scoreSequence(expected, recorded, { threshold: { noteAccuracy: 0 } });
+  // Octave-agnostic: playing the right notes in order counts, even on the
+  // one-octave on-screen piano where higher-octave notes can't be reached.
+  const res = scoreSequence(expected, recorded, { ignoreOctave: true, threshold: { noteAccuracy: 0 } });
 
   const onsets = res.matchedOnsets;
   const bpms: number[] = [];

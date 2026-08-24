@@ -1383,3 +1383,10 @@ h1, h2, h3,
   justify-content: center;
 }
 .song-actions-row .yt-link { margin-top: 0; }
+
+/* Song builder inputs. */
+.time-input.wide { width: 100%; }
+.builder-row { display: flex; gap: 0.6rem; }
+.builder-row .time-input { min-width: 0; }
+.builder-row .time-input:first-child { width: 5rem; flex: 0 0 auto; }
+.add-song { gap: 0.7rem; }
