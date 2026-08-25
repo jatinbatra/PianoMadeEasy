@@ -12,6 +12,16 @@ import type { Input } from '../../input/useInput';
 import type { Atom } from '../../types/atom';
 import type { ScoreResult } from '../../scoring/score';
 
+/** The black-key group a natural note is described against ("left of the two
+ *  black keys"). Empty for the black keys themselves. */
+function landmarksFor(pc: PitchClass): PitchClass[] {
+  const letter = pc[0];
+  if (pc.includes('#')) return [];
+  if ('CDE'.includes(letter)) return ['C#', 'D#'];
+  if ('FGAB'.includes(letter)) return ['F#', 'G#', 'A#'];
+  return [];
+}
+
 interface Props {
   atom: Atom;
   title: string;
@@ -96,6 +106,11 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
   const highlight: PitchClass[] =
     test.kind === 'chord' ? targetPcs : [targetPcs[cursor % targetPcs.length]];
 
+  // Faint landmark hints: light up the black-key group the lesson refers to,
+  // so "left of the two black keys" connects to the picture.
+  const hints: PitchClass[] =
+    test.kind === 'find-note' || test.kind === 'read-note' ? landmarksFor(targetPcs[0]) : [];
+
   const progress =
     test.kind === 'chord'
       ? `${chordHits.size}/${expected.length} notes`
@@ -148,7 +163,7 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
 
       <MicListening input={input} />
 
-      <Keyboard highlight={highlight} played={played} onTap={input.tapNote} />
+      <Keyboard highlight={highlight} hints={hints} played={played} onTap={input.tapNote} />
 
       {canScore && (
         <div className="heard-row">
