@@ -5,6 +5,7 @@ import { useCountdown } from '../useCountdown';
 import { pitchClass, parsePitch, noteName } from '../../midi/notes';
 import { playMelody } from '../../audio/synth';
 import { youtubeLink } from '../../songs/links';
+import { MicListening } from '../MicListening';
 import { MidiRecorder } from '../../midi/recorder';
 import { scoreChunk } from '../../songs/scoreChunk';
 import type { ChunkAttempt } from '../../songs/ladder';
@@ -117,6 +118,8 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, seconds, input, 
         <div className="prompt-kicker">{scored ? 'Play' : 'Follow along'}</div>
         <div className="prompt-note">{noteName(targetMidi).replace(/\d/, '')}</div>
       </div>
+
+      <MicListening input={input} />
 
       <Keyboard highlight={[targetPc]} played={played} onTap={input.tapNote} />
 

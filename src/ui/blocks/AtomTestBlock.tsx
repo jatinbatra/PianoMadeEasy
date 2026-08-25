@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Keyboard } from '../Keyboard';
 import { Staff } from '../Staff';
+import { MicListening } from '../MicListening';
 import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
 import { pitchClass, type PitchClass } from '../../midi/notes';
@@ -144,6 +145,8 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
       <button className="hear-btn" onClick={hear}>
         ▶ {test.kind === 'chord' ? 'Hear the chord' : test.kind === 'sequence' ? 'Hear it' : 'Hear this note'}
       </button>
+
+      <MicListening input={input} />
 
       <Keyboard highlight={highlight} played={played} onTap={input.tapNote} />
 

@@ -4,10 +4,11 @@
 // ghost notes, and it locks onto the fundamental rather than an octave.
 // Still one-note-at-a-time — it cannot resolve chords.
 
-/** Clarity below this isn't a confident pitch. */
-const CLARITY_GATE = 0.9;
-/** RMS below this is treated as silence. */
-const RMS_GATE = 0.006;
+/** Clarity below this isn't a confident pitch. Loose enough for a laptop mic
+ *  a few feet from the piano, tight enough to reject room noise. */
+const CLARITY_GATE = 0.78;
+/** RMS below this is treated as silence. Low so a quiet built-in mic still registers. */
+const RMS_GATE = 0.0035;
 
 /**
  * Estimate fundamental frequency (Hz) of a time-domain buffer, or -1 when there

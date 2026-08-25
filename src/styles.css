@@ -1390,3 +1390,15 @@ h1, h2, h3,
 .builder-row .time-input { min-width: 0; }
 .builder-row .time-input:first-child { width: 5rem; flex: 0 0 auto; }
 .add-song { gap: 0.7rem; }
+
+/* In-session mic listening meter. */
+.mic-listening {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.mic-listening-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}

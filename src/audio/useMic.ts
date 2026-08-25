@@ -45,8 +45,10 @@ export function useMic(): UseMic {
 
   const enable = useCallback(async () => {
     if (!supported || enabled) return;
+    // autoGainControl ON boosts a quiet built-in laptop mic (helps "detects
+    // nothing"); noise suppression stays OFF because it mangles pitch.
     const stream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true },
     });
     streamRef.current = stream;
     const ctx = new AudioContext();
