@@ -57,6 +57,8 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
   const [chordHits, setChordHits] = useState<Set<PitchClass>>(new Set());
   const chordRef = useRef<Set<PitchClass>>(new Set());
   const [done, setDone] = useState(false);
+  const [rounds, setRounds] = useState(0);
+  const locked = useRef(false);
   const finished = useRef(false);
 
   function finish() {
@@ -68,9 +70,21 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
 
   const remaining = useCountdown(seconds, finish);
 
-  function completeSoon() {
+  // A round is done — flash ✓, tally it, and reset for another go. The block
+  // keeps going for its full time (continuous practice), ending only on the
+  // timer or Next, so lessons aren't over the instant you get it once.
+  function roundComplete() {
+    locked.current = true;
     setDone(true);
-    setTimeout(finish, 700);
+    setRounds((r) => r + 1);
+    setTimeout(() => {
+      setDone(false);
+      cursorRef.current = 0;
+      setCursor(0);
+      chordRef.current = new Set();
+      setChordHits(new Set());
+      locked.current = false;
+    }, 800);
   }
 
   // Record + drive live feedback (only when we can score).
@@ -79,7 +93,7 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
     recorder.current.start();
     const unsub = input.subscribe((n) => {
       recorder.current.add(n.note, n.velocity, n.on);
-      if (!n.on) return;
+      if (!n.on || locked.current) return;
       setPlayed(n.note);
       const pc = pitchClass(n.note);
 
@@ -87,13 +101,13 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
         if (targetPcs.includes(pc)) {
           chordRef.current.add(pc);
           setChordHits(new Set(chordRef.current));
-          if (chordRef.current.size >= expected.length) completeSoon();
+          if (chordRef.current.size >= expected.length) roundComplete();
         }
       } else if (pc === targetPcs[cursorRef.current % targetPcs.length]) {
         const nextC = cursorRef.current + 1;
         cursorRef.current = nextC;
         setCursor(nextC);
-        if (nextC >= expected.length) completeSoon();
+        if (nextC >= expected.length) roundComplete();
       }
     });
     return unsub;
@@ -151,9 +165,11 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
           </div>
         )}
         {done ? (
-          <div className="prompt-feedback good">Nice.</div>
+          <div className="prompt-feedback good">✓ Nice{rounds > 1 ? ` · ${rounds}×` : ''} — keep going</div>
         ) : (
-          <div className="prompt-feedback">{canScore ? progress : unscoredMsg}</div>
+          <div className="prompt-feedback">
+            {canScore ? (rounds > 0 ? `${progress} · ${rounds} done` : progress) : unscoredMsg}
+          </div>
         )}
       </div>
 
