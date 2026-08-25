@@ -41,14 +41,16 @@ describe('buildPlan', () => {
     expect(plan.focus?.teachIndex).toBe(1); // rotated to a different explanation
   });
 
-  it('consolidates (no new atom) when more than 3 atoms are decayed', () => {
+  it('consolidates (no NEW atoms, review only) when more than 3 are decayed', () => {
     // Learn 5 notes yesterday so they are all overdue today.
     const yesterday = '2026-08-20';
     const map = learned(['find-note:C', 'find-note:D', 'find-note:E', 'find-note:F', 'find-note:G'], yesterday);
     const plan = buildPlan(map, TODAY);
     expect(plan.decayedCount).toBeGreaterThan(3);
     expect(plan.consolidating).toBe(true);
-    expect(plan.focus).toBeNull();
     expect(plan.recall.length).toBeGreaterThan(0);
+    // The queue holds review of already-known atoms — no brand-new material.
+    const anyNew = plan.focusQueue.some((f) => !map[f.atom.id]?.introduced);
+    expect(anyNew).toBe(false);
   });
 });

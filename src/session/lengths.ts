@@ -1,20 +1,25 @@
 /** Session lengths. Five minutes is the default and a full day for the streak,
- *  identical to an hour. Only the block durations scale. */
+ *  identical to an hour. Longer sessions cover MORE — more skills and more of
+ *  the song — not just one lesson stretched out. */
 export interface SessionLength {
   minutes: 5 | 10 | 30 | 60;
-  /** Seconds for each block. */
+  /** Seconds for the recall block. */
   recall: number;
-  focus: number;
-  song: number;
-  /** How many atoms the recall block covers at this length. */
+  /** Seconds per skill block, and how many skill blocks. */
+  focusEach: number;
+  focusCount: number;
+  /** Seconds per song block, and how many (distinct chunks). */
+  songEach: number;
+  songCount: number;
+  /** How many atoms the recall block covers. */
   recallLimit: number;
 }
 
 export const LENGTHS: SessionLength[] = [
-  { minutes: 5, recall: 60, focus: 120, song: 120, recallLimit: 3 },
-  { minutes: 10, recall: 90, focus: 240, song: 270, recallLimit: 4 },
-  { minutes: 30, recall: 240, focus: 720, song: 840, recallLimit: 6 },
-  { minutes: 60, recall: 360, focus: 1500, song: 1740, recallLimit: 8 },
+  { minutes: 5, recall: 60, focusEach: 120, focusCount: 1, songEach: 120, songCount: 1, recallLimit: 3 },
+  { minutes: 10, recall: 90, focusEach: 130, focusCount: 2, songEach: 150, songCount: 2, recallLimit: 4 },
+  { minutes: 30, recall: 240, focusEach: 180, focusCount: 4, songEach: 200, songCount: 3, recallLimit: 6 },
+  { minutes: 60, recall: 360, focusEach: 220, focusCount: 6, songEach: 230, songCount: 5, recallLimit: 8 },
 ];
 
 export const DEFAULT_LENGTH = LENGTHS[0];

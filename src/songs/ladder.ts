@@ -79,3 +79,18 @@ export function pickChunk(song: Song, chunks: ChunkProgressMap, atoms: ProgressM
   const frontier = unlocked.find((c) => !chunks[chunkKey(song.id, c.id)]?.owned);
   return frontier ?? unlocked[unlocked.length - 1] ?? song.chunks[0];
 }
+
+/**
+ * Consecutive chunks to practice this session, starting at the frontier — so a
+ * longer session works through more of the song (and eventually the whole thing),
+ * not the same phrase over and over.
+ */
+export function pickChunks(song: Song, chunks: ChunkProgressMap, atoms: ProgressMap, count: number): SongChunk[] {
+  const start = pickChunk(song, chunks, atoms);
+  const startIdx = Math.max(0, song.chunks.findIndex((c) => c.id === start.id));
+  const out: SongChunk[] = [];
+  for (let i = 0; i < count && i < song.chunks.length; i++) {
+    out.push(song.chunks[(startIdx + i) % song.chunks.length]);
+  }
+  return out.length ? out : [song.chunks[0]];
+}

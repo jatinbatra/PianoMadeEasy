@@ -16,8 +16,10 @@ export interface FocusPlan {
 export interface DayPlan {
   /** Atoms to re-check first (fight decay), most overdue first. */
   recall: Atom[];
-  /** The one new/current skill for today, or null when consolidating. */
+  /** The primary new/current skill (queue[0]), or null when nothing applies. */
   focus: FocusPlan | null;
+  /** Ordered skills to practice this session; longer sessions use more of it. */
+  focusQueue: FocusPlan[];
   /** True when we're holding off on new material to consolidate. */
   consolidating: boolean;
   decayedCount: number;
@@ -54,42 +56,44 @@ export function buildPlan(
   const decayed = introduced.filter((a) => isDecayed(get(map, a.id, today), today));
   const decayedCount = decayed.length;
 
-  const recall = introduced
+  const dueSorted = introduced
     .filter((a) => isDue(get(map, a.id, today), today))
-    .sort((x, y) => get(map, x.id, today).dueDate.localeCompare(get(map, y.id, today).dueDate))
-    .slice(0, recallLimit);
+    .sort((x, y) => get(map, x.id, today).dueDate.localeCompare(get(map, y.id, today).dueDate));
+  const recall = dueSorted.slice(0, recallLimit);
 
-  // 1) Anything stuck gets re-taught, with a fresh angle, before anything new.
-  //    A stuck atom may never have passed yet ("stuck on lesson one"), so scan
-  //    all atoms, not just introduced ones.
+  const consolidating = decayedCount > 3;
+  const queue: FocusPlan[] = [];
+  const add = (atom: Atom, mode: FocusPlan['mode'] = 'teach', teachIndex = 0) => {
+    if (!queue.some((f) => f.atom.id === atom.id)) queue.push({ atom, mode, teachIndex });
+  };
+
+  // 1) Anything stuck gets re-taught first, with a fresh angle.
   const stuck = ATOMS.find((a) => needsReteach(get(map, a.id, today)));
   if (stuck) {
     const cf = get(map, stuck.id, today).consecutiveFailures;
-    return {
-      recall,
-      focus: { atom: stuck, mode: 'reteach', teachIndex: Math.min(cf - 1, stuck.teach.length - 1) },
-      consolidating: false,
-      decayedCount,
-    };
+    add(stuck, 'reteach', Math.min(cf - 1, stuck.teach.length - 1));
   }
 
-  // 2) Too much decay: hold new material, consolidate what's slipping.
-  if (decayedCount > 3) {
-    return { recall, focus: null, consolidating: true, decayedCount };
+  // 2) New material — unless we're consolidating (too much has decayed).
+  if (!consolidating) {
+    for (const a of ATOMS) {
+      if (queue.length >= 8) break;
+      if (!get(map, a.id, today).introduced && prereqsMet(a, map, today)) add(a);
+    }
   }
 
-  // 3) Otherwise introduce the next atom whose prerequisites are met.
-  const next = ATOMS.find((a) => !get(map, a.id, today).introduced && prereqsMet(a, map, today));
-  if (next) {
-    return { recall, focus: { atom: next, mode: 'teach', teachIndex: 0 }, consolidating: false, decayedCount };
+  // 3) Fill the rest with review of what's due (past recall) then any known atom.
+  for (const a of dueSorted) {
+    if (queue.length >= 8) break;
+    add(a);
   }
+  if (queue.length === 0 && dueSorted[0]) add(dueSorted[0]);
 
-  // 4) Nothing new to learn — reinforce the most-overdue known atom, if any.
-  const reinforce = recall[0] ?? null;
   return {
     recall,
-    focus: reinforce ? { atom: reinforce, mode: 'teach', teachIndex: 0 } : null,
-    consolidating: false,
+    focus: queue[0] ?? null,
+    focusQueue: queue,
+    consolidating,
     decayedCount,
   };
 }

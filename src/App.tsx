@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, lazy, Suspense } from 'react';
 import { useInput } from './input/useInput';
 import { Home } from './ui/Home';
-import { SessionRunner, type AtomOutcome } from './ui/SessionRunner';
+import { SessionRunner, type AtomOutcome, type ChunkOutcome } from './ui/SessionRunner';
 import { Summary } from './ui/Summary';
 import { SongLibrary } from './ui/SongLibrary';
 import { Progress } from './ui/Progress';
@@ -43,7 +43,7 @@ import { buildPlan, type DayPlan, type ProgressMap } from './atoms/scheduler';
 import { review, qualityFromScore, newAtomProgress } from './atoms/sm2';
 import { seedSongsIfEmpty } from './songs/seed';
 import { lengthFor, DEFAULT_LENGTH, type SessionLength } from './session/lengths';
-import { pickChunk, ownedCount, newChunkProgress, updateChunkProgress, chunkKey, type ChunkProgressMap, type ChunkAttempt } from './songs/ladder';
+import { pickChunks, ownedCount, newChunkProgress, updateChunkProgress, chunkKey, type ChunkProgressMap } from './songs/ladder';
 import type { Song, SongChunk } from './types/song';
 import type { SessionResult, PracticeDay } from './types';
 
@@ -60,7 +60,7 @@ export function App() {
   const [chunkMap, setChunkMap] = useState<ChunkProgressMap>({});
   const [plan, setPlan] = useState<DayPlan | null>(null);
   const [sessionLength, setSessionLength] = useState<SessionLength>(DEFAULT_LENGTH);
-  const [sessionSong, setSessionSong] = useState<{ song: Song; chunk: SongChunk } | null>(null);
+  const [sessionSong, setSessionSong] = useState<{ song: Song; chunks: SongChunk[] } | null>(null);
   const [lastResult, setLastResult] = useState<SessionResult | null>(null);
   const [lastGains, setLastGains] = useState(0);
   const [lastChunkOwned, setLastChunkOwned] = useState(false);
@@ -103,14 +103,16 @@ export function App() {
       const length = lengthFor(minutes);
       setSessionLength(length);
       setPlan(buildPlan(progress, localDateKey(), length.recallLimit));
-      if (activeSong) setSessionSong({ song: activeSong, chunk: pickChunk(activeSong, chunkMap, progress) });
+      if (activeSong) {
+        setSessionSong({ song: activeSong, chunks: pickChunks(activeSong, chunkMap, progress, length.songCount) });
+      }
       setScreen('session');
     },
     [progress, activeSong, chunkMap],
   );
 
   const handleComplete = useCallback(
-    async (result: SessionResult, outcomes: AtomOutcome[], chunkAttempt: ChunkAttempt | null) => {
+    async (result: SessionResult, outcomes: AtomOutcome[], chunkOutcomes: ChunkOutcome[]) => {
       const today = localDateKey();
       const map: ProgressMap = { ...progress };
       let gains = 0;
@@ -124,17 +126,20 @@ export function App() {
         await saveProgress(updated);
       }
 
-      // Chunk mastery — MIDI-measured only.
+      // Chunk mastery — measured takes only, one update per chunk practiced.
       let chunkOwned = false;
       const cMap = { ...chunkMap };
-      if (chunkAttempt && sessionSong) {
-        const { song, chunk } = sessionSong;
-        const key = chunkKey(song.id, chunk.id);
-        const prev = cMap[key] ?? newChunkProgress(song.id, chunk.id);
-        const updated = updateChunkProgress(prev, chunkAttempt, song.bpm, today);
-        chunkOwned = updated.owned && !prev.owned;
-        cMap[key] = updated;
-        await saveChunkProgress(updated);
+      if (sessionSong) {
+        const { song } = sessionSong;
+        for (const co of chunkOutcomes) {
+          if (!co.attempt) continue;
+          const key = chunkKey(song.id, co.chunkId);
+          const prev = cMap[key] ?? newChunkProgress(song.id, co.chunkId);
+          const updated = updateChunkProgress(prev, co.attempt, song.bpm, today);
+          if (updated.owned && !prev.owned) chunkOwned = true;
+          cMap[key] = updated;
+          await saveChunkProgress(updated);
+        }
       }
 
       await saveSession(result);
@@ -193,7 +198,7 @@ export function App() {
           plan={plan}
           length={sessionLength}
           song={sessionSong.song}
-          chunk={sessionSong.chunk}
+          chunks={sessionSong.chunks}
           onComplete={handleComplete}
           onQuit={() => setScreen('home')}
         />

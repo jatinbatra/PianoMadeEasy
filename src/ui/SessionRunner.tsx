@@ -5,7 +5,7 @@ import type { Input } from '../input/useInput';
 import type { SessionResult } from '../types';
 import type { Atom } from '../types/atom';
 import type { ScoreResult } from '../scoring/score';
-import type { DayPlan } from '../atoms/scheduler';
+import type { DayPlan, FocusPlan } from '../atoms/scheduler';
 import { localDateKey } from '../db/repo';
 import type { Song, SongChunk } from '../types/song';
 import type { ChunkAttempt } from '../songs/ladder';
@@ -16,13 +16,18 @@ export interface AtomOutcome {
   result: ScoreResult | null;
 }
 
+export interface ChunkOutcome {
+  chunkId: string;
+  attempt: ChunkAttempt | null;
+}
+
 interface Props {
   input: Input;
   plan: DayPlan;
   length: SessionLength;
   song: Song;
-  chunk: SongChunk;
-  onComplete: (result: SessionResult, outcomes: AtomOutcome[], chunk: ChunkAttempt | null) => void;
+  chunks: SongChunk[];
+  onComplete: (result: SessionResult, outcomes: AtomOutcome[], chunks: ChunkOutcome[]) => void;
   onQuit: () => void;
 }
 
@@ -35,6 +40,7 @@ interface AtomStep {
 }
 interface SongStep {
   type: 'song';
+  chunk: SongChunk;
   seconds: number;
 }
 type Step = AtomStep | SongStep;
@@ -58,56 +64,52 @@ function motivationFor(atom: Atom, song: Song): string | undefined {
   return undefined;
 }
 
-/** Builds the three-part session (recall → new/current skill → song) from the
- *  plan. Only the durations scale with session length. */
-function buildSteps(plan: DayPlan, length: SessionLength, song: Song): Step[] {
+function skillStep(f: FocusPlan, song: Song, seconds: number): AtomStep {
+  return {
+    type: 'atom',
+    atom: f.atom,
+    title: f.mode === 'reteach' ? 'Let’s nail this one' : f.atom.label,
+    teach: teachNode(f.atom, f.teachIndex, f.mode === 'reteach', motivationFor(f.atom, song)),
+    seconds,
+  };
+}
+
+/**
+ * Build the session: recall → skills → song. Longer sessions cover MORE — more
+ * skill blocks (from the scheduler's queue) and more song chunks — not just one
+ * lesson stretched out.
+ */
+function buildSteps(plan: DayPlan, length: SessionLength, song: Song, chunks: SongChunk[]): Step[] {
   const steps: Step[] = [];
 
-  // Block 1 — recall (fight decay). Warm-up on a cold start with nothing to recall.
+  // Recall — fight decay, leads the session.
   if (plan.recall.length > 0) {
-    const each = Math.max(15, Math.floor(length.recall / plan.recall.length));
-    for (const atom of plan.recall) {
-      steps.push({ type: 'atom', atom, title: 'Quick recall', seconds: each });
-    }
-  } else if (plan.focus) {
-    steps.push({ type: 'atom', atom: plan.focus.atom, title: 'Warm-up', seconds: length.recall });
+    const each = Math.max(20, Math.floor(length.recall / plan.recall.length));
+    for (const atom of plan.recall) steps.push({ type: 'atom', atom, title: 'Quick recall', seconds: each });
   }
 
-  // Block 2 — new / current skill.
-  if (plan.focus) {
-    steps.push({
-      type: 'atom',
-      atom: plan.focus.atom,
-      title: plan.focus.mode === 'reteach' ? 'Let’s nail this one' : 'New skill',
-      teach: teachNode(
-        plan.focus.atom,
-        plan.focus.teachIndex,
-        plan.focus.mode === 'reteach',
-        motivationFor(plan.focus.atom, song),
-      ),
-      seconds: length.focus,
-    });
-  } else if (plan.recall.length > 0) {
-    // Consolidating: a second pass over what's slipping instead of new material.
-    const each = Math.max(15, Math.floor(length.focus / plan.recall.length));
-    for (const atom of plan.recall) {
-      steps.push({ type: 'atom', atom, title: 'Consolidate', seconds: each });
-    }
-  }
+  // Skills — one block per queued skill, up to this length's count.
+  const skills = plan.focusQueue.slice(0, Math.max(1, length.focusCount));
+  for (const f of skills) steps.push(skillStep(f, song, length.focusEach));
 
-  // Block 3 — song time, always last.
-  steps.push({ type: 'song', seconds: length.song });
+  // Safety: if the plan had nothing to teach or recall, at least warm up.
+  if (steps.length === 0 && plan.focusQueue[0]) steps.push(skillStep(plan.focusQueue[0], song, length.focusEach));
+
+  // Song — always ends the session; more chunks in a longer sitting.
+  for (let s = 0; s < length.songCount; s++) {
+    steps.push({ type: 'song', chunk: chunks[s % chunks.length], seconds: length.songEach });
+  }
   return steps;
 }
 
-/** Runs the atom-driven session and reports the result plus per-atom outcomes. */
-export function SessionRunner({ input, plan, length, song, chunk, onComplete, onQuit }: Props) {
-  const steps = useMemo(() => buildSteps(plan, length, song), [plan, length, song]);
+/** Runs the session and reports the result plus per-atom and per-chunk outcomes. */
+export function SessionRunner({ input, plan, length, song, chunks, onComplete, onQuit }: Props) {
+  const steps = useMemo(() => buildSteps(plan, length, song, chunks), [plan, length, song, chunks]);
   const [i, setI] = useState(0);
   const startedAt = useRef(Date.now());
   const notesPlayed = useRef(0);
   const outcomes = useRef<AtomOutcome[]>([]);
-  const chunkAttempt = useRef<ChunkAttempt | null>(null);
+  const chunkOutcomes = useRef<ChunkOutcome[]>([]);
 
   useEffect(() => {
     const unsub = input.subscribe((n) => {
@@ -121,11 +123,9 @@ export function SessionRunner({ input, plan, length, song, chunk, onComplete, on
     if (i < steps.length - 1) {
       setI((v) => v + 1);
     } else {
-      const scoredResults = outcomes.current.filter((o) => o.result != null).map((o) => o.result!);
+      const scored = outcomes.current.filter((o) => o.result != null).map((o) => o.result!);
       const accuracy =
-        input.scored && scoredResults.length > 0
-          ? scoredResults.reduce((s, r) => s + r.noteAccuracy, 0) / scoredResults.length
-          : null;
+        input.scored && scored.length > 0 ? scored.reduce((s, r) => s + r.noteAccuracy, 0) / scored.length : null;
       const mode =
         input.mode === 'midi'
           ? 'connected'
@@ -144,7 +144,7 @@ export function SessionRunner({ input, plan, length, song, chunk, onComplete, on
           accuracy,
         },
         outcomes.current,
-        chunkAttempt.current,
+        chunkOutcomes.current,
       );
     }
   }
@@ -176,8 +176,8 @@ export function SessionRunner({ input, plan, length, song, chunk, onComplete, on
         />
       ) : (
         <SongBlock
-          key={`${i}-song`}
-          chunk={chunk}
+          key={`${i}-song-${step.chunk.id}`}
+          chunk={step.chunk}
           songTitle={song.title}
           songYoutube={song.youtube}
           bpm={song.bpm}
@@ -186,7 +186,7 @@ export function SessionRunner({ input, plan, length, song, chunk, onComplete, on
           blockIndex={i}
           blockCount={steps.length}
           onFinish={(attempt) => {
-            chunkAttempt.current = attempt;
+            chunkOutcomes.current.push({ chunkId: step.chunk.id, attempt });
             next();
           }}
         />
