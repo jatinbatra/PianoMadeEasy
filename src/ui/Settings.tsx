@@ -119,6 +119,15 @@ export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: (
         )}
         {syncMsg && <p className="hint">{syncMsg}</p>}
       </section>
+
+      <section className="card">
+        <h3>About</h3>
+        <p className="hint">
+          Your streak, progress and songs stay on this device. The mic listens in real time and is never
+          recorded. See the Privacy Policy and Terms in the project for the full detail.
+        </p>
+        <p className="hint">Questions or feedback: jatindecoded@gmail.com</p>
+      </section>
     </div>
   );
 }

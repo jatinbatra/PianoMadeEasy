@@ -132,7 +132,7 @@ export function SongLibrary({ songs, activeSongId, chunkMap, onChanged, onBack }
         <div className="add-song">
           <p className="hint">
             Type the notes and it becomes a song. Watch a tutorial, jot the letters, paste them here.
-            Stays on your device.
+            Only add music you have the right to use — it stays on your device.
           </p>
           <input className="time-input wide" placeholder="Title" value={bTitle} onChange={(e) => setBTitle(e.target.value)} />
           <div className="builder-row">
