@@ -126,7 +126,12 @@ export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: (
           Your streak, progress and songs stay on this device. The mic listens in real time and is never
           recorded. See the Privacy Policy and Terms in the project for the full detail.
         </p>
-        <p className="hint">Questions or feedback: jatindecoded@gmail.com</p>
+        <a
+          className="btn-secondary"
+          href="mailto:jatindecoded@gmail.com?subject=JatinSitDown%20feedback&body=What%20happened%3A%0A%0AWhat%20I%20expected%3A%0A%0ADevice%2Fbrowser%3A"
+        >
+          Send feedback
+        </a>
       </section>
     </div>
   );
