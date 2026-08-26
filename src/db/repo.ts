@@ -86,3 +86,47 @@ export async function loadChunkProgressMap(): Promise<Record<string, ChunkProgre
 export async function saveChunkProgress(cp: ChunkProgress): Promise<void> {
   await db.chunkProgress.put(cp);
 }
+
+// ----- Backup & restore (local-first safety net) -----
+
+export interface Backup {
+  app: 'jatinsitdown';
+  version: number;
+  exportedAt: number;
+  days: PracticeDay[];
+  sessions: SessionResult[];
+  atomProgress: AtomProgress[];
+  songs: Song[];
+  chunkProgress: ChunkProgress[];
+  meta: { key: string; value: unknown }[];
+}
+
+/** Everything on this device, as one portable object. */
+export async function exportAll(): Promise<Backup> {
+  const [days, sessions, atomProgress, songs, chunkProgress, meta] = await Promise.all([
+    db.days.toArray(),
+    db.sessions.toArray(),
+    db.atomProgress.toArray(),
+    db.songs.toArray(),
+    db.chunkProgress.toArray(),
+    db.meta.toArray(),
+  ]);
+  return { app: 'jatinsitdown', version: 1, exportedAt: Date.now(), days, sessions, atomProgress, songs, chunkProgress, meta };
+}
+
+/** Merge a backup back in (bulkPut = restore without wiping newer local data). */
+export async function importAll(data: Partial<Backup>): Promise<void> {
+  if (data.app && data.app !== 'jatinsitdown') throw new Error('That file is not a JatinSitDown backup.');
+  await db.transaction(
+    'rw',
+    [db.days, db.sessions, db.atomProgress, db.songs, db.chunkProgress, db.meta],
+    async () => {
+      if (data.days?.length) await db.days.bulkPut(data.days);
+      if (data.sessions?.length) await db.sessions.bulkPut(data.sessions);
+      if (data.atomProgress?.length) await db.atomProgress.bulkPut(data.atomProgress);
+      if (data.songs?.length) await db.songs.bulkPut(data.songs);
+      if (data.chunkProgress?.length) await db.chunkProgress.bulkPut(data.chunkProgress);
+      if (data.meta?.length) await db.meta.bulkPut(data.meta);
+    },
+  );
+}
