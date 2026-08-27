@@ -8,7 +8,8 @@ import { youtubeLink } from '../../songs/links';
 import { MicListening } from '../MicListening';
 import { MidiRecorder } from '../../midi/recorder';
 import { scoreChunk } from '../../songs/scoreChunk';
-import type { ChunkAttempt } from '../../songs/ladder';
+import { practiceTempo, type ChunkAttempt } from '../../songs/ladder';
+import type { ChunkProgress } from '../../types/chunk';
 import type { Input } from '../../input/useInput';
 import type { SongChunk } from '../../types/song';
 
@@ -17,6 +18,7 @@ interface Props {
   songTitle: string;
   songYoutube?: string;
   bpm: number;
+  chunkProgress?: ChunkProgress;
   seconds: number;
   input: Input;
   blockIndex: number;
@@ -30,8 +32,9 @@ interface Props {
  * note-by-note (advancing on the right note) while recording the take, then
  * score it for accuracy + tempo. Untethered: plays along at half tempo, unscored.
  */
-export function SongBlock({ chunk, songTitle, songYoutube, bpm, seconds, input, blockIndex, blockCount, onFinish }: Props) {
+export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, seconds, input, blockIndex, blockCount, onFinish }: Props) {
   const notes = chunk.notes;
+  const tempo = practiceTempo(chunkProgress, bpm);
   const [cursor, setCursor] = useState(0);
   const [played, setPlayed] = useState<number | null>(null);
   const recorder = useRef<MidiRecorder>(new MidiRecorder());
@@ -90,11 +93,11 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, seconds, input, 
         <button
           className="hear-btn"
           onClick={() => {
-            const beatMs = (60 / bpm) * 1000;
+            const beatMs = (60 / tempo.playbackBpm) * 1000;
             playMelody(notes.map((n) => ({ midi: parsePitch(n.pitch), durMs: n.beats * beatMs })));
           }}
         >
-          ▶ Hear it at tempo
+          ▶ Hear it {tempo.owned ? 'faster' : `at ${tempo.playbackBpm} BPM`}
         </button>
         <a
           className="yt-link"
@@ -104,6 +107,16 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, seconds, input, 
         >
           ▶ Watch on YouTube
         </a>
+      </div>
+
+      <div className="tempo-line">
+        {tempo.owned ? (
+          <>Owned ✓ — now push it: goal <strong>{tempo.goalBpm}</strong> BPM</>
+        ) : tempo.bestBpm > 0 ? (
+          <>Your best clean <strong>{tempo.bestBpm}</strong> · reach <strong>{tempo.goalBpm}</strong> BPM</>
+        ) : (
+          <>Learning speed — clean it up, then we speed up to <strong>{tempo.goalBpm}</strong> BPM</>
+        )}
       </div>
 
       <div className="song-strip" aria-hidden="true">

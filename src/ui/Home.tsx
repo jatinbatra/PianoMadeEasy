@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { Keyboard } from './Keyboard';
 import { noteName } from '../midi/notes';
 import type { Input } from '../input/useInput';
@@ -22,6 +22,7 @@ interface Props {
   onOpenSettings: () => void;
   onOpenPath: () => void;
   onOpenFreePlay: () => void;
+  installSlot?: ReactNode;
 }
 
 const INVITATIONS = [
@@ -45,6 +46,7 @@ export function Home({
   onOpenSettings,
   onOpenPath,
   onOpenFreePlay,
+  installSlot,
 }: Props) {
   const invite = useMemo(() => INVITATIONS[Math.floor(Math.random() * INVITATIONS.length)], []);
   const done = streak.practicedToday;
@@ -117,6 +119,8 @@ export function Home({
         </div>
         <div className="input-note">{inputLabel(input)}</div>
       </div>
+
+      {installSlot}
 
       <nav className="tabbar">
         <button onClick={onOpenPath}>Path</button>

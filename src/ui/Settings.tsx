@@ -3,6 +3,7 @@ import { notifySupported, getReminderTime, enableReminder, disableReminder } fro
 import { supabase, supabaseEnabled } from '../sync/supabase';
 import { syncNow } from '../sync/sync';
 import { exportAll, importAll, localDateKey } from '../db/repo';
+import { getTheme, applyTheme, type ThemeChoice } from './theme';
 
 export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: () => void }) {
   const [time, setTime] = useState('18:00');
@@ -16,7 +17,10 @@ export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: (
   const [dataMsg, setDataMsg] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const [theme, setThemeState] = useState<ThemeChoice>('system');
+
   useEffect(() => {
+    setThemeState(getTheme());
     void (async () => {
       const t = await getReminderTime();
       if (t) {
@@ -81,6 +85,11 @@ export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: (
     } catch {
       setDataMsg("Couldn't make a backup just now.");
     }
+  }
+
+  function chooseTheme(choice: ThemeChoice) {
+    setThemeState(choice);
+    applyTheme(choice);
   }
 
   async function restoreBackup(file: File) {
@@ -156,6 +165,22 @@ export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: (
           </div>
         )}
         {syncMsg && <p className="hint">{syncMsg}</p>}
+      </section>
+
+      <section className="card">
+        <h3>Appearance</h3>
+        <div className="seg">
+          {(['system', 'light', 'dark'] as ThemeChoice[]).map((c) => (
+            <button
+              key={c}
+              className={'seg-btn' + (theme === c ? ' active' : '')}
+              onClick={() => chooseTheme(c)}
+            >
+              {c === 'system' ? 'Auto' : c === 'light' ? 'Light' : 'Dark'}
+            </button>
+          ))}
+        </div>
+        <p className="hint">“Auto” follows your device. Rainy-night dark, foggy-day light.</p>
       </section>
 
       <section className="card">

@@ -69,6 +69,43 @@ export function ownedCount(song: Song, map: ChunkProgressMap): number {
   return song.chunks.filter((c) => map[chunkKey(song.id, c.id)]?.owned).length;
 }
 
+export interface PracticeTempo {
+  /** Speed the "Hear it" reference should play at right now. */
+  playbackBpm: number;
+  /** What you're reaching for this session. */
+  goalBpm: number;
+  /** Fastest you've played it clean (0 if never). */
+  bestBpm: number;
+  owned: boolean;
+}
+
+/** Slowest speed we'll ever demo a chunk at — always followable for a beginner. */
+export const FLOOR_TEMPO_FRACTION = 0.6;
+/** How far past target a fully-owned chunk is pushed — the "get faster" ceiling. */
+export const STRETCH_TEMPO_FRACTION = 1.25;
+
+/**
+ * The reference tempo for a chunk *right now*, so it speeds up as you improve
+ * instead of always demoing at one fixed speed. Brand-new: a gentle 60% of
+ * target you can actually follow. As you land clean takes it ramps toward the
+ * song's tempo; once you own the chunk it pushes a little past your best, up to
+ * a 125%-of-target ceiling — that's the "get faster" nudge.
+ */
+export function practiceTempo(cp: ChunkProgress | undefined, bpm: number): PracticeTempo {
+  const floor = Math.round(bpm * FLOOR_TEMPO_FRACTION);
+  const ceiling = Math.round(bpm * STRETCH_TEMPO_FRACTION);
+  const best = Math.round(cp?.maxCleanTempo ?? 0);
+  const owned = cp?.owned ?? false;
+
+  let playback: number;
+  if (best <= 0) playback = floor; // never landed a clean take yet
+  else if (!owned) playback = Math.min(bpm, Math.max(floor, Math.round(best * 1.05)));
+  else playback = Math.min(ceiling, Math.round(Math.max(bpm, best) * 1.1));
+
+  const goal = owned ? Math.min(ceiling, Math.round(Math.max(bpm, best) * 1.1)) : bpm;
+  return { playbackBpm: Math.max(floor, playback), goalBpm: goal, bestBpm: best, owned };
+}
+
 /**
  * The chunk to practice this session: the first unlocked, un-owned chunk (work
  * the frontier). If everything unlocked is owned, revisit the last unlocked one

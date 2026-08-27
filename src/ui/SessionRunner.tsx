@@ -8,7 +8,7 @@ import type { ScoreResult } from '../scoring/score';
 import type { DayPlan, FocusPlan } from '../atoms/scheduler';
 import { localDateKey } from '../db/repo';
 import type { Song, SongChunk } from '../types/song';
-import type { ChunkAttempt } from '../songs/ladder';
+import { chunkKey, type ChunkAttempt, type ChunkProgressMap } from '../songs/ladder';
 import type { SessionLength } from '../session/lengths';
 
 export interface AtomOutcome {
@@ -27,6 +27,7 @@ interface Props {
   length: SessionLength;
   song: Song;
   chunks: SongChunk[];
+  chunkMap: ChunkProgressMap;
   onComplete: (result: SessionResult, outcomes: AtomOutcome[], chunks: ChunkOutcome[]) => void;
   onQuit: () => void;
 }
@@ -103,7 +104,7 @@ function buildSteps(plan: DayPlan, length: SessionLength, song: Song, chunks: So
 }
 
 /** Runs the session and reports the result plus per-atom and per-chunk outcomes. */
-export function SessionRunner({ input, plan, length, song, chunks, onComplete, onQuit }: Props) {
+export function SessionRunner({ input, plan, length, song, chunks, chunkMap, onComplete, onQuit }: Props) {
   const steps = useMemo(() => buildSteps(plan, length, song, chunks), [plan, length, song, chunks]);
   const [i, setI] = useState(0);
   const startedAt = useRef(Date.now());
@@ -181,6 +182,7 @@ export function SessionRunner({ input, plan, length, song, chunks, onComplete, o
           songTitle={song.title}
           songYoutube={song.youtube}
           bpm={song.bpm}
+          chunkProgress={chunkMap[chunkKey(song.id, step.chunk.id)]}
           seconds={step.seconds}
           input={input}
           blockIndex={i}

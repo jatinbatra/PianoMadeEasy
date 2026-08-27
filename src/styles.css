@@ -21,9 +21,11 @@
   font-family: var(--font-body);
 }
 
-/* A grey Seattle daytime: foggy paper, the amber goes deeper for contrast. */
+/* A grey Seattle daytime: foggy paper, the amber goes deeper for contrast.
+   The light palette lives in one place and is shared by the system preference
+   (only when no explicit choice is pinned) and the manual "Light" toggle. */
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #dfe4e2;
     --bg-glow: rgba(181, 114, 42, 0.1);
     --panel: #eef1ee;
@@ -41,6 +43,26 @@
     --accent-ink: #fff6e8;
   }
 }
+:root[data-theme='light'] {
+  --bg: #dfe4e2;
+  --bg-glow: rgba(181, 114, 42, 0.1);
+  --panel: #eef1ee;
+  --panel-2: #d5dcd8;
+  --text: #182125;
+  --muted: #566268;
+  --line: #c7d0cc;
+  --accent: #b5722a;
+  --evergreen: #3f7a5c;
+  --good: #3f7a5c;
+  --good-dim: #d9e6dc;
+  --key-white: #f7f8f5;
+  --key-black: #121a1e;
+  --target: #b5722a;
+  --accent-ink: #fff6e8;
+}
+/* `data-theme='dark'` needs no block: :root already carries the dark tokens,
+   and the light media query is guarded by :not([data-theme]), so pinning dark
+   simply lets the base tokens stand even on a light device. */
 
 * {
   box-sizing: border-box;
@@ -675,6 +697,32 @@ h3,
   flex-direction: column;
   gap: 0.8rem;
   align-items: flex-start;
+}
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: var(--bg);
+}
+.seg-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.92rem;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  border-right: 1px solid var(--line);
+}
+.seg-btn:last-child {
+  border-right: none;
+}
+.seg-btn.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
 }
 .time-input {
   background: var(--bg);
@@ -1384,6 +1432,17 @@ h1, h2, h3,
 }
 .song-actions-row .yt-link { margin-top: 0; }
 
+.tempo-line {
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin: 0.5rem 0 0.2rem;
+}
+.tempo-line strong {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Song builder inputs. */
 .time-input.wide { width: 100%; }
 .builder-row { display: flex; gap: 0.6rem; }
@@ -1410,4 +1469,111 @@ h1, h2, h3,
 }
 .white-key.hint {
   box-shadow: inset 0 0 0 2px var(--accent), 0 2px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- First-run onboarding ---------- */
+.onb {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.onb-card {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 1.2rem;
+  padding: 2.4rem 1.8rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.onb-skip {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.onb-body {
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.onb-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.onb-title {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1.05;
+  margin: 0;
+  font-weight: 400;
+}
+.onb-text {
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.onb-dots {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.onb-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--line);
+}
+.onb-dot.on {
+  background: var(--accent);
+}
+.onb-next {
+  max-width: none;
+  font-size: 1.2rem;
+  padding: 1.1rem 1rem;
+}
+
+/* ---------- Add-to-home-screen invite ---------- */
+.install-invite {
+  margin: 0 auto 0.5rem;
+  max-width: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  padding: 0.8rem 1rem;
+}
+.install-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  flex: 1 1 12rem;
+}
+.install-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.install-yes {
+  padding: 0.55rem 1.1rem;
+  font-size: 0.95rem;
 }

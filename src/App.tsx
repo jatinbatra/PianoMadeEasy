@@ -7,6 +7,8 @@ import { SongLibrary } from './ui/SongLibrary';
 import { Progress } from './ui/Progress';
 import { Path } from './ui/Path';
 import { FreePlay } from './ui/FreePlay';
+import { Onboarding, needsOnboarding } from './ui/Onboarding';
+import { InstallPrompt } from './ui/InstallPrompt';
 import { maybeNotify } from './notify/notify';
 
 // Settings pulls in the Supabase client — lazy-load so it isn't in the initial
@@ -65,6 +67,7 @@ export function App() {
   const [lastGains, setLastGains] = useState(0);
   const [lastChunkOwned, setLastChunkOwned] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const refresh = useCallback(async () => {
     const [days, atomMap, songList, chunks, activeId] = await Promise.all([
@@ -84,6 +87,7 @@ export function App() {
 
   useEffect(() => {
     void (async () => {
+      setShowOnboarding(needsOnboarding());
       await seedSongsIfEmpty();
       await trySync();
       await refresh();
@@ -158,6 +162,8 @@ export function App() {
 
   if (!loaded) return <div className="loading">…</div>;
 
+  if (showOnboarding) return <Onboarding onDone={() => setShowOnboarding(false)} />;
+
   const skillsLearned = Object.values(progress).filter((p) => p.introduced).length;
   const heroChunks = activeSong
     ? { title: activeSong.title, owned: ownedCount(activeSong, chunkMap), total: activeSong.chunks.length }
@@ -190,6 +196,7 @@ export function App() {
           onOpenSettings={() => setScreen('settings')}
           onOpenPath={() => setScreen('path')}
           onOpenFreePlay={() => setScreen('freeplay')}
+          installSlot={<InstallPrompt />}
         />
       )}
       {screen === 'session' && plan && sessionSong && (
@@ -199,6 +206,7 @@ export function App() {
           length={sessionLength}
           song={sessionSong.song}
           chunks={sessionSong.chunks}
+          chunkMap={chunkMap}
           onComplete={handleComplete}
           onQuit={() => setScreen('home')}
         />

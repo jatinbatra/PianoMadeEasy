@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { updateChunkProgress, newChunkProgress, chunkUnlocked, pickChunk, ownedCount } from './ladder';
+import { updateChunkProgress, newChunkProgress, chunkUnlocked, pickChunk, ownedCount, practiceTempo } from './ladder';
 import type { Song } from '../types/song';
 import type { ProgressMap } from '../atoms/scheduler';
 import { newAtomProgress, review } from '../atoms/sm2';
@@ -48,6 +48,31 @@ describe('updateChunkProgress -> ownership', () => {
     expect(p.owned).toBe(false);
     expect(p.bestAccuracy).toBe(1);
     expect(p.reps).toBe(2);
+  });
+});
+
+describe('practiceTempo — get faster as you improve', () => {
+  it('starts gentle and never below the floor for a brand-new chunk', () => {
+    const t = practiceTempo(undefined, 100);
+    expect(t.playbackBpm).toBe(60); // 60% floor
+    expect(t.goalBpm).toBe(100); // target is the goal until owned
+    expect(t.bestBpm).toBe(0);
+    expect(t.owned).toBe(false);
+  });
+
+  it('ramps toward target as clean tempo climbs, but not past it while un-owned', () => {
+    const cp = { ...newChunkProgress('s', 'c1'), maxCleanTempo: 80 };
+    const t = practiceTempo(cp, 100);
+    expect(t.playbackBpm).toBeGreaterThan(60);
+    expect(t.playbackBpm).toBeLessThanOrEqual(100);
+  });
+
+  it('pushes past target once owned, capped at the stretch ceiling', () => {
+    const cp = { ...newChunkProgress('s', 'c1'), owned: true, maxCleanTempo: 100 };
+    const t = practiceTempo(cp, 100);
+    expect(t.playbackBpm).toBeGreaterThan(100);
+    expect(t.playbackBpm).toBeLessThanOrEqual(125); // 125% ceiling
+    expect(t.goalBpm).toBeGreaterThan(100);
   });
 });
 
