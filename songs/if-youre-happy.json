@@ -1,0 +1,450 @@
+{
+  "id": "if-youre-happy",
+  "title": "If You’re Happy and You Know It",
+  "attribution": "Traditional, public domain. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=If+You+are+Happy+and+You+Know+It+easy+piano+both+hands+tutorial",
+  "bpm": 110,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "If you’re happy and you know it, clap your hands",
+      "bars": "1-6",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:F",
+        "find-note:E",
+        "find-note:G"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "IF"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "YOU’RE"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "HAP-"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "PY"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "AND"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "YOU"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "KNOW"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "CLAP"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "YOUR"
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5,
+          "lyric": "HANDS"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 2
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 2
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 2
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 2
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 2
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 2
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Second line",
+      "bars": "7-12",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:G",
+        "find-note:F",
+        "find-note:A"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "IF"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "YOU’RE"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "HAP-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "PY"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "AND"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "YOU"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "KNOW"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "CLAP"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "YOUR"
+        },
+        {
+          "pitch": "A4",
+          "beats": 2,
+          "finger": 5,
+          "lyric": "HANDS"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 2
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 2
+        },
+        {
+          "pitch": "E3",
+          "chord": "E",
+          "beats": 2
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 2
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 2
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 2
+        }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "If you’re happy and you know it then your face",
+      "bars": "13-18",
+      "requiresAtoms": [
+        "find-note:C",
+        "accidental:A#",
+        "find-note:B",
+        "find-note:A",
+        "find-note:G"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "THEN"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "YOUR"
+        },
+        {
+          "pitch": "Bb4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "FACE"
+        },
+        {
+          "pitch": "Bb4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "WILL"
+        },
+        {
+          "pitch": "Bb4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "SURE-"
+        },
+        {
+          "pitch": "Bb4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "LY"
+        },
+        {
+          "pitch": "A4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "SHOW"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "IF"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "YOU’RE"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 2
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 2
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 2
+        },
+        {
+          "pitch": "A3",
+          "chord": "A",
+          "beats": 2
+        },
+        {
+          "pitch": "A3",
+          "chord": "A",
+          "beats": 2
+        },
+        {
+          "pitch": "A3",
+          "chord": "A",
+          "beats": 2
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "Ending",
+      "bars": "19-22",
+      "requiresAtoms": [
+        "find-note:F",
+        "find-note:E",
+        "find-note:D"
+      ],
+      "notes": [
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "HAP-"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "PY"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "AND"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "YOU"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "KNOW"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "CLAP"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "YOUR"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "HANDS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 2,
+          "finger": 4
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 2
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 2
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 2
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 2
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 2
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 2
+        }
+      ]
+    }
+  ]
+}

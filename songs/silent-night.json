@@ -1,0 +1,180 @@
+{
+  "id": "silent-night",
+  "title": "Silent Night",
+  "attribution": "Franz Gruber, 1818 — public domain. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=Silent+Night+easy+piano+both+hands+tutorial",
+  "bpm": 80,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Silent night, holy night",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:A",
+        "find-note:E"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "SI-"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LENT"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "NIGHT"
+        },
+        {
+          "pitch": "E4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "HO-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "LY"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "NIGHT"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 3,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 3
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 3
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 3
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 3
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "All is calm, all is bright",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:A",
+        "find-note:C",
+        "find-note:E",
+        "find-note:B",
+        "find-note:G"
+      ],
+      "notes": [
+        {
+          "pitch": "A4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "ALL"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "IS"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "CALM"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "ALL"
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "IS"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "BRIGHT"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "E4",
+          "beats": 3
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 3
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 3
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 3
+        }
+      ]
+    }
+  ]
+}

@@ -1,52 +1,227 @@
 {
   "id": "happy-birthday",
   "title": "Happy Birthday",
-  "attribution": "Melody in the public domain (since 2016). The one everyone needs.",
-  "youtube": "https://www.youtube.com/results?search_query=Happy+Birthday+easy+piano+tutorial+right+hand",
-  "bpm": 96,
+  "attribution": "Melody now public domain. Two-hand arrangement in your teacher’s notation.",
+  "youtube": "https://www.youtube.com/results?search_query=Happy+Birthday+easy+piano+both+hands+tutorial",
+  "bpm": 100,
   "chunks": [
     {
-      "id": "l1",
+      "id": "a1",
       "label": "Happy birthday to you",
-      "bars": "1-2",
-      "requiresAtoms": ["find-note:G", "find-note:A", "find-note:C", "find-note:B"],
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D",
+        "find-note:F",
+        "find-note:E",
+        "find-note:G"
+      ],
       "notes": [
-        { "pitch": "G4", "beats": 0.75 }, { "pitch": "G4", "beats": 0.25 },
-        { "pitch": "A4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
-        { "pitch": "C5", "beats": 1 }, { "pitch": "B4", "beats": 2 }
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "HAP-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "PY"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "BIRTH-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "DAY"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "TO"
+        },
+        {
+          "pitch": "E4",
+          "beats": 3,
+          "finger": 3,
+          "lyric": "YOU"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "HAP-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "PY"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "BIRTH-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "DAY"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "TO"
+        },
+        {
+          "pitch": "F4",
+          "beats": 3,
+          "finger": 4,
+          "lyric": "YOU"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 4
+        }
       ]
     },
     {
-      "id": "l2",
-      "label": "Happy birthday to you",
-      "bars": "3-4",
-      "requiresAtoms": ["find-note:G", "find-note:A", "find-note:C", "find-note:D"],
+      "id": "a2",
+      "label": "Happy birthday dear ___",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:A",
+        "find-note:F",
+        "find-note:E",
+        "find-note:D",
+        "accidental:A#",
+        "find-note:B",
+        "find-note:G"
+      ],
       "notes": [
-        { "pitch": "G4", "beats": 0.75 }, { "pitch": "G4", "beats": 0.25 },
-        { "pitch": "A4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
-        { "pitch": "D5", "beats": 1 }, { "pitch": "C5", "beats": 2 }
-      ]
-    },
-    {
-      "id": "l3",
-      "label": "Happy birthday dear …",
-      "bars": "5-6",
-      "requiresAtoms": ["find-note:G", "find-note:E", "find-note:C", "find-note:B", "find-note:A"],
-      "notes": [
-        { "pitch": "G4", "beats": 0.75 }, { "pitch": "G4", "beats": 0.25 },
-        { "pitch": "G5", "beats": 1 }, { "pitch": "E5", "beats": 1 },
-        { "pitch": "C5", "beats": 1 }, { "pitch": "B4", "beats": 1 }, { "pitch": "A4", "beats": 1 }
-      ]
-    },
-    {
-      "id": "l4",
-      "label": "…to you",
-      "bars": "7-8",
-      "requiresAtoms": ["find-note:F", "find-note:E", "find-note:C", "find-note:D"],
-      "notes": [
-        { "pitch": "F5", "beats": 0.75 }, { "pitch": "F5", "beats": 0.25 },
-        { "pitch": "E5", "beats": 1 }, { "pitch": "C5", "beats": 1 },
-        { "pitch": "D5", "beats": 1 }, { "pitch": "C5", "beats": 2 }
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "HAP-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "PY"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "BIRTH-"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "DAY"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "DEAR"
+        },
+        {
+          "pitch": "D4",
+          "beats": 3,
+          "finger": 2,
+          "lyric": "YOU"
+        },
+        {
+          "pitch": "Bb4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "HAP-"
+        },
+        {
+          "pitch": "Bb4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "PY"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "BIRTH-"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "DAY"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "TO"
+        },
+        {
+          "pitch": "F4",
+          "beats": 3,
+          "finger": 2,
+          "lyric": "YOU"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
       ]
     }
   ]

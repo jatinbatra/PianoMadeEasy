@@ -1,0 +1,242 @@
+{
+  "id": "rudolph",
+  "title": "Rudolph the Red-Nosed Reindeer",
+  "attribution": "Melody excerpt for practice, public domain teaching arrangement (G position).",
+  "youtube": "https://www.youtube.com/results?search_query=Rudolph+the+Red+Nosed+Reindeer+easy+piano+both+hands+tutorial",
+  "bpm": 110,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Rudolph the red-nosed reindeer",
+      "bars": "1-6",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:A",
+        "find-note:E",
+        "find-note:C",
+        "find-note:B"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "RU-"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "lyric": "DOLPH"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "lyric": "RED-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "lyric": "NOSED"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "lyric": "REIN-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 3,
+          "lyric": "DEER"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "HAD"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "lyric": "A"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "VE-"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "lyric": "RY"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "SHI-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "lyric": "NY"
+        },
+        {
+          "pitch": "B4",
+          "beats": 3,
+          "lyric": "NOSE"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "And if you ever saw it",
+      "bars": "7-12",
+      "requiresAtoms": [
+        "find-note:F",
+        "find-note:G",
+        "find-note:D",
+        "find-note:B",
+        "find-note:A",
+        "find-note:C"
+      ],
+      "notes": [
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "lyric": "AND"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "IF"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "lyric": "YOU"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "lyric": "E-"
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "lyric": "VER"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "lyric": "SAW"
+        },
+        {
+          "pitch": "G4",
+          "beats": 3,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "YOU"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "lyric": "WOULD"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "E-"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "lyric": "VEN"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "lyric": "SAY"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "C4",
+          "beats": 3,
+          "lyric": "GLOWS"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        }
+      ]
+    }
+  ]
+}

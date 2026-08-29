@@ -11,13 +11,21 @@ import grace from '../../songs/amazing-grace.json';
 import elise from '../../songs/fur-elise.json';
 import lightlyRow from '../../songs/lightly-row.json';
 import londonBridge from '../../songs/london-bridge.json';
+import auraLea from '../../songs/aura-lea.json';
+import doeADeer from '../../songs/doe-a-deer.json';
+import hotCrossBuns from '../../songs/hot-cross-buns.json';
+import ifYoureHappy from '../../songs/if-youre-happy.json';
+import wheelsOnTheBus from '../../songs/wheels-on-the-bus.json';
+import rowRow from '../../songs/row-row.json';
+import rudolph from '../../songs/rudolph.json';
+import silentNight from '../../songs/silent-night.json';
 import { loadSongs, saveSong, getActiveSongId, setActiveSongId } from '../db/repo';
 import { getMeta, setMeta } from '../db/db';
 import type { Song } from '../types/song';
 
 /** Bump when shipped songs change (e.g. two-hand arrangements) so existing
  *  installs refresh them. */
-const SEED_VERSION = 2;
+const SEED_VERSION = 3;
 
 const SHIPPED: Song[] = [
   ode as Song,
@@ -26,7 +34,15 @@ const SHIPPED: Song[] = [
   lightlyRow as Song,
   londonBridge as Song,
   happy as Song,
+  hotCrossBuns as Song,
+  doeADeer as Song,
+  auraLea as Song,
+  rowRow as Song,
+  wheelsOnTheBus as Song,
+  ifYoureHappy as Song,
   jingle as Song,
+  rudolph as Song,
+  silentNight as Song,
   saints as Song,
   grace as Song,
   sargam as Song,

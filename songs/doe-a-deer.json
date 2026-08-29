@@ -1,0 +1,303 @@
+{
+  "id": "doe-a-deer",
+  "title": "Doe a Deer (Do-Re-Mi)",
+  "attribution": "Public-domain solfège teaching version. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=Do+Re+Mi+solfege+easy+piano+both+hands+tutorial",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Doe, a deer",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D",
+        "find-note:E"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "DO"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "E4",
+          "beats": 3,
+          "finger": 3,
+          "lyric": "DEER"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "A"
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "FE-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "MALE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 4,
+          "finger": 3,
+          "lyric": "DEER"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Ray, a drop",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:D",
+        "find-note:E",
+        "find-note:F"
+      ],
+      "notes": [
+        {
+          "pitch": "D4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "RE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "DROP"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "OF"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "GOL-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "DEN"
+        },
+        {
+          "pitch": "F4",
+          "beats": 4,
+          "finger": 3,
+          "lyric": "SUN"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "Me, a name",
+      "bars": "9-12",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:F",
+        "find-note:G"
+      ],
+      "notes": [
+        {
+          "pitch": "E4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "MI"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "G4",
+          "beats": 3,
+          "finger": 3,
+          "lyric": "NAME"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "I"
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "CALL"
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "MY-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 4,
+          "finger": 3,
+          "lyric": "SELF"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "Far, a long way",
+      "bars": "13-16",
+      "requiresAtoms": [
+        "find-note:F",
+        "find-note:G",
+        "find-note:A"
+      ],
+      "notes": [
+        {
+          "pitch": "F4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "FA"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LONG"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LONG"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "WAY"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "TO"
+        },
+        {
+          "pitch": "A4",
+          "beats": 4,
+          "finger": 3,
+          "lyric": "RUN"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}

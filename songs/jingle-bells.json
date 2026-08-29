@@ -1,55 +1,443 @@
 {
   "id": "jingle-bells",
   "title": "Jingle Bells",
-  "attribution": "James Lord Pierpont, 1857 — public domain. The chorus everyone knows.",
-  "youtube": "https://www.youtube.com/results?search_query=Jingle+Bells+easy+piano+tutorial+right+hand",
+  "attribution": "James Lord Pierpont, 1857 — public domain. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=Jingle+Bells+easy+piano+both+hands+tutorial",
   "bpm": 120,
   "chunks": [
     {
       "id": "a1",
       "label": "Jingle bells, jingle bells",
-      "bars": "1-2",
-      "requiresAtoms": ["find-note:E"],
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:G",
+        "find-note:C",
+        "find-note:D"
+      ],
       "notes": [
-        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "E4", "beats": 2 },
-        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "E4", "beats": 2 }
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "JIN-"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "GLE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "BELLS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "JIN-"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "GLE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "BELLS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "JIN-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "GLE"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "ALL"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 4,
+          "finger": 3,
+          "lyric": "WAY"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
       ]
     },
     {
       "id": "a2",
-      "label": "Jingle all the way",
-      "bars": "3-4",
-      "requiresAtoms": ["find-note:E", "find-note:G", "find-note:C", "find-note:D"],
+      "label": "Oh what fun it is to ride",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:F",
+        "find-note:E",
+        "find-note:D",
+        "find-note:G"
+      ],
       "notes": [
-        { "pitch": "E4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
-        { "pitch": "C4", "beats": 1.5 }, { "pitch": "D4", "beats": 0.5 },
-        { "pitch": "E4", "beats": 2 }
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "OH"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "WHAT"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "FUN"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "IS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "TO"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "RIDE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "IN"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "A"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "ONE-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "HORSE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "O-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2,
+          "lyric": "PEN"
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5,
+          "lyric": "SLEIGH"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        }
       ]
     },
     {
       "id": "b1",
-      "label": "Oh what fun it is to ride",
-      "bars": "5-6",
-      "requiresAtoms": ["find-note:F", "find-note:E", "find-note:D"],
+      "label": "Jingle bells again",
+      "bars": "9-12",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:G",
+        "find-note:C",
+        "find-note:D"
+      ],
       "notes": [
-        { "pitch": "F4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
-        { "pitch": "F4", "beats": 1.5 }, { "pitch": "F4", "beats": 0.5 },
-        { "pitch": "F4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 0.5 },
-        { "pitch": "E4", "beats": 0.5 }
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "JIN-"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "GLE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "BELLS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "JIN-"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "GLE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "BELLS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "JIN-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "GLE"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "ALL"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 4,
+          "finger": 3,
+          "lyric": "WAY"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
       ]
     },
     {
       "id": "b2",
-      "label": "In a one-horse open sleigh",
-      "bars": "7-8",
-      "requiresAtoms": ["find-note:E", "find-note:D", "find-note:G", "find-note:C"],
+      "label": "The finish",
+      "bars": "13-16",
+      "requiresAtoms": [
+        "find-note:F",
+        "find-note:E",
+        "find-note:G",
+        "find-note:D",
+        "find-note:C"
+      ],
       "notes": [
-        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 },
-        { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "D4", "beats": 2 }, { "pitch": "G4", "beats": 2 }
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "OH"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "WHAT"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "FUN"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "IT"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "IS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "TO"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "RIDE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "IN"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "A"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "ONE-"
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "HORSE"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "O-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 4,
+          "finger": 1,
+          "lyric": "PEN"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
       ]
     }
   ]

@@ -1,0 +1,389 @@
+{
+  "id": "aura-lea",
+  "title": "Aura Lea",
+  "attribution": "W. W. Fosdick / George Poulton, 1861 — public domain (“Love Me Tender” melody).",
+  "youtube": "https://www.youtube.com/results?search_query=Aura+Lea+easy+piano+both+hands+tutorial",
+  "bpm": 90,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Line 1",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:F",
+        "find-note:E",
+        "find-note:G",
+        "find-note:D"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 4,
+          "finger": 4
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Line 2",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:F",
+        "find-note:E",
+        "find-note:G",
+        "find-note:D",
+        "find-note:A"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "F4",
+          "beats": 4,
+          "finger": 3
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "A3",
+          "chord": "A",
+          "beats": 4
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "Bridge",
+      "bars": "9-12",
+      "requiresAtoms": [
+        "find-note:A",
+        "find-note:G",
+        "find-note:F"
+      ],
+      "notes": [
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 2,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 2,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "A4",
+          "beats": 4,
+          "finger": 3
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "Ending",
+      "bars": "13-16",
+      "requiresAtoms": [
+        "find-note:A",
+        "accidental:A#",
+        "find-note:B",
+        "find-note:G",
+        "find-note:D",
+        "find-note:F",
+        "find-note:E"
+      ],
+      "notes": [
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "Bb4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 4,
+          "finger": 4
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "Bb3",
+          "chord": "Bb",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}

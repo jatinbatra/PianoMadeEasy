@@ -1,0 +1,230 @@
+{
+  "id": "wheels-on-the-bus",
+  "title": "The Wheels on the Bus",
+  "attribution": "Traditional, public domain. Two-hand arrangement (G position).",
+  "youtube": "https://www.youtube.com/results?search_query=Wheels+on+the+Bus+easy+piano+both+hands+tutorial",
+  "bpm": 110,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "The wheels on the bus go round and round",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:C",
+        "find-note:E",
+        "find-note:D",
+        "find-note:B"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "WHEELS"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "ON"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "BUS"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "GO"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "ROUND"
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "AND"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "ROUND"
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "ROUND"
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "AND"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "ROUND"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "ROUND"
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "AND"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "All through the town",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:C",
+        "find-note:E",
+        "find-note:D"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "WHEELS"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "ON"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "BUS"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "GO"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "ROUND"
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "AND"
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 5,
+          "lyric": "ROUND"
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "ALL"
+        },
+        {
+          "pitch": "C4",
+          "beats": 4,
+          "finger": 3,
+          "lyric": "THROUGH"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}

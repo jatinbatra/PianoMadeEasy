@@ -1,56 +1,457 @@
 {
   "id": "ode-to-joy",
   "title": "Ode to Joy",
-  "attribution": "Beethoven, public domain. A longer melody to show the chunk ladder.",
-  "youtube": "https://www.youtube.com/results?search_query=Ode+to+Joy+easy+piano+tutorial+right+hand",
+  "attribution": "Beethoven, public domain. Two-hand arrangement in your teacher’s notation.",
+  "youtube": "https://www.youtube.com/results?search_query=Ode+to+Joy+easy+piano+both+hands+tutorial",
   "bpm": 100,
   "chunks": [
     {
       "id": "a1",
-      "label": "Opening — rising line",
-      "bars": "1-2",
-      "requiresAtoms": ["find-note:E", "find-note:F", "find-note:G", "find-note:D"],
+      "label": "Opening",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:F",
+        "find-note:G",
+        "find-note:D",
+        "find-note:C"
+      ],
       "notes": [
-        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
-        { "pitch": "G4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
-        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 }
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        }
       ]
     },
     {
       "id": "a2",
-      "label": "Coming home",
-      "bars": "3-4",
-      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "label": "Answer",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:F",
+        "find-note:G",
+        "find-note:D",
+        "find-note:C"
+      ],
       "notes": [
-        { "pitch": "C4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
-        { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "E4", "beats": 1.5 }, { "pitch": "D4", "beats": 0.5 },
-        { "pitch": "D4", "beats": 2 }
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        }
       ]
     },
     {
       "id": "b1",
-      "label": "Second time up",
-      "bars": "5-6",
-      "requiresAtoms": ["find-note:E", "find-note:F", "find-note:G", "find-note:D"],
+      "label": "Middle",
+      "bars": "9-12",
+      "requiresAtoms": [
+        "find-note:D",
+        "find-note:E",
+        "find-note:C",
+        "find-note:F"
+      ],
       "notes": [
-        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
-        { "pitch": "G4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
-        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 }
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        }
       ]
     },
     {
       "id": "b2",
-      "label": "The resolve",
-      "bars": "7-8",
-      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "label": "Return",
+      "bars": "13-16",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:F",
+        "find-note:G",
+        "find-note:D",
+        "find-note:C"
+      ],
       "notes": [
-        { "pitch": "C4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
-        { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
-        { "pitch": "D4", "beats": 1.5 }, { "pitch": "C4", "beats": 0.5 },
-        { "pitch": "C4", "beats": 2 }
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        }
       ]
     }
   ]

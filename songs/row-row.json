@@ -1,0 +1,298 @@
+{
+  "id": "row-row",
+  "title": "Row, Row, Row Your Boat",
+  "attribution": "Traditional round, public domain. Two-hand arrangement (G position).",
+  "youtube": "https://www.youtube.com/results?search_query=Row+Row+Row+Your+Boat+easy+piano+both+hands+tutorial",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Row, row, row your boat",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:A",
+        "find-note:B"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "ROW"
+        },
+        {
+          "pitch": "G4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "ROW"
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "ROW"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "YOUR"
+        },
+        {
+          "pitch": "B4",
+          "beats": 3,
+          "finger": 3,
+          "lyric": "BOAT"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 3
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Gently down the stream",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:B",
+        "find-note:A",
+        "find-note:C",
+        "find-note:D"
+      ],
+      "notes": [
+        {
+          "pitch": "B4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "GENT-"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "LY"
+        },
+        {
+          "pitch": "B4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "DOWN"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "THE"
+        },
+        {
+          "pitch": "D4",
+          "beats": 3,
+          "finger": 5,
+          "lyric": "STREAM"
+        },
+        {
+          "pitch": "D4",
+          "beats": 3,
+          "finger": 5
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "Merrily merrily",
+      "bars": "9-12",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:D",
+        "find-note:B"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "MER-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "RI-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "LY"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "MER-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "RI-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LY"
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "MER-"
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "RI-"
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "LY"
+        },
+        {
+          "pitch": "G4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "MER-"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 3
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "Life is but a dream",
+      "bars": "13-16",
+      "requiresAtoms": [
+        "find-note:D",
+        "find-note:C",
+        "find-note:B",
+        "find-note:A",
+        "find-note:G"
+      ],
+      "notes": [
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 5,
+          "lyric": "LIFE"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 4,
+          "lyric": "IS"
+        },
+        {
+          "pitch": "B4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "BUT"
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "G4",
+          "beats": 3,
+          "finger": 1,
+          "lyric": "DREAM"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        },
+        {
+          "pitch": "D3",
+          "chord": "D",
+          "beats": 3
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 3
+        }
+      ]
+    }
+  ]
+}

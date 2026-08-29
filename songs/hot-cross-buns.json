@@ -1,0 +1,197 @@
+{
+  "id": "hot-cross-buns",
+  "title": "Hot Cross Buns",
+  "attribution": "Traditional nursery rhyme, public domain. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=Hot+Cross+Buns+easy+piano+both+hands+tutorial",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Hot cross buns",
+      "bars": "1-2",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:D",
+        "find-note:C"
+      ],
+      "notes": [
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "HOT"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "CROSS"
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "BUNS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "HOT"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "CROSS"
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "BUNS"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "E3",
+          "chord": "E",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "One a penny",
+      "bars": "3-4",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "ONE"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "A"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "PEN-"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "NY"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "TWO"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "PEN-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "NY"
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a3",
+      "label": "Hot cross buns",
+      "bars": "5-6",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:D",
+        "find-note:C"
+      ],
+      "notes": [
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "HOT"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "CROSS"
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1,
+          "lyric": "BUNS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "E3",
+          "chord": "E",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}
