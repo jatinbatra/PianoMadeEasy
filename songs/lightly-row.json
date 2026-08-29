@@ -1,0 +1,61 @@
+{
+  "id": "lightly-row",
+  "title": "Lightly Row",
+  "attribution": "Traditional folk melody, public domain. Two-hand arrangement in your teacher's notation.",
+  "youtube": "https://www.youtube.com/results?search_query=Lightly+Row+easy+piano+both+hands+tutorial",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Line 1",
+      "bars": "1-4",
+      "requiresAtoms": ["find-note:G", "find-note:E", "find-note:F", "find-note:D", "find-note:C"],
+      "notes": [
+        { "pitch": "G4", "beats": 1, "finger": 5, "lyric": "LIGHT-" },
+        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "LY" },
+        { "pitch": "E4", "beats": 2, "finger": 3, "lyric": "ROW" },
+        { "pitch": "F4", "beats": 1, "finger": 4, "lyric": "O-" },
+        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "VER" },
+        { "pitch": "D4", "beats": 2, "finger": 2, "lyric": "WA-TER" },
+        { "pitch": "C4", "beats": 1, "finger": 1, "lyric": "SEE" },
+        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "THE" },
+        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "BOAT" },
+        { "pitch": "F4", "beats": 1, "finger": 4, "lyric": "GO" },
+        { "pitch": "G4", "beats": 1, "finger": 5, "lyric": "FLOAT-" },
+        { "pitch": "G4", "beats": 1, "finger": 5, "lyric": "ING" },
+        { "pitch": "G4", "beats": 2, "finger": 5, "lyric": "BY" }
+      ],
+      "leftHand": [
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
+        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 },
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
+        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Line 2",
+      "bars": "5-8",
+      "requiresAtoms": ["find-note:G", "find-note:E", "find-note:F", "find-note:D", "find-note:C"],
+      "notes": [
+        { "pitch": "G4", "beats": 1, "finger": 5, "lyric": "GENT-" },
+        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "LY" },
+        { "pitch": "E4", "beats": 2, "finger": 3, "lyric": "ROW" },
+        { "pitch": "F4", "beats": 1, "finger": 4, "lyric": "O-" },
+        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "VER" },
+        { "pitch": "D4", "beats": 2, "finger": 2, "lyric": "WA-TER" },
+        { "pitch": "C4", "beats": 1, "finger": 1, "lyric": "SO" },
+        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "WE" },
+        { "pitch": "G4", "beats": 1, "finger": 5, "lyric": "GLIDE" },
+        { "pitch": "G4", "beats": 1, "finger": 5, "lyric": "A-" },
+        { "pitch": "C4", "beats": 4, "finger": 1, "lyric": "WAY" }
+      ],
+      "leftHand": [
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
+        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 },
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 }
+      ]
+    }
+  ]
+}

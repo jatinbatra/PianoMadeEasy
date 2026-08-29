@@ -1,0 +1,71 @@
+{
+  "id": "london-bridge",
+  "title": "London Bridge",
+  "attribution": "Traditional nursery rhyme, public domain. Two-hand arrangement in your teacher's notation.",
+  "youtube": "https://www.youtube.com/results?search_query=London+Bridge+easy+piano+both+hands+tutorial",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "London Bridge is falling down",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:G", "find-note:A", "find-note:F", "find-note:E"],
+      "notes": [
+        { "pitch": "G4", "beats": 1, "finger": 4, "lyric": "LON-" },
+        { "pitch": "A4", "beats": 1, "finger": 5, "lyric": "DON" },
+        { "pitch": "G4", "beats": 1, "finger": 4, "lyric": "BRIDGE" },
+        { "pitch": "F4", "beats": 1, "finger": 3, "lyric": "IS" },
+        { "pitch": "E4", "beats": 1, "finger": 2, "lyric": "FALL-" },
+        { "pitch": "F4", "beats": 1, "finger": 3, "lyric": "ING" },
+        { "pitch": "G4", "beats": 2, "finger": 4, "lyric": "DOWN" }
+      ],
+      "leftHand": [
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Falling down, falling down",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:D", "find-note:E", "find-note:F", "find-note:G"],
+      "notes": [
+        { "pitch": "D4", "beats": 1, "finger": 1, "lyric": "FALL-" },
+        { "pitch": "E4", "beats": 1, "finger": 2, "lyric": "ING" },
+        { "pitch": "F4", "beats": 2, "finger": 3, "lyric": "DOWN" },
+        { "pitch": "E4", "beats": 1, "finger": 2, "lyric": "FALL-" },
+        { "pitch": "F4", "beats": 1, "finger": 3, "lyric": "ING" },
+        { "pitch": "G4", "beats": 2, "finger": 4, "lyric": "DOWN" }
+      ],
+      "leftHand": [
+        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 },
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "My fair lady",
+      "bars": "5-8",
+      "requiresAtoms": ["find-note:G", "find-note:A", "find-note:F", "find-note:E", "find-note:D", "find-note:C"],
+      "notes": [
+        { "pitch": "G4", "beats": 1, "finger": 4, "lyric": "LON-" },
+        { "pitch": "A4", "beats": 1, "finger": 5, "lyric": "DON" },
+        { "pitch": "G4", "beats": 1, "finger": 4, "lyric": "BRIDGE" },
+        { "pitch": "F4", "beats": 1, "finger": 3, "lyric": "IS" },
+        { "pitch": "E4", "beats": 1, "finger": 2, "lyric": "FALL-" },
+        { "pitch": "F4", "beats": 1, "finger": 3, "lyric": "ING" },
+        { "pitch": "G4", "beats": 2, "finger": 4, "lyric": "DOWN" },
+        { "pitch": "D4", "beats": 2, "finger": 1, "lyric": "MY" },
+        { "pitch": "G4", "beats": 2, "finger": 4, "lyric": "FAIR" },
+        { "pitch": "E4", "beats": 1, "finger": 2, "lyric": "LA-" },
+        { "pitch": "C4", "beats": 3, "finger": 1, "lyric": "DY" }
+      ],
+      "leftHand": [
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
+        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 },
+        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 }
+      ]
+    }
+  ]
+}

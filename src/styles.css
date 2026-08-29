@@ -1660,3 +1660,121 @@ h1, h2, h3,
   line-height: 1.25;
   text-align: left;
 }
+
+/* ---------- Two-hand / teacher sheet ---------- */
+.hands-row {
+  display: flex;
+  justify-content: center;
+  margin: 0.2rem 0;
+}
+.sheet-toggle {
+  font-size: 0.9rem;
+}
+.sheet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  padding: 0.8rem 0.6rem;
+  margin: 0.3rem 0 0.6rem;
+}
+.sheet-bar {
+  border-left: 2px solid var(--line);
+  padding: 0 0.5rem;
+  min-width: 0;
+}
+.sheet-lh {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  border-bottom: 1px dashed var(--line);
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.2rem;
+}
+.lh-finger {
+  font-size: 0.7rem;
+  color: var(--muted);
+  min-width: 0.7rem;
+}
+.lh-chord {
+  font-weight: 700;
+  color: var(--evergreen);
+}
+.sheet-notes {
+  display: flex;
+  gap: 0.45rem;
+}
+.sheet-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 1.3rem;
+  border-radius: 0.35rem;
+  padding: 0.1rem 0.15rem;
+}
+.sheet-cell.current {
+  background: var(--good-dim);
+  outline: 1px solid var(--good);
+}
+.cell-finger {
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+.cell-letter {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.cell-solfege {
+  font-size: 0.6rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.cell-lyric {
+  font-size: 0.58rem;
+  color: var(--muted);
+  margin-top: 0.05rem;
+}
+
+/* Left-hand cue under the strip */
+.lh-cue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--good-dim);
+  border: 1px solid var(--evergreen);
+  border-radius: 0.7rem;
+  padding: 0.5rem 0.9rem;
+  margin: 0.3rem auto;
+  max-width: 24rem;
+  font-size: 0.95rem;
+}
+.lh-hand {
+  color: var(--evergreen);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.lh-play strong {
+  color: var(--evergreen);
+}
+
+/* Prompt: solfège + finger under the big note */
+.prompt-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.2rem;
+}
+.prompt-solfege {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.prompt-finger {
+  color: var(--muted);
+  font-size: 0.9rem;
+}

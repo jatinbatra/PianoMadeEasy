@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { Keyboard } from '../Keyboard';
 import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
-import { pitchClass, parsePitch, noteName } from '../../midi/notes';
+import { pitchClass, parsePitch, noteName, solfege } from '../../midi/notes';
 import { playMelody } from '../../audio/synth';
 import { Metronome, metronomeSupported } from '../../audio/metronome';
+import { activeLeftHand, toSheet } from '../../songs/hands';
 import { youtubeLink } from '../../songs/links';
 import { MicListening } from '../MicListening';
 import { MidiRecorder } from '../../midi/recorder';
@@ -101,6 +102,12 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
   const pos = cursor % notes.length;
   const window = notes.map((n, i) => ({ n, i })).slice(Math.max(0, pos - 1), pos + 6);
 
+  const current = notes[pos];
+  const twoHands = (chunk.leftHand?.length ?? 0) > 0;
+  const lh = activeLeftHand(notes, cursor, chunk.leftHand);
+  const [showSheet, setShowSheet] = useState(false);
+  const sheet = showSheet ? toSheet(chunk) : [];
+
   return (
     <BlockChrome title="Song time" remaining={remaining} blockIndex={blockIndex} blockCount={blockCount} onSkip={finish}>
       <div className="song-label">
@@ -150,6 +157,39 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
         )}
       </div>
 
+      {twoHands && (
+        <div className="hands-row">
+          <button className="link-btn sheet-toggle" onClick={() => setShowSheet((s) => !s)}>
+            {showSheet ? 'Hide the sheet' : '📄 Show the sheet'}
+          </button>
+        </div>
+      )}
+
+      {showSheet && (
+        <div className="sheet" aria-label="Teacher notation">
+          {sheet.map((bar, bi) => (
+            <div key={bi} className="sheet-bar">
+              {bar.chord && (
+                <div className="sheet-lh">
+                  <span className="lh-finger">{bar.bassFinger ?? ''}</span>
+                  <span className="lh-chord">{bar.chord}</span>
+                </div>
+              )}
+              <div className="sheet-notes">
+                {bar.cells.map((c) => (
+                  <span key={c.index} className={'sheet-cell' + (c.index === pos ? ' current' : '')}>
+                    {c.finger != null && <span className="cell-finger">{c.finger}</span>}
+                    <span className="cell-letter">{c.letter}</span>
+                    <span className="cell-solfege">{c.solfege}</span>
+                    {c.lyric && <span className="cell-lyric">{c.lyric}</span>}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="song-strip" aria-hidden="true">
         {window.map(({ n, i }) => (
           <span key={i} className={'song-note' + (i === pos ? ' current' : '')}>
@@ -158,9 +198,23 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
         ))}
       </div>
 
+      {twoHands && lh && (
+        <div className="lh-cue">
+          <span className="lh-hand">🖐 Left hand</span>
+          <span className="lh-play">
+            play <strong>{lh.chord}</strong> ({pitchClass(parsePitch(lh.pitch))})
+            {lh.finger != null && <> · finger {lh.finger}</>}
+          </span>
+        </div>
+      )}
+
       <div className="prompt">
-        <div className="prompt-kicker">{scored ? 'Play' : 'Follow along'}</div>
+        <div className="prompt-kicker">{twoHands ? 'Right hand — play' : scored ? 'Play' : 'Follow along'}</div>
         <div className="prompt-note">{noteName(targetMidi).replace(/\d/, '')}</div>
+        <div className="prompt-meta">
+          <span className="prompt-solfege">{solfege(targetMidi)}</span>
+          {current?.finger != null && <span className="prompt-finger">finger {current.finger}</span>}
+        </div>
       </div>
 
       <MicListening input={input} />
