@@ -1,0 +1,56 @@
+{
+  "id": "jingle-bells",
+  "title": "Jingle Bells",
+  "attribution": "James Lord Pierpont, 1857 — public domain. The chorus everyone knows.",
+  "youtube": "https://www.youtube.com/results?search_query=Jingle+Bells+easy+piano+tutorial+right+hand",
+  "bpm": 120,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Jingle bells, jingle bells",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:E"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 2 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Jingle all the way",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:E", "find-note:G", "find-note:C", "find-note:D"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "C4", "beats": 1.5 }, { "pitch": "D4", "beats": 0.5 },
+        { "pitch": "E4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "Oh what fun it is to ride",
+      "bars": "5-6",
+      "requiresAtoms": ["find-note:F", "find-note:E", "find-note:D"],
+      "notes": [
+        { "pitch": "F4", "beats": 1 }, { "pitch": "F4", "beats": 1 },
+        { "pitch": "F4", "beats": 1.5 }, { "pitch": "F4", "beats": 0.5 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 0.5 },
+        { "pitch": "E4", "beats": 0.5 }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "In a one-horse open sleigh",
+      "bars": "7-8",
+      "requiresAtoms": ["find-note:E", "find-note:D", "find-note:G", "find-note:C"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "D4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 2 }, { "pitch": "G4", "beats": 2 }
+      ]
+    }
+  ]
+}

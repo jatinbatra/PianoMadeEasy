@@ -5,6 +5,10 @@ import machhli from '../../songs/machhli-jal-ki-rani.json';
 import twinkle from '../../songs/twinkle-twinkle.json';
 import happy from '../../songs/happy-birthday.json';
 import alankar from '../../songs/alankar.json';
+import jingle from '../../songs/jingle-bells.json';
+import saints from '../../songs/when-the-saints.json';
+import grace from '../../songs/amazing-grace.json';
+import elise from '../../songs/fur-elise.json';
 import { loadSongs, saveSong, getActiveSongId, setActiveSongId } from '../db/repo';
 import type { Song } from '../types/song';
 
@@ -13,9 +17,13 @@ const SHIPPED: Song[] = [
   twinkle as Song,
   mary as Song,
   happy as Song,
+  jingle as Song,
+  saints as Song,
+  grace as Song,
   sargam as Song,
   alankar as Song,
   machhli as Song,
+  elise as Song,
 ];
 
 /**

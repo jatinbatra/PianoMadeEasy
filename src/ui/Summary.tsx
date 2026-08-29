@@ -1,5 +1,5 @@
 import type { SessionResult } from '../types';
-import type { StreakInfo } from '../streak/streak';
+import { streakMilestone, type StreakInfo } from '../streak/streak';
 
 interface Props {
   result: SessionResult;
@@ -14,11 +14,19 @@ export function Summary({ result, streak, atomsStrengthened, chunkOwned, onHome 
   const scored = result.mode !== 'untethered';
   const viaMic = result.mode === 'mic';
   const acc = result.accuracy != null ? Math.round(result.accuracy * 100) : null;
+  const milestone = streak.practicedToday ? streakMilestone(streak.current) : null;
 
   return (
     <div className="summary">
       <h1>Day logged ✓</h1>
       <div className="streak-inline">{streak.current}-day streak</div>
+
+      {milestone && (
+        <div className="milestone">
+          <span className="milestone-flame">🔥</span>
+          <span className="milestone-text">{milestone}</span>
+        </div>
+      )}
 
       <ul className="stats">
         <li>

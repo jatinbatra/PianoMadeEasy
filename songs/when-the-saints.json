@@ -1,0 +1,57 @@
+{
+  "id": "when-the-saints",
+  "title": "When the Saints Go Marching In",
+  "attribution": "Traditional American gospel — public domain. Bright and easy.",
+  "youtube": "https://www.youtube.com/results?search_query=When+the+Saints+Go+Marching+In+easy+piano+right+hand",
+  "bpm": 110,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Oh when the saints",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:C", "find-note:E", "find-note:F", "find-note:G"],
+      "notes": [
+        { "pitch": "C4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 3 }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Go marching in",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:C", "find-note:E", "find-note:F", "find-note:G"],
+      "notes": [
+        { "pitch": "C4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 3 }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "Oh how I want to be in that number",
+      "bars": "5-6",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "notes": [
+        { "pitch": "E4", "beats": 1.5 }, { "pitch": "E4", "beats": 0.5 },
+        { "pitch": "D4", "beats": 2 },
+        { "pitch": "C4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
+        { "pitch": "D4", "beats": 2 }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "When the saints go marching in",
+      "bars": "7-8",
+      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E", "find-note:G"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
+        { "pitch": "C4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "E4", "beats": 1 },
+        { "pitch": "F4", "beats": 1 }, { "pitch": "G4", "beats": 1 },
+        { "pitch": "E4", "beats": 1 }, { "pitch": "C4", "beats": 1 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "C4", "beats": 3 }
+      ]
+    }
+  ]
+}

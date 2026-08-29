@@ -1,0 +1,57 @@
+{
+  "id": "amazing-grace",
+  "title": "Amazing Grace",
+  "attribution": "Words John Newton (1779), melody 'New Britain' — public domain. A slow, lyrical one.",
+  "youtube": "https://www.youtube.com/results?search_query=Amazing+Grace+easy+piano+tutorial+right+hand",
+  "bpm": 80,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Amazing grace, how sweet the sound",
+      "bars": "1-4",
+      "requiresAtoms": ["find-note:G", "find-note:C", "find-note:E", "find-note:D"],
+      "notes": [
+        { "pitch": "G4", "beats": 1 }, { "pitch": "C4", "beats": 2 },
+        { "pitch": "E4", "beats": 0.5 }, { "pitch": "C4", "beats": 0.5 },
+        { "pitch": "E4", "beats": 2 }, { "pitch": "D4", "beats": 1 },
+        { "pitch": "C4", "beats": 3 }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "That saved a wretch like me",
+      "bars": "5-8",
+      "requiresAtoms": ["find-note:G", "find-note:C", "find-note:E", "find-note:A"],
+      "notes": [
+        { "pitch": "G4", "beats": 1 }, { "pitch": "C4", "beats": 2 },
+        { "pitch": "E4", "beats": 0.5 }, { "pitch": "C4", "beats": 0.5 },
+        { "pitch": "E4", "beats": 2 }, { "pitch": "A4", "beats": 1 },
+        { "pitch": "G4", "beats": 3 }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "I once was lost, but now am found",
+      "bars": "9-12",
+      "requiresAtoms": ["find-note:E", "find-note:G", "find-note:A", "find-note:C"],
+      "notes": [
+        { "pitch": "E4", "beats": 1 }, { "pitch": "G4", "beats": 2 },
+        { "pitch": "G4", "beats": 0.5 }, { "pitch": "E4", "beats": 0.5 },
+        { "pitch": "G4", "beats": 2 }, { "pitch": "A4", "beats": 1 },
+        { "pitch": "C5", "beats": 3 }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "Was blind, but now I see",
+      "bars": "13-16",
+      "requiresAtoms": ["find-note:C", "find-note:A", "find-note:E", "find-note:D", "find-note:G"],
+      "notes": [
+        { "pitch": "C5", "beats": 1 }, { "pitch": "A4", "beats": 0.5 },
+        { "pitch": "C5", "beats": 0.5 }, { "pitch": "A4", "beats": 2 },
+        { "pitch": "G4", "beats": 1 }, { "pitch": "E4", "beats": 2 },
+        { "pitch": "D4", "beats": 1 }, { "pitch": "C4", "beats": 3 }
+      ]
+    }
+  ]
+}

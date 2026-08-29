@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { computeStreak, shiftDay } from './streak';
+import { computeStreak, shiftDay, streakMilestone } from './streak';
 import type { PracticeDay } from '../types';
 
 function day(date: string): PracticeDay {
@@ -58,5 +58,21 @@ describe('computeStreak', () => {
     // Two gaps (21st and 19th missed) close together — only the first bridges.
     const days = ['2026-08-18', '2026-08-20', '2026-08-22'].map(day);
     expect(computeStreak(days, '2026-08-22').current).toBe(2);
+  });
+});
+
+describe('streakMilestone', () => {
+  it('celebrates named milestones and nothing else', () => {
+    expect(streakMilestone(3)).toBeTruthy();
+    expect(streakMilestone(7)).toBeTruthy();
+    expect(streakMilestone(30)).toBeTruthy();
+    expect(streakMilestone(1)).toBeNull();
+    expect(streakMilestone(4)).toBeNull();
+    expect(streakMilestone(0)).toBeNull();
+  });
+
+  it('celebrates every 100 days past a hundred', () => {
+    expect(streakMilestone(200)).toBeTruthy();
+    expect(streakMilestone(150)).toBeNull();
   });
 });

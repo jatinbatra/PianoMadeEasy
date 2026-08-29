@@ -1637,3 +1637,26 @@ h1, h2, h3,
   font-size: 0.82rem;
   color: var(--muted);
 }
+
+/* ---------- Streak milestone (summary) ---------- */
+.milestone {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.4rem auto 0.2rem;
+  max-width: 24rem;
+  padding: 0.8rem 1rem;
+  background: var(--good-dim);
+  border: 1px solid var(--good);
+  border-radius: 0.9rem;
+}
+.milestone-flame {
+  font-size: 1.4rem;
+}
+.milestone-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--good);
+  line-height: 1.25;
+  text-align: left;
+}

@@ -1,0 +1,59 @@
+{
+  "id": "fur-elise",
+  "title": "Für Elise (opening)",
+  "attribution": "Beethoven, 1810 — public domain. The famous opening. Your reach-for-it piece.",
+  "youtube": "https://www.youtube.com/results?search_query=Fur+Elise+easy+piano+tutorial+right+hand+slow",
+  "bpm": 70,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "The famous phrase",
+      "bars": "1-2",
+      "requiresAtoms": ["find-note:E", "accidental:D#", "find-note:B", "find-note:D", "find-note:C", "find-note:A"],
+      "notes": [
+        { "pitch": "E5", "beats": 0.5 }, { "pitch": "D#5", "beats": 0.5 },
+        { "pitch": "E5", "beats": 0.5 }, { "pitch": "D#5", "beats": 0.5 },
+        { "pitch": "E5", "beats": 0.5 }, { "pitch": "B4", "beats": 0.5 },
+        { "pitch": "D5", "beats": 0.5 }, { "pitch": "C5", "beats": 0.5 },
+        { "pitch": "A4", "beats": 1 }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "The answer",
+      "bars": "3-4",
+      "requiresAtoms": ["find-note:C", "find-note:E", "find-note:A", "find-note:B"],
+      "notes": [
+        { "pitch": "C4", "beats": 0.5 }, { "pitch": "E4", "beats": 0.5 },
+        { "pitch": "A4", "beats": 0.5 }, { "pitch": "B4", "beats": 1 },
+        { "pitch": "E4", "beats": 0.5 }, { "pitch": "G#4", "beats": 0.5 },
+        { "pitch": "B4", "beats": 0.5 }, { "pitch": "C5", "beats": 1 }
+      ]
+    },
+    {
+      "id": "b1",
+      "label": "And again",
+      "bars": "5-6",
+      "requiresAtoms": ["find-note:E", "accidental:D#", "find-note:B", "find-note:D", "find-note:C", "find-note:A"],
+      "notes": [
+        { "pitch": "E5", "beats": 0.5 }, { "pitch": "D#5", "beats": 0.5 },
+        { "pitch": "E5", "beats": 0.5 }, { "pitch": "D#5", "beats": 0.5 },
+        { "pitch": "E5", "beats": 0.5 }, { "pitch": "B4", "beats": 0.5 },
+        { "pitch": "D5", "beats": 0.5 }, { "pitch": "C5", "beats": 0.5 },
+        { "pitch": "A4", "beats": 1 }
+      ]
+    },
+    {
+      "id": "b2",
+      "label": "Coming to rest",
+      "bars": "7-8",
+      "requiresAtoms": ["find-note:C", "find-note:E", "find-note:A", "find-note:B", "find-note:D"],
+      "notes": [
+        { "pitch": "C4", "beats": 0.5 }, { "pitch": "E4", "beats": 0.5 },
+        { "pitch": "A4", "beats": 0.5 }, { "pitch": "B4", "beats": 1 },
+        { "pitch": "E4", "beats": 0.5 }, { "pitch": "C5", "beats": 0.5 },
+        { "pitch": "B4", "beats": 0.5 }, { "pitch": "A4", "beats": 1.5 }
+      ]
+    }
+  ]
+}

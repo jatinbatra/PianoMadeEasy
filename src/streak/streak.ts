@@ -59,6 +59,25 @@ export function computeStreak(days: PracticeDay[], today: string = localDateKey(
   return { current, practicedToday, missedYesterday, freezeActive };
 }
 
+/**
+ * A short congratulation when the streak lands on a meaningful number — shown
+ * once, on the summary after that session. Never a guilt trip, only a nod:
+ * showing up is the whole game. Returns null on non-milestone days.
+ */
+export function streakMilestone(current: number): string | null {
+  const named: Record<number, string> = {
+    3: 'Three days. That’s a habit taking hold.',
+    7: 'A full week. You keep showing up.',
+    14: 'Two weeks straight — this is who you are now.',
+    30: 'Thirty days. A month at the keys.',
+    50: 'Fifty days. Quietly remarkable.',
+    100: 'One hundred days. Look what showing up built.',
+  };
+  if (named[current]) return named[current];
+  if (current > 100 && current % 100 === 0) return `${current} days. Extraordinary.`;
+  return null;
+}
+
 function daysBetween(a: string, b: string): number {
   const [ay, am, ad] = a.split('-').map(Number);
   const [by, bm, bd] = b.split('-').map(Number);
