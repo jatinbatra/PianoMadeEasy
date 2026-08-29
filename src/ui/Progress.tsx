@@ -7,23 +7,30 @@ import { shiftDay } from '../streak/streak';
 import type { ProgressMap } from '../atoms/scheduler';
 import type { ChunkProgressMap } from '../songs/ladder';
 import type { Song } from '../types/song';
-import type { PracticeDay } from '../types';
+import type { PracticeDay, SessionResult } from '../types';
 
 interface Props {
   days: PracticeDay[];
   progress: ProgressMap;
   songs: Song[];
   chunkMap: ChunkProgressMap;
+  sessions: SessionResult[];
   onBack: () => void;
 }
 
 /** The history + progress view: honest, measured, at a glance. Skills live in
  *  the Path tab — here we only summarise them. */
-export function Progress({ days, progress, songs, chunkMap, onBack }: Props) {
+export function Progress({ days, progress, songs, chunkMap, sessions, onBack }: Props) {
   const today = localDateKey();
   const weekStart = shiftDay(today, -6);
   const thisWeek = days.filter((d) => d.date >= weekStart);
   const weekMinutes = thisWeek.reduce((s, d) => s + d.minutes, 0);
+
+  // This week's real playing: notes struck and the fastest clean tempo landed.
+  const weekSessions = sessions.filter((s) => s.date >= weekStart);
+  const weekNotes = weekSessions.reduce((s, r) => s + (r.notesPlayed ?? 0), 0);
+  const chunksOwned = songs.reduce((s, song) => s + ownedCount(song, chunkMap), 0);
+  const fastest = Object.values(chunkMap).reduce((m, cp) => Math.max(m, Math.round(cp.maxCleanTempo || 0)), 0);
 
   const learned = ATOMS.filter((a) => progress[a.id]?.introduced).length;
   const due = ATOMS.filter((a) => {
@@ -42,9 +49,30 @@ export function Progress({ days, progress, songs, chunkMap, onBack }: Props) {
 
       <section className="card">
         <h3>This week</h3>
-        <p className="week-line">
-          <strong>{thisWeek.length}</strong> day{thisWeek.length === 1 ? '' : 's'} practiced ·{' '}
-          <strong>{weekMinutes}</strong> min
+        <div className="recap">
+          <div className="recap-tile">
+            <span className="recap-num">{thisWeek.length}</span>
+            <span className="recap-cap">day{thisWeek.length === 1 ? '' : 's'} shown up</span>
+          </div>
+          <div className="recap-tile">
+            <span className="recap-num">{weekMinutes}</span>
+            <span className="recap-cap">minutes played</span>
+          </div>
+          <div className="recap-tile">
+            <span className="recap-num">{weekNotes}</span>
+            <span className="recap-cap">notes struck</span>
+          </div>
+          <div className="recap-tile">
+            <span className="recap-num">{chunksOwned}</span>
+            <span className="recap-cap">chunks owned</span>
+          </div>
+        </div>
+        <p className="hint">
+          {fastest > 0
+            ? `Fastest you've played anything clean: ${fastest} BPM.`
+            : thisWeek.length > 0
+              ? 'Keep at it — clean a chunk at tempo and your best speed shows up here.'
+              : 'A single five-minute sitting starts this week off.'}
         </p>
       </section>
 

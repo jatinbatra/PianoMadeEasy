@@ -4,6 +4,7 @@ import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
 import { pitchClass, parsePitch, noteName } from '../../midi/notes';
 import { playMelody } from '../../audio/synth';
+import { Metronome, metronomeSupported } from '../../audio/metronome';
 import { youtubeLink } from '../../songs/links';
 import { MicListening } from '../MicListening';
 import { MidiRecorder } from '../../midi/recorder';
@@ -35,6 +36,23 @@ interface Props {
 export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, seconds, input, blockIndex, blockCount, onFinish }: Props) {
   const notes = chunk.notes;
   const tempo = practiceTempo(chunkProgress, bpm);
+  const metro = useRef<Metronome>(new Metronome());
+  const [metroOn, setMetroOn] = useState(false);
+  const [pulse, setPulse] = useState(-1);
+
+  function toggleMetro() {
+    if (metro.current.running) {
+      metro.current.stop();
+      setMetroOn(false);
+      setPulse(-1);
+    } else {
+      metro.current.start(tempo.playbackBpm, { onBeat: (b) => setPulse(b) });
+      setMetroOn(true);
+    }
+  }
+
+  // Never leave a click running when the block ends.
+  useEffect(() => () => metro.current.stop(), []);
   const [cursor, setCursor] = useState(0);
   const [played, setPlayed] = useState<number | null>(null);
   const recorder = useRef<MidiRecorder>(new MidiRecorder());
@@ -99,6 +117,11 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
         >
           ▶ Hear it {tempo.owned ? 'faster' : `at ${tempo.playbackBpm} BPM`}
         </button>
+        {metronomeSupported && (
+          <button className={'hear-btn metro-btn' + (metroOn ? ' on' : '')} onClick={toggleMetro}>
+            {metroOn ? '■ Metronome' : '● Metronome'}
+          </button>
+        )}
         <a
           className="yt-link"
           href={youtubeLink({ title: songTitle, youtube: songYoutube })}
@@ -108,6 +131,14 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
           ▶ Watch on YouTube
         </a>
       </div>
+
+      {metroOn && (
+        <div className="metro-dots" aria-hidden="true">
+          {[0, 1, 2, 3].map((b) => (
+            <span key={b} className={'metro-dot' + (b === pulse ? ' hit' : '') + (b === 0 ? ' down' : '')} />
+          ))}
+        </div>
+      )}
 
       <div className="tempo-line">
         {tempo.owned ? (

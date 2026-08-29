@@ -39,6 +39,10 @@ export async function getAllDays(): Promise<PracticeDay[]> {
   return db.days.orderBy('date').toArray();
 }
 
+export async function getAllSessions(): Promise<SessionResult[]> {
+  return db.sessions.toArray();
+}
+
 export async function hasPracticedToday(): Promise<boolean> {
   return (await db.days.get(localDateKey())) != null;
 }

@@ -4,7 +4,8 @@
 
 let ctx: AudioContext | null = null;
 
-function audio(): AudioContext {
+/** The one shared AudioContext (created on first sound, resumed if suspended). */
+export function audio(): AudioContext {
   if (!ctx) ctx = new AudioContext();
   if (ctx.state === 'suspended') void ctx.resume();
   return ctx;

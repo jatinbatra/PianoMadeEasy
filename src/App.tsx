@@ -31,6 +31,7 @@ async function trySync(): Promise<boolean> {
 import { computeStreak, type StreakInfo } from './streak/streak';
 import {
   getAllDays,
+  getAllSessions,
   logPracticeDay,
   saveSession,
   loadProgressMap,
@@ -56,6 +57,7 @@ export function App() {
   const [screen, setScreen] = useState<Screen>('home');
   const [streak, setStreak] = useState<StreakInfo>({ current: 0, practicedToday: false, missedYesterday: false, freezeActive: false });
   const [days, setDays] = useState<PracticeDay[]>([]);
+  const [sessions, setSessions] = useState<SessionResult[]>([]);
   const [progress, setProgress] = useState<ProgressMap>({});
   const [songs, setSongs] = useState<Song[]>([]);
   const [activeSong, setActiveSong] = useState<Song | null>(null);
@@ -70,8 +72,9 @@ export function App() {
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   const refresh = useCallback(async () => {
-    const [days, atomMap, songList, chunks, activeId] = await Promise.all([
+    const [days, sessionList, atomMap, songList, chunks, activeId] = await Promise.all([
       getAllDays(),
+      getAllSessions(),
       loadProgressMap(),
       loadSongs(),
       loadChunkProgressMap(),
@@ -79,6 +82,7 @@ export function App() {
     ]);
     setStreak(computeStreak(days));
     setDays(days);
+    setSessions(sessionList);
     setProgress(atomMap);
     setSongs(songList);
     setChunkMap(chunks);
@@ -228,6 +232,7 @@ export function App() {
           progress={progress}
           songs={songs}
           chunkMap={chunkMap}
+          sessions={sessions}
           onBack={() => setScreen('home')}
         />
       )}
