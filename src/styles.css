@@ -1778,3 +1778,91 @@ h1, h2, h3,
   color: var(--muted);
   font-size: 0.9rem;
 }
+
+/* ---------- Note trainer (read the notes) ---------- */
+.trainer {
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: 1rem 1.1rem 2rem;
+}
+.trainer-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0.4rem 0 0.8rem;
+}
+.trainer-stats strong {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.trainer-staff {
+  display: flex;
+  justify-content: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  padding: 0.6rem;
+  color: var(--text);
+}
+.trainer-staff .staff {
+  width: 100%;
+  max-width: 20rem;
+}
+.trainer-feedback {
+  min-height: 1.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.7rem 0;
+  font-size: 1rem;
+}
+.tf-ok {
+  color: var(--good);
+  font-weight: 700;
+}
+.tf-no {
+  color: var(--muted);
+}
+.tf-no strong {
+  color: var(--accent);
+}
+.letter-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+}
+.letter-btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 0.9rem 0;
+  border-radius: 0.6rem;
+  cursor: pointer;
+}
+.letter-btn:active {
+  transform: scale(0.97);
+}
+.letter-btn.right {
+  background: var(--good-dim);
+  border-color: var(--good);
+  color: var(--good);
+}
+.letter-btn.wrong {
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel-2));
+  border-color: var(--accent);
+}
+.trainer-keys {
+  margin-top: 1.1rem;
+}
+.trainer-keys-cap {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}

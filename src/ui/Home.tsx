@@ -22,6 +22,7 @@ interface Props {
   onOpenSettings: () => void;
   onOpenPath: () => void;
   onOpenFreePlay: () => void;
+  onOpenNotes: () => void;
   installSlot?: ReactNode;
 }
 
@@ -46,6 +47,7 @@ export function Home({
   onOpenSettings,
   onOpenPath,
   onOpenFreePlay,
+  onOpenNotes,
   installSlot,
 }: Props) {
   const invite = useMemo(() => INVITATIONS[Math.floor(Math.random() * INVITATIONS.length)], []);
@@ -115,6 +117,9 @@ export function Home({
           ))}
           <button className="length-chip ghost" onClick={onOpenFreePlay}>
             free play
+          </button>
+          <button className="length-chip ghost" onClick={onOpenNotes}>
+            read notes
           </button>
         </div>
         <div className="input-note">{inputLabel(input)}</div>

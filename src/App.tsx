@@ -7,6 +7,7 @@ import { SongLibrary } from './ui/SongLibrary';
 import { Progress } from './ui/Progress';
 import { Path } from './ui/Path';
 import { FreePlay } from './ui/FreePlay';
+import { NoteTrainer } from './ui/NoteTrainer';
 import { Onboarding, needsOnboarding } from './ui/Onboarding';
 import { InstallPrompt } from './ui/InstallPrompt';
 import { maybeNotify } from './notify/notify';
@@ -50,7 +51,7 @@ import { pickChunks, ownedCount, newChunkProgress, updateChunkProgress, chunkKey
 import type { Song, SongChunk } from './types/song';
 import type { SessionResult, PracticeDay } from './types';
 
-type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress' | 'settings' | 'path' | 'freeplay';
+type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress' | 'settings' | 'path' | 'freeplay' | 'notes';
 
 export function App() {
   const input = useInput();
@@ -200,6 +201,7 @@ export function App() {
           onOpenSettings={() => setScreen('settings')}
           onOpenPath={() => setScreen('path')}
           onOpenFreePlay={() => setScreen('freeplay')}
+          onOpenNotes={() => setScreen('notes')}
           installSlot={<InstallPrompt />}
         />
       )}
@@ -226,6 +228,7 @@ export function App() {
       )}
       {screen === 'path' && <Path progress={progress} onBack={() => setScreen('home')} />}
       {screen === 'freeplay' && <FreePlay input={input} onBack={() => setScreen('home')} />}
+      {screen === 'notes' && <NoteTrainer input={input} onBack={() => setScreen('home')} />}
       {screen === 'progress' && (
         <Progress
           days={days}
