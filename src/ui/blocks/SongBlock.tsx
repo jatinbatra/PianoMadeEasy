@@ -67,6 +67,11 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
 
   const scored = input.scored;
 
+  // Play the phrase through this many times, then move on — no waiting out the
+  // clock once you've got it. The timer is only a fallback.
+  const targetPasses = Math.max(1, Math.round(seconds / 100));
+  const passesDone = Math.floor(cursor / notes.length);
+
   function finish() {
     if (finished.current) return;
     finished.current = true;
@@ -75,6 +80,16 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
   }
 
   const remaining = useCountdown(seconds, finish);
+
+  // Advance to the next block once the phrase has been played through enough
+  // times (a brief beat so the last note lands first).
+  useEffect(() => {
+    if (cursor > 0 && cursor % notes.length === 0 && passesDone >= targetPasses) {
+      const t = setTimeout(finish, 600);
+      return () => clearTimeout(t);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cursor]);
 
   // Scored (MIDI or mic): record everything, advance the cursor on the right note.
   useEffect(() => {
@@ -209,7 +224,10 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
       )}
 
       <div className="prompt">
-        <div className="prompt-kicker">{twoHands ? 'Right hand — play' : scored ? 'Play' : 'Follow along'}</div>
+        <div className="prompt-kicker">
+          {twoHands ? 'Right hand — play' : scored ? 'Play' : 'Follow along'}
+          {targetPasses > 1 && <> · pass {Math.min(passesDone + 1, targetPasses)} of {targetPasses}</>}
+        </div>
         <div className="prompt-note">{noteName(targetMidi).replace(/\d/, '')}</div>
         <div className="prompt-meta">
           <span className="prompt-solfege">{solfege(targetMidi)}</span>

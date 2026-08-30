@@ -58,8 +58,14 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
   const chordRef = useRef<Set<PitchClass>>(new Set());
   const [done, setDone] = useState(false);
   const [rounds, setRounds] = useState(0);
+  const roundsRef = useRef(0);
   const locked = useRef(false);
   const finished = useRef(false);
+
+  // How many clean reps end this block. Enough to prove it, then move on — no
+  // waiting out the timer. Scales a little with the session length; the timer
+  // is only a fallback if you wander off.
+  const targetRounds = Math.max(2, Math.min(6, Math.round(seconds / 40)));
 
   function finish() {
     if (finished.current) return;
@@ -70,14 +76,19 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
 
   const remaining = useCountdown(seconds, finish);
 
-  // A round is done — flash ✓, tally it, and reset for another go. The block
-  // keeps going for its full time (continuous practice), ending only on the
-  // timer or Next, so lessons aren't over the instant you get it once.
+  // A round is done — flash ✓ and tally it. Once you've hit it enough times we
+  // move straight on to the next exercise; otherwise reset for another go.
   function roundComplete() {
     locked.current = true;
     setDone(true);
-    setRounds((r) => r + 1);
+    const n = roundsRef.current + 1;
+    roundsRef.current = n;
+    setRounds(n);
     setTimeout(() => {
+      if (n >= targetRounds) {
+        finish();
+        return;
+      }
       setDone(false);
       cursorRef.current = 0;
       setCursor(0);
@@ -165,10 +176,12 @@ export function AtomTestBlock({ atom, title, teach, seconds, input, blockIndex, 
           </div>
         )}
         {done ? (
-          <div className="prompt-feedback good">✓ Nice{rounds > 1 ? ` · ${rounds}×` : ''} — keep going</div>
+          <div className="prompt-feedback good">
+            {rounds >= targetRounds ? '✓ Got it — moving on' : `✓ Nice · ${rounds} of ${targetRounds}`}
+          </div>
         ) : (
           <div className="prompt-feedback">
-            {canScore ? (rounds > 0 ? `${progress} · ${rounds} done` : progress) : unscoredMsg}
+            {canScore ? (rounds > 0 ? `${progress} · ${rounds} of ${targetRounds}` : progress) : unscoredMsg}
           </div>
         )}
       </div>
