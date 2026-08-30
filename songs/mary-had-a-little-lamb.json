@@ -1,72 +1,241 @@
 {
   "id": "mary-had-a-little-lamb",
   "title": "Mary Had a Little Lamb",
-  "attribution": "Traditional melody, public domain. Two-hand arrangement in your teacher's notation.",
-  "youtube": "https://www.youtube.com/results?search_query=Mary+Had+a+Little+Lamb+easy+piano+tutorial",
+  "attribution": "Traditional melody, public domain. Two-hand arrangement in your teacher’s notation.",
+  "youtube": "https://www.youtube.com/results?search_query=Mary+Had+a+Little+Lamb+easy+piano+both+hands+tutorial",
   "bpm": 90,
   "chunks": [
     {
-      "id": "phrase-1",
-      "label": "Phrase 1 — “Mary had a little lamb”",
-      "bars": "1-2",
-      "requiresAtoms": ["find-note:E", "find-note:D", "find-note:C"],
+      "id": "a1",
+      "label": "Line 1",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:D",
+        "find-note:C",
+        "find-note:G"
+      ],
       "notes": [
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "MA-" },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "RY" },
-        { "pitch": "C4", "beats": 1, "finger": 1, "lyric": "HAD" },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "A" },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "LIT-" },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "TLE" },
-        { "pitch": "E4", "beats": 2, "finger": 3, "lyric": "LAMB" }
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "MA-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "RY"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "HAD"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LIT-"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "TLE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3,
+          "lyric": "LAMB"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "LIT-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "TLE"
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2,
+          "lyric": "LAMB"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LIT-"
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5,
+          "lyric": "TLE"
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5,
+          "lyric": "LAMB"
+        }
       ],
       "leftHand": [
-        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
-        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 }
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        }
       ]
     },
     {
-      "id": "phrase-2",
-      "label": "Phrase 2 — “little lamb, little lamb”",
-      "bars": "3-4",
-      "requiresAtoms": ["find-note:D", "find-note:E", "find-note:G"],
-      "notes": [
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "LIT-" },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "TLE" },
-        { "pitch": "D4", "beats": 2, "finger": 2, "lyric": "LAMB" },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "LIT-" },
-        { "pitch": "G4", "beats": 1, "finger": 5, "lyric": "TLE" },
-        { "pitch": "G4", "beats": 2, "finger": 5, "lyric": "LAMB" }
-      ],
-      "leftHand": [
-        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 },
-        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 }
-      ]
-    },
-    {
-      "id": "phrase-3",
-      "label": "Phrase 3 — “its fleece was white as snow”",
+      "id": "a2",
+      "label": "Line 2",
       "bars": "5-8",
-      "requiresAtoms": ["find-note:C", "find-note:D", "find-note:E"],
+      "requiresAtoms": [
+        "find-note:E",
+        "find-note:D",
+        "find-note:C"
+      ],
       "notes": [
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "ITS" },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "FLEECE" },
-        { "pitch": "C4", "beats": 1, "finger": 1, "lyric": "WAS" },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "WHITE" },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "AS" },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "SNOW," },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "AS" },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "SNOW." },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "AND" },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "EV-" },
-        { "pitch": "E4", "beats": 1, "finger": 3, "lyric": "'RY-" },
-        { "pitch": "D4", "beats": 1, "finger": 2, "lyric": "WHERE" },
-        { "pitch": "C4", "beats": 4, "finger": 1, "lyric": "MA-RY WENT" }
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "MA-"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "RY"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "HAD"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "A"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LIT-"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "TLE"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "LAMB"
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1,
+          "lyric": "ITS"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "FLEECE"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "WAS"
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3,
+          "lyric": "WHITE"
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2,
+          "lyric": "AS"
+        },
+        {
+          "pitch": "C4",
+          "beats": 4,
+          "finger": 1,
+          "lyric": "SNOW"
+        }
       ],
       "leftHand": [
-        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
-        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 },
-        { "pitch": "G3", "chord": "G", "beats": 4, "finger": 1 },
-        { "pitch": "C3", "chord": "C", "beats": 4, "finger": 5 }
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4,
+          "finger": 1
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4,
+          "finger": 5
+        }
       ]
     }
   ]

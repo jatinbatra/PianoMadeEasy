@@ -29,7 +29,8 @@ export interface SheetCell {
   solfege: string; // "MI"
   finger?: number;
   lyric?: string;
-  index: number; // position in the flat notes array
+  index: number; // position in the flat notes array (-1 for a hold "-" cell)
+  hold?: boolean; // a "-" continuation of the previous note
 }
 export interface SheetBar {
   chord?: string;
@@ -39,16 +40,22 @@ export interface SheetBar {
 }
 
 /**
- * Lay a chunk out as bars, teacher-sheet style: a left-hand chord/bass over
- * each bar, and the right-hand notes (letter + solfège + finger + lyric) inside
- * it. Bars follow the left-hand spans when present, otherwise a steady 4 beats.
+ * Lay a chunk out exactly like the teacher's sheet: bars separated by lines,
+ * a left-hand chord (with its finger) over each bar, a finger number over each
+ * right-hand note, the note letters in a row, and a "-" for every held beat —
+ * e.g. `| E E E - |`. Bars follow the left-hand spans when present, else 4 beats.
  */
 export function toSheet(chunk: SongChunk, beatsPerBar = 4): SheetBar[] {
   const { notes, leftHand } = chunk;
   const spans = leftHand?.length
     ? leftHand.map((lh) => lh.beats)
-    : // even bars if there's no left hand
-      Array.from({ length: Math.ceil(totalBeats(notes) / beatsPerBar) }, () => beatsPerBar);
+    : Array.from({ length: Math.ceil(totalBeats(notes) / beatsPerBar) }, () => beatsPerBar);
+
+  const cellFor = (n: SongNote, ni: number): SheetCell => {
+    const midi = parsePitch(n.pitch);
+    return { letter: pitchClass(midi) + tick(n.pitch), solfege: solfege(midi), finger: n.finger, lyric: n.lyric, index: ni };
+  };
+  const holdCell = (): SheetCell => ({ letter: '-', solfege: '', index: -1, hold: true });
 
   const bars: SheetBar[] = [];
   let ni = 0;
@@ -58,14 +65,8 @@ export function toSheet(chunk: SongChunk, beatsPerBar = 4): SheetBar[] {
     const cells: SheetCell[] = [];
     while (ni < notes.length && beatAt(notes, ni) < end - 1e-6) {
       const n = notes[ni];
-      const midi = parsePitch(n.pitch);
-      cells.push({
-        letter: pitchClass(midi) + tick(n.pitch),
-        solfege: solfege(midi),
-        finger: n.finger,
-        lyric: n.lyric,
-        index: ni,
-      });
+      cells.push(cellFor(n, ni));
+      for (let h = 0; h < Math.max(0, Math.round(n.beats) - 1); h++) cells.push(holdCell());
       ni += 1;
     }
     const lh = leftHand?.[s];
@@ -76,8 +77,8 @@ export function toSheet(chunk: SongChunk, beatsPerBar = 4): SheetBar[] {
   if (ni < notes.length) {
     const cells: SheetCell[] = [];
     for (; ni < notes.length; ni++) {
-      const midi = parsePitch(notes[ni].pitch);
-      cells.push({ letter: pitchClass(midi) + tick(notes[ni].pitch), solfege: solfege(midi), finger: notes[ni].finger, lyric: notes[ni].lyric, index: ni });
+      cells.push(cellFor(notes[ni], ni));
+      for (let h = 0; h < Math.max(0, Math.round(notes[ni].beats) - 1); h++) cells.push(holdCell());
     }
     bars.push({ cells });
   }

@@ -25,7 +25,7 @@ import type { Song } from '../types/song';
 
 /** Bump when shipped songs change (e.g. two-hand arrangements) so existing
  *  installs refresh them. */
-const SEED_VERSION = 3;
+const SEED_VERSION = 4;
 
 const SHIPPED: Song[] = [
   ode as Song,

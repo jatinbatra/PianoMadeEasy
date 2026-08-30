@@ -120,7 +120,7 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
   const current = notes[pos];
   const twoHands = (chunk.leftHand?.length ?? 0) > 0;
   const lh = activeLeftHand(notes, cursor, chunk.leftHand);
-  const [showSheet, setShowSheet] = useState(false);
+  const [showSheet, setShowSheet] = useState(twoHands);
   const sheet = showSheet ? toSheet(chunk) : [];
 
   return (
@@ -172,37 +172,53 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
         )}
       </div>
 
-      {twoHands && (
+      {twoHands && !showSheet && (
         <div className="hands-row">
-          <button className="link-btn sheet-toggle" onClick={() => setShowSheet((s) => !s)}>
-            {showSheet ? 'Hide the sheet' : '📄 Show the sheet'}
+          <button className="link-btn" onClick={() => setShowSheet(true)}>
+            📄 Show the sheet
           </button>
         </div>
       )}
 
       {showSheet && (
-        <div className="sheet" aria-label="Teacher notation">
-          {sheet.map((bar, bi) => (
-            <div key={bi} className="sheet-bar">
-              {bar.chord && (
-                <div className="sheet-lh">
-                  <span className="lh-finger">{bar.bassFinger ?? ''}</span>
-                  <span className="lh-chord">{bar.chord}</span>
-                </div>
-              )}
-              <div className="sheet-notes">
-                {bar.cells.map((c) => (
-                  <span key={c.index} className={'sheet-cell' + (c.index === pos ? ' current' : '')}>
-                    {c.finger != null && <span className="cell-finger">{c.finger}</span>}
-                    <span className="cell-letter">{c.letter}</span>
-                    <span className="cell-solfege">{c.solfege}</span>
-                    {c.lyric && <span className="cell-lyric">{c.lyric}</span>}
-                  </span>
-                ))}
-              </div>
+        <>
+          <div className="tsheet-scroll">
+            <div className="tsheet" aria-label="Song sheet in your teacher's notation">
+              {sheet.map((bar, bi) => {
+                const prev = bi > 0 ? sheet[bi - 1].chord : undefined;
+                const showChord = bar.chord && bar.chord !== prev;
+                return (
+                  <div key={bi} className="tbar">
+                    <div className="tbar-head">
+                      <span className="tbar-fing">{showChord ? (bar.bassFinger ?? ' ') : ' '}</span>
+                      <span className="tbar-chord">{showChord ? bar.chord : ' '}</span>
+                    </div>
+                    <div className="tbar-row">
+                      {bar.cells.map((c, ci) => (
+                        <span
+                          key={ci}
+                          className={'tcell' + (c.index === pos ? ' current' : '') + (c.hold ? ' hold' : '')}
+                        >
+                          <span className="tcell-fing">{c.finger ?? ' '}</span>
+                          <span className="tcell-note">{c.letter}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+          </div>
+          <div className="tsheet-legend">
+            <span className="tl-blue">chord = left hand</span> · <span>number = finger</span> ·{' '}
+            <span>letter = note</span> · <span>“-” = hold</span>
+            {twoHands && (
+              <button className="link-btn tsheet-hide" onClick={() => setShowSheet(false)}>
+                hide
+              </button>
+            )}
+          </div>
+        </>
       )}
 
       <div className="song-strip" aria-hidden="true">

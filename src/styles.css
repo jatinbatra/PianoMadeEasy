@@ -1667,75 +1667,99 @@ h1, h2, h3,
   justify-content: center;
   margin: 0.2rem 0;
 }
-.sheet-toggle {
-  font-size: 0.9rem;
+/* The teacher's sheet: chords over bars, finger numbers over note letters,
+   bar lines, and "-" for held beats. Scrolls sideways if a line is long. */
+.tsheet-scroll {
+  overflow-x: auto;
+  margin: 0.4rem -0.2rem 0.2rem;
+  padding-bottom: 0.3rem;
 }
-.sheet {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
+.tsheet {
+  display: inline-flex;
+  align-items: stretch;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 0.8rem;
-  padding: 0.8rem 0.6rem;
-  margin: 0.3rem 0 0.6rem;
+  border-radius: 0.7rem;
+  padding: 0.7rem 0.4rem 0.6rem;
+  min-width: 100%;
 }
-.sheet-bar {
+.tbar {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.55rem;
   border-left: 2px solid var(--line);
-  padding: 0 0.5rem;
-  min-width: 0;
 }
-.sheet-lh {
+.tbar:last-child {
+  border-right: 2px solid var(--line);
+}
+.tbar-head {
   display: flex;
-  align-items: baseline;
-  gap: 0.25rem;
-  border-bottom: 1px dashed var(--line);
-  margin-bottom: 0.35rem;
-  padding-bottom: 0.2rem;
+  flex-direction: column;
+  line-height: 1.05;
+  margin-bottom: 0.3rem;
+  min-height: 2.1rem;
 }
-.lh-finger {
-  font-size: 0.7rem;
-  color: var(--muted);
-  min-width: 0.7rem;
-}
-.lh-chord {
+.tbar-fing {
+  font-size: 0.72rem;
   font-weight: 700;
-  color: var(--evergreen);
+  color: var(--accent);
+  white-space: pre;
 }
-.sheet-notes {
+.tbar-chord {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent);
+  white-space: pre;
+}
+.tbar-row {
   display: flex;
-  gap: 0.45rem;
+  gap: 0.15rem;
 }
-.sheet-cell {
+.tcell {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 1.3rem;
-  border-radius: 0.35rem;
-  padding: 0.1rem 0.15rem;
+  min-width: 1.15rem;
+  border-radius: 0.3rem;
+  padding: 0.05rem 0.1rem;
 }
-.sheet-cell.current {
+.tcell-fing {
+  font-size: 0.66rem;
+  color: var(--muted);
+  white-space: pre;
+}
+.tcell-note {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text);
+}
+.tcell.hold .tcell-note {
+  color: var(--muted);
+  font-weight: 400;
+}
+.tcell.current {
   background: var(--good-dim);
   outline: 1px solid var(--good);
 }
-.cell-finger {
-  font-size: 0.62rem;
+.tcell.current .tcell-note {
+  color: var(--good);
+}
+.tsheet-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  justify-content: center;
+  font-size: 0.74rem;
   color: var(--muted);
+  margin: 0.1rem 0 0.5rem;
 }
-.cell-letter {
-  font-weight: 700;
-  font-size: 1rem;
-}
-.cell-solfege {
-  font-size: 0.6rem;
+.tsheet-legend .tl-blue {
   color: var(--accent);
-  letter-spacing: 0.02em;
+  font-weight: 700;
 }
-.cell-lyric {
-  font-size: 0.58rem;
-  color: var(--muted);
-  margin-top: 0.05rem;
+.tsheet-hide {
+  font-size: 0.74rem;
 }
 
 /* Left-hand cue under the strip */

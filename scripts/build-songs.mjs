@@ -12,6 +12,23 @@ const yt = (q) => `https://www.youtube.com/results?search_query=${q.replace(/ /g
 
 const SONGS = [
   {
+    id: 'mary-had-a-little-lamb',
+    title: 'Mary Had a Little Lamb',
+    attribution: 'Traditional melody, public domain. Two-hand arrangement in your teacher’s notation.',
+    youtube: yt('Mary Had a Little Lamb'),
+    bpm: 90,
+    chunks: [
+      { id: 'a1', label: 'Line 1', bars: '1-4', chords: 'C G G C', lhFingers: '5 1 1 5',
+        rh: '|E D C D | E E E - | D D D - | E G G - |',
+        fingers: '3 2 1 2 3 3 3 2 2 2 3 5 5',
+        lyrics: 'MA- RY HAD A LIT- TLE LAMB LIT- TLE LAMB LIT- TLE LAMB' },
+      { id: 'a2', label: 'Line 2', bars: '5-8', chords: 'C G G C', lhFingers: '5 1 1 5',
+        rh: '|E D C D | E E E C | D D E D | C - - - |',
+        fingers: '3 2 1 2 3 3 3 1 2 2 3 2 1',
+        lyrics: 'MA- RY HAD A LIT- TLE LAMB ITS FLEECE WAS WHITE AS SNOW' },
+    ],
+  },
+  {
     id: 'ode-to-joy',
     title: 'Ode to Joy',
     attribution: 'Beethoven, public domain. Two-hand arrangement in your teacher’s notation.',
