@@ -4,6 +4,7 @@ import { supabase, supabaseEnabled } from '../sync/supabase';
 import { syncNow } from '../sync/sync';
 import { exportAll, importAll, localDateKey } from '../db/repo';
 import { getTheme, applyTheme, type ThemeChoice } from './theme';
+import { BUILD_ID, forceUpdate } from '../pwa/version';
 
 export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: () => void }) {
   const [time, setTime] = useState('18:00');
@@ -222,6 +223,17 @@ export function Settings({ onBack, onSynced }: { onBack: () => void; onSynced: (
         >
           Send feedback
         </a>
+      </section>
+
+      <section className="card">
+        <h3>App version</h3>
+        <p className="hint">
+          Build <code>{BUILD_ID}</code>. If the app looks out of date, force a fresh copy — this clears
+          the offline cache and reloads.
+        </p>
+        <button className="btn-secondary" onClick={() => void forceUpdate()}>
+          Force update now
+        </button>
       </section>
     </div>
   );
