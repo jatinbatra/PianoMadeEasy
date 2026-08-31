@@ -1890,3 +1890,91 @@ h1, h2, h3,
   font-size: 0.85rem;
   margin-bottom: 0.4rem;
 }
+
+/* ---------- Songbook / read-only sheet page ---------- */
+.sheetpage {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 1rem 1.1rem 3rem;
+}
+.sheetpage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0.4rem 0 0.6rem;
+}
+.sheet-legend-top {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.8rem;
+}
+.sheet-legend-top .tl-blue {
+  color: var(--accent);
+  font-weight: 700;
+}
+.sheetpage-line {
+  margin-bottom: 1.1rem;
+}
+.sheetline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+.sheetline-label {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text);
+}
+.hear-line {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+/* Lyric row under a bar in the read view. */
+.tbar-lyrics {
+  display: flex;
+  gap: 0.15rem;
+  margin-top: 0.2rem;
+  border-top: 1px dashed var(--line);
+  padding-top: 0.2rem;
+}
+.tcell-lyric {
+  min-width: 1.15rem;
+  text-align: center;
+  font-size: 0.6rem;
+  color: var(--muted);
+  white-space: pre;
+}
+.sheetpage-keys {
+  margin-top: 1.4rem;
+}
+.sheetpage-keys-cap {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+.practice-instead {
+  display: block;
+  margin: 1.2rem auto 0;
+  font-size: 0.9rem;
+}
+/* Song row: the info area is now a button that opens the sheet. */
+.song-open {
+  appearance: none;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  flex: 1;
+}
+.open-hint {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+}

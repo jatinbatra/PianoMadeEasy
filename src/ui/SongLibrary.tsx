@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { parseSong } from '../songs/importSong';
 import { buildSong } from '../songs/buildFromNotes';
-import { youtubeLink } from '../songs/links';
 import { ownedCount, type ChunkProgressMap } from '../songs/ladder';
 import { saveSong, deleteSong, setActiveSongId } from '../db/repo';
 import type { Song } from '../types/song';
@@ -11,6 +10,7 @@ interface Props {
   activeSongId: string | null;
   chunkMap: ChunkProgressMap;
   onChanged: () => Promise<void> | void;
+  onOpen: (song: Song) => void;
   onBack: () => void;
 }
 
@@ -28,7 +28,7 @@ const EXAMPLE = `{
 type Mode = 'none' | 'builder' | 'json';
 
 /** The song library. Kept off the home screen so "start" stays a zero-decision. */
-export function SongLibrary({ songs, activeSongId, chunkMap, onChanged, onBack }: Props) {
+export function SongLibrary({ songs, activeSongId, chunkMap, onChanged, onOpen, onBack }: Props) {
   const [mode, setMode] = useState<Mode>('none');
   const [error, setError] = useState<string | null>(null);
   // Builder fields.
@@ -98,19 +98,19 @@ export function SongLibrary({ songs, activeSongId, chunkMap, onChanged, onBack }
           const active = s.id === activeSongId;
           return (
             <li key={s.id} className={'song-row' + (active ? ' active' : '')}>
-              <div className="song-info">
-                <div className="song-name">{s.title}</div>
+              <button className="song-info song-open" onClick={() => onOpen(s)}>
+                <div className="song-name">{s.title} <span className="open-hint">— open sheet ›</span></div>
                 <div className="song-meta">
                   {owned} of {s.chunks.length} chunks owned{active ? ' · practicing now' : ''}
                 </div>
-                <a className="yt-link" href={youtubeLink(s)} target="_blank" rel="noopener noreferrer">
-                  ▶ Watch on YouTube
-                </a>
-              </div>
+              </button>
               <div className="song-actions">
+                <button className="btn-secondary" onClick={() => onOpen(s)}>
+                  Open
+                </button>
                 {!active && (
-                  <button className="btn-secondary" onClick={() => useSong(s.id)}>
-                    Use
+                  <button className="link-btn" onClick={() => useSong(s.id)}>
+                    Practice
                   </button>
                 )}
                 <button className="link-btn danger" onClick={() => remove(s.id)} aria-label={`Delete ${s.title}`}>

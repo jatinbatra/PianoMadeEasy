@@ -8,6 +8,7 @@ import { Progress } from './ui/Progress';
 import { Path } from './ui/Path';
 import { FreePlay } from './ui/FreePlay';
 import { NoteTrainer } from './ui/NoteTrainer';
+import { SongSheet } from './ui/SongSheet';
 import { Onboarding, needsOnboarding } from './ui/Onboarding';
 import { InstallPrompt } from './ui/InstallPrompt';
 import { maybeNotify } from './notify/notify';
@@ -51,7 +52,7 @@ import { pickChunks, ownedCount, newChunkProgress, updateChunkProgress, chunkKey
 import type { Song, SongChunk } from './types/song';
 import type { SessionResult, PracticeDay } from './types';
 
-type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress' | 'settings' | 'path' | 'freeplay' | 'notes';
+type Screen = 'home' | 'session' | 'summary' | 'songs' | 'progress' | 'settings' | 'path' | 'freeplay' | 'notes' | 'songsheet';
 
 export function App() {
   const input = useInput();
@@ -71,6 +72,7 @@ export function App() {
   const [lastChunkOwned, setLastChunkOwned] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [sheetSong, setSheetSong] = useState<Song | null>(null);
 
   const refresh = useCallback(async () => {
     const [days, sessionList, atomMap, songList, chunks, activeId] = await Promise.all([
@@ -229,6 +231,9 @@ export function App() {
       {screen === 'path' && <Path progress={progress} onBack={() => setScreen('home')} />}
       {screen === 'freeplay' && <FreePlay input={input} onBack={() => setScreen('home')} />}
       {screen === 'notes' && <NoteTrainer input={input} onBack={() => setScreen('home')} />}
+      {screen === 'songsheet' && sheetSong && (
+        <SongSheet song={sheetSong} onBack={() => setScreen('songs')} />
+      )}
       {screen === 'progress' && (
         <Progress
           days={days}
@@ -250,6 +255,10 @@ export function App() {
           activeSongId={activeSong?.id ?? null}
           chunkMap={chunkMap}
           onChanged={refresh}
+          onOpen={(s) => {
+            setSheetSong(s);
+            setScreen('songsheet');
+          }}
           onBack={() => setScreen('home')}
         />
       )}
