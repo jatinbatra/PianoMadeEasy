@@ -3,7 +3,7 @@ import { Keyboard } from '../Keyboard';
 import { BlockChrome } from './BlockChrome';
 import { useCountdown } from '../useCountdown';
 import { pitchClass, parsePitch, noteName, solfege } from '../../midi/notes';
-import { playMelody } from '../../audio/synth';
+import { playMelody, playNote } from '../../audio/synth';
 import { Metronome, metronomeSupported } from '../../audio/metronome';
 import { activeLeftHand, toSheet } from '../../songs/hands';
 import { youtubeLink } from '../../songs/links';
@@ -134,10 +134,22 @@ export function SongBlock({ chunk, songTitle, songYoutube, bpm, chunkProgress, s
           className="hear-btn"
           onClick={() => {
             const beatMs = (60 / tempo.playbackBpm) * 1000;
+            // Right hand — the melody.
             playMelody(notes.map((n) => ({ midi: parsePitch(n.pitch), durMs: n.beats * beatMs })));
+            // Left hand — the chord bass notes, in time underneath, so you hear
+            // both hands fit together.
+            if (chunk.leftHand?.length) {
+              let t = 0;
+              for (const b of chunk.leftHand) {
+                const at = t;
+                const midi = parsePitch(b.pitch);
+                setTimeout(() => playNote(midi, b.beats * beatMs * 0.95), at);
+                t += b.beats * beatMs;
+              }
+            }
           }}
         >
-          ▶ Hear it {tempo.owned ? 'faster' : `at ${tempo.playbackBpm} BPM`}
+          ▶ Hear {twoHands ? 'both hands' : 'it'} {tempo.owned ? '· faster' : `· ${tempo.playbackBpm} BPM`}
         </button>
         {metronomeSupported && (
           <button className={'hear-btn metro-btn' + (metroOn ? ' on' : '')} onClick={toggleMetro}>
