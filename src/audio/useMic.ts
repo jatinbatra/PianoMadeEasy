@@ -15,9 +15,11 @@ export interface UseMic {
   subscribe: (fn: NoteListener) => () => void;
 }
 
-// Detection tuning: require a few stable frames before firing a note-on so a
-// single clear note is reported, not the attack transient.
-const STABLE_FRAMES = 2;
+// Detection tuning: require the SAME pitch to hold steady for several frames
+// (~150ms at ~30fps) before firing a note-on. A struck piano note sustains; a
+// spoken word or a stray noise wobbles in pitch and won't hold — so this is the
+// main defence against "it keeps moving when I'm not playing."
+const STABLE_FRAMES = 4;
 const SILENCE_FRAMES = 3;
 
 /**
@@ -45,10 +47,12 @@ export function useMic(): UseMic {
 
   const enable = useCallback(async () => {
     if (!supported || enabled) return;
-    // autoGainControl ON boosts a quiet built-in laptop mic (helps "detects
-    // nothing"); noise suppression stays OFF because it mangles pitch.
+    // All processing OFF. autoGainControl in particular boosts a near-silent
+    // room up to the detection threshold, which is exactly what made ambient
+    // sound register as notes; noise suppression mangles pitch. With these off
+    // the mic only hears you when you actually play.
     const stream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true },
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
     });
     streamRef.current = stream;
     const ctx = new AudioContext();

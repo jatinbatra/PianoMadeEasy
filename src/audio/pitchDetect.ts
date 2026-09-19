@@ -4,11 +4,13 @@
 // ghost notes, and it locks onto the fundamental rather than an octave.
 // Still one-note-at-a-time — it cannot resolve chords.
 
-/** Clarity below this isn't a confident pitch. Loose enough for a laptop mic
- *  a few feet from the piano, tight enough to reject room noise. */
-const CLARITY_GATE = 0.78;
-/** RMS below this is treated as silence. Low so a quiet built-in mic still registers. */
-const RMS_GATE = 0.0035;
+/** Clarity below this isn't a confident pitch. A struck piano note is highly
+ *  periodic (clarity ~0.95); speech, breath and room noise are not — so this is
+ *  set high to reject "ghost notes" from ambient human sound. */
+const CLARITY_GATE = 0.92;
+/** RMS below this is treated as silence. Raised so a quiet room (or auto-gain
+ *  boosting near-silence) doesn't register as playing. */
+const RMS_GATE = 0.02;
 
 /**
  * Estimate fundamental frequency (Hz) of a time-domain buffer, or -1 when there
