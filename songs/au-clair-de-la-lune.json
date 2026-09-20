@@ -1,0 +1,187 @@
+{
+  "id": "au-clair-de-la-lune",
+  "title": "Au Clair de la Lune",
+  "attribution": "Traditional French folk song, public domain. A classic first two-hand piece.",
+  "youtube": "https://www.youtube.com/results?search_query=Au+Clair+de+la+Lune+easy+piano+both+hands+tutorial",
+  "bpm": 96,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Line 1",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D",
+        "find-note:E"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 4,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Line 2",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D",
+        "find-note:E"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 4,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "id": "frere-jacques",
+  "title": "Frère Jacques",
+  "attribution": "Traditional French round, public domain. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=Frere+Jacques+easy+piano+both+hands+tutorial",
+  "bpm": 100,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Frère Jacques",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D",
+        "find-note:E",
+        "find-note:F",
+        "find-note:G"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 2,
+          "finger": 5
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Sonnez les matines",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:A",
+        "find-note:F",
+        "find-note:E",
+        "find-note:C"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 2,
+          "finger": 3
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 4,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}

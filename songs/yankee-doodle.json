@@ -1,0 +1,212 @@
+{
+  "id": "yankee-doodle",
+  "title": "Yankee Doodle",
+  "attribution": "Traditional American tune, public domain. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=Yankee+Doodle+easy+piano+both+hands+tutorial",
+  "bpm": 112,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Yankee Doodle went to town",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D",
+        "find-note:E",
+        "find-note:B"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "C4",
+          "beats": 2,
+          "finger": 1
+        },
+        {
+          "pitch": "B4",
+          "beats": 2,
+          "finger": 5
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "Stuck a feather in his cap",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:C",
+        "find-note:D",
+        "find-note:E",
+        "find-note:F",
+        "find-note:B",
+        "find-note:G",
+        "find-note:A"
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "F4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "C4",
+          "beats": 1,
+          "finger": 1
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "C4",
+          "beats": 4,
+          "finger": 1
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "F3",
+          "chord": "F",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}

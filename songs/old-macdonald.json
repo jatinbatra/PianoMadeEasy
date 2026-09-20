@@ -1,0 +1,201 @@
+{
+  "id": "old-macdonald",
+  "title": "Old MacDonald Had a Farm",
+  "attribution": "Traditional nursery song, public domain. Two-hand arrangement.",
+  "youtube": "https://www.youtube.com/results?search_query=Old+MacDonald+Had+a+Farm+easy+piano+both+hands+tutorial",
+  "bpm": 108,
+  "chunks": [
+    {
+      "id": "a1",
+      "label": "Old MacDonald had a farm",
+      "bars": "1-4",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:D",
+        "find-note:E",
+        "find-note:B",
+        "find-note:A"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 4,
+          "finger": 3
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    },
+    {
+      "id": "a2",
+      "label": "And on that farm he had a cow",
+      "bars": "5-8",
+      "requiresAtoms": [
+        "find-note:G",
+        "find-note:D",
+        "find-note:E",
+        "find-note:B",
+        "find-note:A"
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "G4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "D4",
+          "beats": 1,
+          "finger": 2
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "E4",
+          "beats": 1,
+          "finger": 3
+        },
+        {
+          "pitch": "D4",
+          "beats": 2,
+          "finger": 2
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "B4",
+          "beats": 1,
+          "finger": 5
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "A4",
+          "beats": 1,
+          "finger": 4
+        },
+        {
+          "pitch": "G4",
+          "beats": 4,
+          "finger": 3
+        }
+      ],
+      "leftHand": [
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        },
+        {
+          "pitch": "G3",
+          "chord": "G",
+          "beats": 4
+        },
+        {
+          "pitch": "C3",
+          "chord": "C",
+          "beats": 4
+        }
+      ]
+    }
+  ]
+}

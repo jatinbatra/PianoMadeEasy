@@ -12,20 +12,27 @@ import elise from '../../songs/fur-elise.json';
 import lightlyRow from '../../songs/lightly-row.json';
 import londonBridge from '../../songs/london-bridge.json';
 import auraLea from '../../songs/aura-lea.json';
-import doeADeer from '../../songs/doe-a-deer.json';
+import auClair from '../../songs/au-clair-de-la-lune.json';
+import yankee from '../../songs/yankee-doodle.json';
+import frere from '../../songs/frere-jacques.json';
+import oldMac from '../../songs/old-macdonald.json';
+import ohSusanna from '../../songs/oh-susanna.json';
 import hotCrossBuns from '../../songs/hot-cross-buns.json';
 import ifYoureHappy from '../../songs/if-youre-happy.json';
 import wheelsOnTheBus from '../../songs/wheels-on-the-bus.json';
 import rowRow from '../../songs/row-row.json';
-import rudolph from '../../songs/rudolph.json';
 import silentNight from '../../songs/silent-night.json';
-import { loadSongs, saveSong, getActiveSongId, setActiveSongId } from '../db/repo';
+import { loadSongs, saveSong, deleteSong, getActiveSongId, setActiveSongId } from '../db/repo';
 import { getMeta, setMeta } from '../db/db';
 import type { Song } from '../types/song';
 
 /** Bump when shipped songs change (e.g. two-hand arrangements) so existing
  *  installs refresh them. */
-const SEED_VERSION = 4;
+const SEED_VERSION = 5;
+
+/** Shipped song ids removed since an earlier version — deleted from installs
+ *  that cached them (e.g. songs that turned out not to be public domain). */
+const REMOVED_IDS = ['doe-a-deer', 'rudolph'];
 
 const SHIPPED: Song[] = [
   ode as Song,
@@ -33,15 +40,18 @@ const SHIPPED: Song[] = [
   mary as Song,
   lightlyRow as Song,
   londonBridge as Song,
+  auClair as Song,
+  frere as Song,
   happy as Song,
   hotCrossBuns as Song,
-  doeADeer as Song,
+  yankee as Song,
+  oldMac as Song,
   auraLea as Song,
+  ohSusanna as Song,
   rowRow as Song,
   wheelsOnTheBus as Song,
   ifYoureHappy as Song,
   jingle as Song,
-  rudolph as Song,
   silentNight as Song,
   saints as Song,
   grace as Song,
@@ -68,7 +78,11 @@ export async function seedSongsIfEmpty(): Promise<void> {
   for (const song of SHIPPED) {
     if (refresh || !haveIds.has(song.id)) await saveSong(song);
   }
-  if (refresh) await setMeta('seedVersion', SEED_VERSION);
+  if (refresh) {
+    // Drop songs that were shipped before but shouldn't be anymore.
+    for (const id of REMOVED_IDS) if (haveIds.has(id)) await deleteSong(id);
+    await setMeta('seedVersion', SEED_VERSION);
+  }
   const active = await getActiveSongId();
-  if (!active) await setActiveSongId('ode-to-joy');
+  if (!active || REMOVED_IDS.includes(active)) await setActiveSongId('ode-to-joy');
 }
